@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ConfigDocumentTypeMapper">
+
+    <resultMap type="com.games.payment.domain.ConfigDocumentType" id="BaseResultMap">
+                    <result property="code"    column="code"    />
+                    <result property="description"    column="description"    />
+                    <result property="status"    column="status"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.code, mt.description, mt.status    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ConfigDocumentType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from config_document_type mt
+        <where>
+
+                                                        <if test="code != null  and code != ''"> and mt.code = #{code}</if>
+                                                                            <if test="description != null  and description != ''"> and mt.description = #{description}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertConfigDocumentType" parameterType="com.games.payment.domain.ConfigDocumentType">
+        insert into config_document_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="code != null">code,</if>
+                                                                <if test="description != null">description,</if>
+                                                                <if test="status != null">status,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="code != null">#{code},</if>
+                                                                <if test="description != null">#{description},</if>
+                                                                <if test="status != null">#{status},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateConfigDocumentType" parameterType="com.games.payment.domain.ConfigDocumentType">
+        update config_document_type
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="description != null">description = #{description},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                    </trim>
+        where code = #{code}
+    </update>
+
+    <delete id="deleteConfigDocumentTypeByCode" parameterType="String">
+        delete from config_document_type where code = #{code}
+    </delete>
+
+    <delete id="deleteConfigDocumentTypeByCodes" parameterType="String">
+        delete from config_document_type where code in
+        <foreach item="code" collection="array" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+    </mapper>

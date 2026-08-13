@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.PayToCardMapper">
+
+    <resultMap type="com.games.payment.domain.PayToCard" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="userId"    column="user_id"    />
+                    <result property="currencyId"    column="currency_id"    />
+                    <result property="counterpartyName"    column="counterparty_name"    />
+                    <result property="counterpartyId"    column="counterparty_id"    />
+                    <result property="state"    column="state"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="linkId"    column="link_id"    />
+                    <result property="accountId"    column="account_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.user_id, mt.currency_id, mt.counterparty_name, mt.counterparty_id, mt.state, mt.created_at, mt.link_id, mt.account_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.PayToCard" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pay_to_card mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                                                            <if test="currencyId != null "> and mt.currency_id = #{currencyId}</if>
+                                                                            <if test="counterpartyName != null  and counterpartyName != ''"> and mt.counterparty_name like concat('%', #{counterpartyName}, '%')</if>
+                                                                            <if test="counterpartyId != null  and counterpartyId != ''"> and mt.counterparty_id = #{counterpartyId}</if>
+                                                                            <if test="state != null  and state != ''"> and mt.state = #{state}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="linkId != null  and linkId != ''"> and mt.link_id = #{linkId}</if>
+                                                                            <if test="accountId != null  and accountId != ''"> and mt.account_id = #{accountId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertPayToCard" parameterType="com.games.payment.domain.PayToCard" useGeneratedKeys="true" keyProperty="id">
+        insert into pay_to_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id,</if>
+                                                                <if test="currencyId != null">currency_id,</if>
+                                                                <if test="counterpartyName != null and counterpartyName != ''">counterparty_name,</if>
+                                                                <if test="counterpartyId != null and counterpartyId != ''">counterparty_id,</if>
+                                                                <if test="state != null and state != ''">state,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="linkId != null and linkId != ''">link_id,</if>
+                                                                <if test="accountId != null and accountId != ''">account_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">#{userId},</if>
+                                                                <if test="currencyId != null">#{currencyId},</if>
+                                                                <if test="counterpartyName != null and counterpartyName != ''">#{counterpartyName},</if>
+                                                                <if test="counterpartyId != null and counterpartyId != ''">#{counterpartyId},</if>
+                                                                <if test="state != null and state != ''">#{state},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="linkId != null and linkId != ''">#{linkId},</if>
+                                                                <if test="accountId != null and accountId != ''">#{accountId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updatePayToCard" parameterType="com.games.payment.domain.PayToCard">
+        update pay_to_card
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="currencyId != null">currency_id = #{currencyId},</if>
+                                                                <if test="counterpartyName != null and counterpartyName != ''">counterparty_name = #{counterpartyName},</if>
+                                                                <if test="counterpartyId != null and counterpartyId != ''">counterparty_id = #{counterpartyId},</if>
+                                                                <if test="state != null and state != ''">state = #{state},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="linkId != null and linkId != ''">link_id = #{linkId},</if>
+                                                                <if test="accountId != null and accountId != ''">account_id = #{accountId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePayToCardById" parameterType="Long">
+        delete from pay_to_card where id = #{id}
+    </delete>
+
+    <delete id="deletePayToCardByIds" parameterType="String">
+        delete from pay_to_card where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

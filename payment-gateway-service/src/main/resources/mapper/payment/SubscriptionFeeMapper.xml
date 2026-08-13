@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.SubscriptionFeeMapper">
+
+    <resultMap type="com.games.payment.domain.SubscriptionFee" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="subscriptionModelId"    column="subscription_model_id"    />
+                    <result property="feeTypeId"    column="fee_type_id"    />
+                    <result property="fixedAmount"    column="fixed_amount"    />
+                    <result property="percentage"    column="percentage"    />
+                    <result property="option"    column="option"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.subscription_model_id, mt.fee_type_id, mt.fixed_amount, mt.percentage, mt.option, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.SubscriptionFee" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from subscription_fee mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="subscriptionModelId != null "> and mt.subscription_model_id = #{subscriptionModelId}</if>
+                                                                            <if test="feeTypeId != null "> and mt.fee_type_id = #{feeTypeId}</if>
+                                                                            <if test="fixedAmount != null "> and mt.fixed_amount = #{fixedAmount}</if>
+                                                                            <if test="percentage != null "> and mt.percentage = #{percentage}</if>
+                                                                            <if test="option != null "> and mt.option = #{option}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertSubscriptionFee" parameterType="com.games.payment.domain.SubscriptionFee" useGeneratedKeys="true" keyProperty="id">
+        insert into subscription_fee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="subscriptionModelId != null">subscription_model_id,</if>
+                                                                <if test="feeTypeId != null">fee_type_id,</if>
+                                                                <if test="fixedAmount != null">fixed_amount,</if>
+                                                                <if test="percentage != null">percentage,</if>
+                                                                <if test="option != null">option,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="subscriptionModelId != null">#{subscriptionModelId},</if>
+                                                                <if test="feeTypeId != null">#{feeTypeId},</if>
+                                                                <if test="fixedAmount != null">#{fixedAmount},</if>
+                                                                <if test="percentage != null">#{percentage},</if>
+                                                                <if test="option != null">#{option},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateSubscriptionFee" parameterType="com.games.payment.domain.SubscriptionFee">
+        update subscription_fee
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="subscriptionModelId != null">subscription_model_id = #{subscriptionModelId},</if>
+                                                                <if test="feeTypeId != null">fee_type_id = #{feeTypeId},</if>
+                                                                <if test="fixedAmount != null">fixed_amount = #{fixedAmount},</if>
+                                                                <if test="percentage != null">percentage = #{percentage},</if>
+                                                                <if test="option != null">option = #{option},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSubscriptionFeeById" parameterType="Long">
+        delete from subscription_fee where id = #{id}
+    </delete>
+
+    <delete id="deleteSubscriptionFeeByIds" parameterType="String">
+        delete from subscription_fee where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

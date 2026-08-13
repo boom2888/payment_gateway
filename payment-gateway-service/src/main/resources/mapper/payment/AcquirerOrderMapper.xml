@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.AcquirerOrderMapper">
+
+    <resultMap type="com.games.payment.domain.AcquirerOrder" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="acquirerId" column="acquirer_id"/>
+        <result property="reconRequestId" column="recon_request_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="type" column="type"/>
+        <result property="currencyId" column="currency_id"/>
+        <result property="amount" column="amount"/>
+        <result property="paymentDeclinedPayload" column="payment_declined_payload"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <result property="deletedBy" column="deleted_by"/>
+        <result property="deleted" column="deleted"/>
+        <result property="remark" column="remark"/>
+        <result property="paymentResponsePayload" column="payment_response_payload"/>
+        <result property="tokenId" column="token_id"/>
+        <result property="responseCode" column="response_code"/>
+        <result property="acsTransactionId" column="acs_transaction_id"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        mt.id, mt.acquirer_id, mt.recon_request_id, mt.order_id, mt.type, mt.currency_id, mt.amount, mt.payment_declined_payload, mt.status, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.payment_response_payload, mt.token_id, mt.response_code, mt.acs_transaction_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.AcquirerOrder" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from acquirer_order mt
+        <where>
+
+            <if test="id != null ">and mt.id = #{id}</if>
+            <if test="acquirerId != null ">and mt.acquirer_id = #{acquirerId}</if>
+            <if test="reconRequestId != null  and reconRequestId != ''">and mt.recon_request_id = #{reconRequestId}</if>
+            <if test="orderId != null ">and mt.order_id = #{orderId}</if>
+            <if test="type != null ">and mt.type = #{type}</if>
+            <if test="currencyId != null ">and mt.currency_id = #{currencyId}</if>
+            <if test="amount != null ">and mt.amount = #{amount}</if>
+            <if test="paymentDeclinedPayload != null  and paymentDeclinedPayload != ''">and mt.payment_declined_payload
+                = #{paymentDeclinedPayload}
+            </if>
+            <if test="status != null ">and mt.status = #{status}</if>
+            <if test="createdAt != null ">and mt.created_at = #{createdAt}</if>
+            <if test="createdBy != null ">and mt.created_by = #{createdBy}</if>
+            <if test="deletedAt != null ">and mt.deleted_at = #{deletedAt}</if>
+            <if test="deletedBy != null ">and mt.deleted_by = #{deletedBy}</if>
+            <if test="deleted != null ">and mt.deleted = #{deleted}</if>
+            <if test="remark != null  and remark != ''">and mt.remark = #{remark}</if>
+            <if test="paymentResponsePayload != null  and paymentResponsePayload != ''">and mt.payment_response_payload
+                = #{paymentResponsePayload}
+            </if>
+            <if test="tokenId != null ">and mt.token_id = #{tokenId}</if>
+            <if test="responseCode != null  and responseCode != ''">and mt.response_code = #{responseCode}</if>
+            <if test="acsTransactionId != null  and acsTransactionId != ''">and mt.acs_transaction_id =
+                #{acsTransactionId}
+            </if>
+        </where>
+        order by mt.id desc
+    </select>
+
+    <insert id="insertAcquirerOrder" parameterType="com.games.payment.domain.AcquirerOrder" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into acquirer_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="acquirerId != null">acquirer_id,</if>
+            <if test="reconRequestId != null">recon_request_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="type != null">type,</if>
+            <if test="currencyId != null">currency_id,</if>
+            <if test="amount != null">amount,</if>
+            <if test="paymentDeclinedPayload != null">payment_declined_payload,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="deletedAt != null">deleted_at,</if>
+            <if test="deletedBy != null">deleted_by,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="remark != null">remark,</if>
+            <if test="paymentResponsePayload != null">payment_response_payload,</if>
+            <if test="tokenId != null">token_id,</if>
+            <if test="responseCode != null">response_code,</if>
+            <if test="acsTransactionId != null">acs_transaction_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="acquirerId != null">#{acquirerId},</if>
+            <if test="reconRequestId != null">#{reconRequestId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="currencyId != null">#{currencyId},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="paymentDeclinedPayload != null">#{paymentDeclinedPayload},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="deletedAt != null">#{deletedAt},</if>
+            <if test="deletedBy != null">#{deletedBy},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="paymentResponsePayload != null">#{paymentResponsePayload},</if>
+            <if test="tokenId != null">#{tokenId},</if>
+            <if test="responseCode != null">#{responseCode},</if>
+            <if test="acsTransactionId != null">#{acsTransactionId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAcquirerOrder" parameterType="com.games.payment.domain.AcquirerOrder">
+        update acquirer_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="acquirerId != null">acquirer_id = #{acquirerId},</if>
+            <if test="reconRequestId != null">recon_request_id = #{reconRequestId},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="currencyId != null">currency_id = #{currencyId},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="paymentDeclinedPayload != null">payment_declined_payload = #{paymentDeclinedPayload},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+            <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="paymentResponsePayload != null">payment_response_payload = #{paymentResponsePayload},</if>
+            <if test="tokenId != null">token_id = #{tokenId},</if>
+            <if test="responseCode != null">response_code = #{responseCode},</if>
+            <if test="acsTransactionId != null">acs_transaction_id = #{acsTransactionId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAcquirerOrderById" parameterType="Long">
+        delete
+        from acquirer_order
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteAcquirerOrderByIds" parameterType="String">
+        delete from acquirer_order where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

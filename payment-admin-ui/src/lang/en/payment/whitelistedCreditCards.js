@@ -1,0 +1,132 @@
+export default {
+  fullNumber: 'Full Card Number',
+  fullCardNumber: 'Full Card Number',
+  binNumber: 'First 6 Digits',
+  lastFourNumber: 'Last 4 Digits',
+  cardNumberFields: 'Card Number Information',
+  riskLevel: 'Risk Level',
+  shopId: 'Merchant Name',
+  originName: 'File Name',
+  createdAt: 'Created At',
+  updatedAt: 'Updated At',
+  merchantId: 'Merchant ID',
+  businessName: 'Merchant Name',
+  remark: 'Remark',
+  operation: 'Operation',
+  serialNumber: 'No.',
+  cardBin: 'Card BIN',
+  email: 'Whitelisted Email',
+  cardFinger: 'Card Fingerprint',
+
+  placeholderFullNumber: 'Please enter full card number',
+  placeholderBinNumber: 'Please enter first 6 digits',
+  placeholderLastFourNumber: 'Please enter last 4 digits',
+  placeholderRiskLevel: 'Please enter risk level',
+  placeholderShopId: 'Please select merchant name',
+  placeholderOriginName: 'Please enter file name',
+  placeholderMerchantId: 'Merchant ID',
+  placeholderRiskLevelInput: 'Risk Level',
+  placeholderCardBin: 'Please enter card BIN',
+  placeholderLastFour: 'Please enter last 4 digits',
+  placeholderEmail: 'Please enter whitelisted email',
+  placeholderRemark: 'Please enter content',
+
+  rangeSeparator: 'to',
+  startPlaceholder: 'Start Date',
+  endPlaceholder: 'End Date',
+
+  search: 'Search',
+  reset: 'Reset',
+  import: 'Import',
+  add: 'Add',
+  edit: 'Edit',
+  delete: 'Delete',
+  export: 'Export',
+
+  dialogTitleAdd: 'Add Whitelisted Credit Card',
+  dialogTitleEdit: 'Edit Whitelisted Credit Card',
+  dialogTitleImport: 'Whitelist Import',
+
+  stepDownloadTemplate: 'Download Import Template',
+  stepSelectImportType: 'Select Import Type',
+  stepUploadFile: 'Upload Completed File',
+
+  btnDownloadTemplate: 'Click to Download Excel Template',
+  downloadTemplateTip: 'Please download the template first and fill in the data according to the template format',
+
+  importType: 'Import Type',
+  importTypeCover: 'Overwrite',
+  importTypeRemove: 'Remove',
+  importTypeCoverTip:
+    'If duplicate card data (first 6 + last 4) exists in the system, replace it; otherwise, add new data',
+  importTypeRemoveTip:
+    'If duplicate card data (first 6 + last 4) exists in the system, remove the associated merchant; otherwise, no action',
+
+  uploadText: 'Drop file here, or ',
+  uploadClick: 'click to upload',
+  selectedFile: 'Selected file: ',
+  downloadTemplate: 'Download Template',
+  uploadTip: 'Note: Only "xls" or "xlsx" files are allowed, and each file must be smaller than {maxSize} MB!',
+
+  confirm: 'Confirm',
+  cancel: 'Cancel',
+
+  binRequired: 'BIN cannot be empty',
+  binPattern: 'BIN must be 6 digits',
+  lastFourRequired: 'Last 4 digits cannot be empty',
+  lastFourPattern: 'Last 4 digits must be 4 digits',
+
+  confirmDelete: 'Are you sure to delete the whitelisted credit card with ID "{ids}"?',
+  warning: 'Warning',
+  confirmButtonText: 'Confirm',
+  cancelButtonText: 'Cancel',
+  deleteSuccess: 'Deleted successfully',
+  editSuccess: 'Modified successfully',
+  addSuccess: 'Added successfully',
+
+  confirmExportSelected: 'Are you sure to export the selected {count} items?',
+  confirmExportAll: 'Are you sure to export all {total} filtered data items?',
+
+  importResult: 'Import Result',
+  importComplete: 'Import Complete',
+
+  excelNoData: 'No data in Excel file',
+  excelFormatError: 'Excel file format is incorrect, missing required columns',
+  excelColumnError: 'Excel column header is incorrect, column {index} should be "{expected}"',
+  excelTemplateMismatch:
+    'The uploaded template language does not match the current page language. Please download the latest template and try again.',
+  excelRowError: 'Data format error in row {row}, please check the data format and re-import',
+  excelRowErrorDetail: 'Row {row} [{field}] {reason}, current value: {value}',
+  
+  validationEmpty: 'cannot be empty',
+  validationCardNumberRequired: 'must fill in either full card number, or both first 6 and last 4 digits',
+  validationFullNumberFormat: 'must be 16-19 digits',
+  validationFullNumberLengthRange: 'must be {min}-{max} digits, current length is {current}',
+  validationBinFormat: 'must be 6 digits',
+  validationLastFourFormat: 'must be 4 digits',
+  validationRiskLevelFormat: 'must be a number (e.g., 1-Low Risk 2-Medium Risk 3-High Risk)',
+  validationMerchantIdFormat: 'must be pure numbers or semicolon-separated numbers, and merchant ID must exist in the system',
+
+  // Excel column headers (for validation)
+  excelHeaderFullNumber: 'Full Card Number',
+  excelHeaderBinNumber: 'First 6 Digits',
+  excelHeaderLastFour: 'Last 4 Digits',
+  excelHeaderRiskLevel: 'Risk Level',
+  excelHeaderMerchantIds: 'Associated Merchant IDs',
+  excelDuplicateError:
+    '{count} duplicate records detected. Excel file cannot contain duplicate combinations of first 6 and last 4 digits. Duplicate rows: {lines}, please modify and re-import',
+  excelReadSuccess: 'Excel file read successfully, total {count} records',
+  excelReadError: 'Failed to read Excel file: {error}',
+  excelLoadLibError: 'Failed to load Excel processing library: {error}',
+  workerInitFailed: 'Browser does not support background validation or initialization failed. Please contact admin.',
+  workerCrashed: 'Background validation process crashed, please try again.',
+
+  fileInvalid: 'The selected file is invalid, please select again',
+  pleaseSelectFile: 'Please select a file first',
+  fileInfoError: 'File information is abnormal, please select the file again',
+  pleaseUploadValidFile: 'Please upload a valid file first',
+  fileProcessing: 'File is still being prepared, please try again shortly',
+  createExcelError: 'Failed to create filtered Excel file: {error}',
+  uploadError: 'File upload failed: {error}',
+  fileSizeLimit: 'File size cannot exceed {maxSize} MB'
+}

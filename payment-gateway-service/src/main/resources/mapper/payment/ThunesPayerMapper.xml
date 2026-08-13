@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ThunesPayerMapper">
+
+    <resultMap type="com.games.payment.domain.ThunesPayer" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="payerId"    column="payer_id"    />
+                    <result property="serviceId"    column="service_id"    />
+                    <result property="payerName"    column="payer_name"    />
+                    <result property="countryIsoCode"    column="country_iso_code"    />
+                    <result property="currency"    column="currency"    />
+                    <result property="content"    column="content"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.payer_id, mt.service_id, mt.payer_name, mt.country_iso_code, mt.currency, mt.content    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ThunesPayer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from thunes_payer mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="payerId != null "> and mt.payer_id = #{payerId}</if>
+                                                                            <if test="serviceId != null "> and mt.service_id = #{serviceId}</if>
+                                                                            <if test="payerName != null  and payerName != ''"> and mt.payer_name like concat('%', #{payerName}, '%')</if>
+                                                                            <if test="countryIsoCode != null  and countryIsoCode != ''"> and mt.country_iso_code = #{countryIsoCode}</if>
+                                                                            <if test="currency != null  and currency != ''"> and mt.currency = #{currency}</if>
+                                                                            <if test="content != null  and content != ''"> and mt.content = #{content}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertThunesPayer" parameterType="com.games.payment.domain.ThunesPayer" useGeneratedKeys="true" keyProperty="id">
+        insert into thunes_payer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="payerId != null">payer_id,</if>
+                                                                <if test="serviceId != null">service_id,</if>
+                                                                <if test="payerName != null and payerName != ''">payer_name,</if>
+                                                                <if test="countryIsoCode != null and countryIsoCode != ''">country_iso_code,</if>
+                                                                <if test="currency != null and currency != ''">currency,</if>
+                                                                <if test="content != null and content != ''">content,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="payerId != null">#{payerId},</if>
+                                                                <if test="serviceId != null">#{serviceId},</if>
+                                                                <if test="payerName != null and payerName != ''">#{payerName},</if>
+                                                                <if test="countryIsoCode != null and countryIsoCode != ''">#{countryIsoCode},</if>
+                                                                <if test="currency != null and currency != ''">#{currency},</if>
+                                                                <if test="content != null and content != ''">#{content},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateThunesPayer" parameterType="com.games.payment.domain.ThunesPayer">
+        update thunes_payer
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="payerId != null">payer_id = #{payerId},</if>
+                                                                <if test="serviceId != null">service_id = #{serviceId},</if>
+                                                                <if test="payerName != null and payerName != ''">payer_name = #{payerName},</if>
+                                                                <if test="countryIsoCode != null and countryIsoCode != ''">country_iso_code = #{countryIsoCode},</if>
+                                                                <if test="currency != null and currency != ''">currency = #{currency},</if>
+                                                                <if test="content != null and content != ''">content = #{content},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteThunesPayerById" parameterType="Long">
+        delete from thunes_payer where id = #{id}
+    </delete>
+
+    <delete id="deleteThunesPayerByIds" parameterType="String">
+        delete from thunes_payer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

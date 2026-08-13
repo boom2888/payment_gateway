@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CustomerMapper">
+
+    <resultMap type="com.games.payment.domain.Customer" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="userId"    column="user_id"    />
+                    <result property="saasUserCorporationId"    column="saas_user_corporation_id"    />
+                    <result property="type"    column="type"    />
+                    <result property="manager"    column="manager"    />
+                    <result property="subscriptionModelId"    column="subscription_model_id"    />
+                    <result property="riskLevel"    column="risk_level"    />
+                    <result property="idRef"    column="id_ref"    />
+                    <result property="vipId"    column="vip_id"    />
+                    <result property="merchantId"    column="merchant_id"    />
+                    <result property="ssoCustomerId"    column="sso_customer_id"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="fireblocksVaultAccountId"    column="fireblocks_vault_account_id"    />
+                    <result property="sum90Day"    column="sum90_day"    />
+                    <result property="referralCode"    column="referral_code"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.user_id, mt.saas_user_corporation_id, mt.type, mt.manager, mt.subscription_model_id, mt.risk_level, mt.id_ref, mt.vip_id, mt.merchant_id, mt.sso_customer_id, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.fireblocks_vault_account_id, mt.sum90_day, mt.referral_code    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Customer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                                                            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+                                                                            <if test="type != null "> and mt.type = #{type}</if>
+                                                                            <if test="manager != null "> and mt.manager = #{manager}</if>
+                                                                            <if test="subscriptionModelId != null "> and mt.subscription_model_id = #{subscriptionModelId}</if>
+                                                                            <if test="riskLevel != null "> and mt.risk_level = #{riskLevel}</if>
+                                                                            <if test="idRef != null  and idRef != ''"> and mt.id_ref = #{idRef}</if>
+                                                                            <if test="vipId != null "> and mt.vip_id = #{vipId}</if>
+                                                                            <if test="merchantId != null "> and mt.merchant_id = #{merchantId}</if>
+                                                                            <if test="ssoCustomerId != null  and ssoCustomerId != ''"> and mt.sso_customer_id = #{ssoCustomerId}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="fireblocksVaultAccountId != null  and fireblocksVaultAccountId != ''"> and mt.fireblocks_vault_account_id = #{fireblocksVaultAccountId}</if>
+                                                                            <if test="sum90Day != null "> and mt.sum90_day = #{sum90Day}</if>
+                                                                            <if test="referralCode != null  and referralCode != ''"> and mt.referral_code = #{referralCode}</if>
+                                        </where>
+    </select>
+    <select id="selectCustomerWithUser" resultType="com.games.pay.dto.CustomerWithUserDto">
+        select
+        <include refid="Base_Column_List"/>,u.display_name
+        from customer mt left join user u on mt.user_id = u.id
+    </select>
+
+    <insert id="insertCustomer" parameterType="com.games.payment.domain.Customer" useGeneratedKeys="true" keyProperty="id">
+        insert into customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id,</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="manager != null">manager,</if>
+                                                                <if test="subscriptionModelId != null">subscription_model_id,</if>
+                                                                <if test="riskLevel != null">risk_level,</if>
+                                                                <if test="idRef != null">id_ref,</if>
+                                                                <if test="vipId != null">vip_id,</if>
+                                                                <if test="merchantId != null">merchant_id,</if>
+                                                                <if test="ssoCustomerId != null">sso_customer_id,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="fireblocksVaultAccountId != null">fireblocks_vault_account_id,</if>
+                                                                <if test="sum90Day != null">sum90_day,</if>
+                                                                <if test="referralCode != null">referral_code,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">#{userId},</if>
+                                                                <if test="saasUserCorporationId != null">#{saasUserCorporationId},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="manager != null">#{manager},</if>
+                                                                <if test="subscriptionModelId != null">#{subscriptionModelId},</if>
+                                                                <if test="riskLevel != null">#{riskLevel},</if>
+                                                                <if test="idRef != null">#{idRef},</if>
+                                                                <if test="vipId != null">#{vipId},</if>
+                                                                <if test="merchantId != null">#{merchantId},</if>
+                                                                <if test="ssoCustomerId != null">#{ssoCustomerId},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="fireblocksVaultAccountId != null">#{fireblocksVaultAccountId},</if>
+                                                                <if test="sum90Day != null">#{sum90Day},</if>
+                                                                <if test="referralCode != null">#{referralCode},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateCustomer" parameterType="com.games.payment.domain.Customer">
+        update customer
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id = #{saasUserCorporationId},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="manager != null">manager = #{manager},</if>
+                                                                <if test="subscriptionModelId != null">subscription_model_id = #{subscriptionModelId},</if>
+                                                                <if test="riskLevel != null">risk_level = #{riskLevel},</if>
+                                                                <if test="idRef != null">id_ref = #{idRef},</if>
+                                                                <if test="vipId != null">vip_id = #{vipId},</if>
+                                                                <if test="merchantId != null">merchant_id = #{merchantId},</if>
+                                                                <if test="ssoCustomerId != null">sso_customer_id = #{ssoCustomerId},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="fireblocksVaultAccountId != null">fireblocks_vault_account_id = #{fireblocksVaultAccountId},</if>
+                                                                <if test="sum90Day != null">sum90_day = #{sum90Day},</if>
+                                                                <if test="referralCode != null">referral_code = #{referralCode},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerById" parameterType="Long">
+        delete from customer where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerByIds" parameterType="String">
+        delete from customer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

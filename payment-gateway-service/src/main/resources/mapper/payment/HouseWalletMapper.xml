@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.HouseWalletMapper">
+
+    <resultMap type="com.games.payment.domain.HouseWallet" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="cryptoId"    column="crypto_id"    />
+                    <result property="walletAddress"    column="wallet_address"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="walletName"    column="wallet_name"    />
+                    <result property="saasUserCorporationId"    column="saas_user_corporation_id"    />
+                    <result property="isDefault"    column="is_default"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.crypto_id, mt.wallet_address, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.wallet_name, mt.saas_user_corporation_id, mt.is_default    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.HouseWallet" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from house_wallet mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="cryptoId != null "> and mt.crypto_id = #{cryptoId}</if>
+                                                                            <if test="walletAddress != null  and walletAddress != ''"> and mt.wallet_address = #{walletAddress}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="walletName != null  and walletName != ''"> and mt.wallet_name like concat('%', #{walletName}, '%')</if>
+                                                                            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+                                                                            <if test="isDefault != null "> and mt.is_default = #{isDefault}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertHouseWallet" parameterType="com.games.payment.domain.HouseWallet" useGeneratedKeys="true" keyProperty="id">
+        insert into house_wallet
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="cryptoId != null">crypto_id,</if>
+                                                                <if test="walletAddress != null">wallet_address,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="walletName != null and walletName != ''">wallet_name,</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id,</if>
+                                                                <if test="isDefault != null">is_default,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="cryptoId != null">#{cryptoId},</if>
+                                                                <if test="walletAddress != null">#{walletAddress},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="walletName != null and walletName != ''">#{walletName},</if>
+                                                                <if test="saasUserCorporationId != null">#{saasUserCorporationId},</if>
+                                                                <if test="isDefault != null">#{isDefault},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateHouseWallet" parameterType="com.games.payment.domain.HouseWallet">
+        update house_wallet
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="cryptoId != null">crypto_id = #{cryptoId},</if>
+                                                                <if test="walletAddress != null">wallet_address = #{walletAddress},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="walletName != null and walletName != ''">wallet_name = #{walletName},</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id = #{saasUserCorporationId},</if>
+                                                                <if test="isDefault != null">is_default = #{isDefault},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHouseWalletById" parameterType="Long">
+        delete from house_wallet where id = #{id}
+    </delete>
+
+    <delete id="deleteHouseWalletByIds" parameterType="String">
+        delete from house_wallet where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

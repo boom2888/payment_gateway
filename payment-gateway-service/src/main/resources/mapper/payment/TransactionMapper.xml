@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.TransactionMapper">
+
+    <resultMap type="com.games.payment.domain.Transaction" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="orderId"    column="order_id"    />
+                    <result property="accountId"    column="account_id"    />
+                    <result property="currencyCode"    column="currency_code"    />
+                    <result property="cpName"    column="cp_name"    />
+                    <result property="cpEmail"    column="cp_email"    />
+                    <result property="cpBankName"    column="cp_bank_name"    />
+                    <result property="cpSortCode"    column="cp_sort_code"    />
+                    <result property="cpAccountName"    column="cp_account_name"    />
+                    <result property="cpAccountNumber"    column="cp_account_number"    />
+                    <result property="cpIban"    column="cp_iban"    />
+                    <result property="cpBicSwift"    column="cp_bic_swift"    />
+                    <result property="type"    column="type"    />
+                    <result property="amount"    column="amount"    />
+                    <result property="feeDetail"    column="fee_detail"    />
+                    <result property="feeAmount"    column="fee_amount"    />
+                    <result property="inOut"    column="in_out"    />
+                    <result property="status"    column="status"    />
+                    <result property="comment"    column="comment"    />
+                    <result property="internal"    column="internal"    />
+                    <result property="description"    column="description"    />
+                    <result property="riskLevel"    column="risk_level"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.order_id, mt.account_id, mt.currency_code, mt.cp_name, mt.cp_email, mt.cp_bank_name, mt.cp_sort_code, mt.cp_account_name, mt.cp_account_number, mt.cp_iban, mt.cp_bic_swift, mt.type, mt.amount, mt.fee_detail, mt.fee_amount, mt.in_out, mt.status, mt.comment, mt.internal, mt.description, mt.risk_level, mt.created_at, mt.created_by    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Transaction" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from transaction mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="orderId != null "> and mt.order_id = #{orderId}</if>
+                                                                            <if test="accountId != null "> and mt.account_id = #{accountId}</if>
+                                                                            <if test="currencyCode != null  and currencyCode != ''"> and mt.currency_code = #{currencyCode}</if>
+                                                                            <if test="cpName != null  and cpName != ''"> and mt.cp_name like concat('%', #{cpName}, '%')</if>
+                                                                            <if test="cpEmail != null  and cpEmail != ''"> and mt.cp_email = #{cpEmail}</if>
+                                                                            <if test="cpBankName != null  and cpBankName != ''"> and mt.cp_bank_name like concat('%', #{cpBankName}, '%')</if>
+                                                                            <if test="cpSortCode != null  and cpSortCode != ''"> and mt.cp_sort_code = #{cpSortCode}</if>
+                                                                            <if test="cpAccountName != null  and cpAccountName != ''"> and mt.cp_account_name like concat('%', #{cpAccountName}, '%')</if>
+                                                                            <if test="cpAccountNumber != null  and cpAccountNumber != ''"> and mt.cp_account_number = #{cpAccountNumber}</if>
+                                                                            <if test="cpIban != null  and cpIban != ''"> and mt.cp_iban = #{cpIban}</if>
+                                                                            <if test="cpBicSwift != null  and cpBicSwift != ''"> and mt.cp_bic_swift = #{cpBicSwift}</if>
+                                                                            <if test="type != null "> and mt.type = #{type}</if>
+                                                                            <if test="amount != null "> and mt.amount = #{amount}</if>
+                                                                            <if test="feeDetail != null  and feeDetail != ''"> and mt.fee_detail = #{feeDetail}</if>
+                                                                            <if test="feeAmount != null "> and mt.fee_amount = #{feeAmount}</if>
+                                                                            <if test="inOut != null "> and mt.in_out = #{inOut}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="comment != null  and comment != ''"> and mt.comment = #{comment}</if>
+                                                                            <if test="internal != null "> and mt.internal = #{internal}</if>
+                                                                            <if test="description != null  and description != ''"> and mt.description = #{description}</if>
+                                                                            <if test="riskLevel != null "> and mt.risk_level = #{riskLevel}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertTransaction" parameterType="com.games.payment.domain.Transaction" useGeneratedKeys="true" keyProperty="id">
+        insert into transaction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="orderId != null">order_id,</if>
+                                                                <if test="accountId != null">account_id,</if>
+                                                                <if test="currencyCode != null and currencyCode != ''">currency_code,</if>
+                                                                <if test="cpName != null and cpName != ''">cp_name,</if>
+                                                                <if test="cpEmail != null and cpEmail != ''">cp_email,</if>
+                                                                <if test="cpBankName != null and cpBankName != ''">cp_bank_name,</if>
+                                                                <if test="cpSortCode != null and cpSortCode != ''">cp_sort_code,</if>
+                                                                <if test="cpAccountName != null and cpAccountName != ''">cp_account_name,</if>
+                                                                <if test="cpAccountNumber != null and cpAccountNumber != ''">cp_account_number,</if>
+                                                                <if test="cpIban != null and cpIban != ''">cp_iban,</if>
+                                                                <if test="cpBicSwift != null and cpBicSwift != ''">cp_bic_swift,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="amount != null">amount,</if>
+                                                                <if test="feeDetail != null and feeDetail != ''">fee_detail,</if>
+                                                                <if test="feeAmount != null">fee_amount,</if>
+                                                                <if test="inOut != null">in_out,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="comment != null">comment,</if>
+                                                                <if test="internal != null">internal,</if>
+                                                                <if test="description != null">description,</if>
+                                                                <if test="riskLevel != null">risk_level,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="orderId != null">#{orderId},</if>
+                                                                <if test="accountId != null">#{accountId},</if>
+                                                                <if test="currencyCode != null and currencyCode != ''">#{currencyCode},</if>
+                                                                <if test="cpName != null and cpName != ''">#{cpName},</if>
+                                                                <if test="cpEmail != null and cpEmail != ''">#{cpEmail},</if>
+                                                                <if test="cpBankName != null and cpBankName != ''">#{cpBankName},</if>
+                                                                <if test="cpSortCode != null and cpSortCode != ''">#{cpSortCode},</if>
+                                                                <if test="cpAccountName != null and cpAccountName != ''">#{cpAccountName},</if>
+                                                                <if test="cpAccountNumber != null and cpAccountNumber != ''">#{cpAccountNumber},</if>
+                                                                <if test="cpIban != null and cpIban != ''">#{cpIban},</if>
+                                                                <if test="cpBicSwift != null and cpBicSwift != ''">#{cpBicSwift},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="amount != null">#{amount},</if>
+                                                                <if test="feeDetail != null and feeDetail != ''">#{feeDetail},</if>
+                                                                <if test="feeAmount != null">#{feeAmount},</if>
+                                                                <if test="inOut != null">#{inOut},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="comment != null">#{comment},</if>
+                                                                <if test="internal != null">#{internal},</if>
+                                                                <if test="description != null">#{description},</if>
+                                                                <if test="riskLevel != null">#{riskLevel},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateTransaction" parameterType="com.games.payment.domain.Transaction">
+        update transaction
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="orderId != null">order_id = #{orderId},</if>
+                                                                <if test="accountId != null">account_id = #{accountId},</if>
+                                                                <if test="currencyCode != null and currencyCode != ''">currency_code = #{currencyCode},</if>
+                                                                <if test="cpName != null and cpName != ''">cp_name = #{cpName},</if>
+                                                                <if test="cpEmail != null and cpEmail != ''">cp_email = #{cpEmail},</if>
+                                                                <if test="cpBankName != null and cpBankName != ''">cp_bank_name = #{cpBankName},</if>
+                                                                <if test="cpSortCode != null and cpSortCode != ''">cp_sort_code = #{cpSortCode},</if>
+                                                                <if test="cpAccountName != null and cpAccountName != ''">cp_account_name = #{cpAccountName},</if>
+                                                                <if test="cpAccountNumber != null and cpAccountNumber != ''">cp_account_number = #{cpAccountNumber},</if>
+                                                                <if test="cpIban != null and cpIban != ''">cp_iban = #{cpIban},</if>
+                                                                <if test="cpBicSwift != null and cpBicSwift != ''">cp_bic_swift = #{cpBicSwift},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="amount != null">amount = #{amount},</if>
+                                                                <if test="feeDetail != null and feeDetail != ''">fee_detail = #{feeDetail},</if>
+                                                                <if test="feeAmount != null">fee_amount = #{feeAmount},</if>
+                                                                <if test="inOut != null">in_out = #{inOut},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="comment != null">comment = #{comment},</if>
+                                                                <if test="internal != null">internal = #{internal},</if>
+                                                                <if test="description != null">description = #{description},</if>
+                                                                <if test="riskLevel != null">risk_level = #{riskLevel},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTransactionById" parameterType="Long">
+        delete from transaction where id = #{id}
+    </delete>
+
+    <delete id="deleteTransactionByIds" parameterType="String">
+        delete from transaction where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

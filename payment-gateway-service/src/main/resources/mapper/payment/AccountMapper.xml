@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.AccountMapper">
+
+    <resultMap type="com.games.payment.domain.Account" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="userId"    column="user_id"    />
+                    <result property="name"    column="name"    />
+                    <result property="bankAccountId"    column="bank_account_id"    />
+                    <result property="totalBalance"    column="total_balance"    />
+                    <result property="availableBalance"    column="available_balance"    />
+                    <result property="freezedBalance"    column="freezed_balance"    />
+                    <result property="color"    column="color"    />
+                    <result property="status"    column="status"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="counterpartyId"    column="counterparty_id"    />
+                    <result property="counterpartyState"    column="counterparty_state"    />
+                    <result property="counterpartyType"    column="counterparty_type"    />
+                    <result property="internalBankAccountId"    column="internal_bank_account_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.user_id, mt.name, mt.bank_account_id, mt.total_balance, mt.available_balance, mt.freezed_balance, mt.color, mt.status, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.counterparty_id, mt.counterparty_state, mt.counterparty_type, mt.internal_bank_account_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Account" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from account mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                                                            <if test="name != null  and name != ''"> and mt.name like concat('%', #{name}, '%')</if>
+                                                                            <if test="bankAccountId != null "> and mt.bank_account_id = #{bankAccountId}</if>
+                                                                            <if test="totalBalance != null "> and mt.total_balance = #{totalBalance}</if>
+                                                                            <if test="availableBalance != null "> and mt.available_balance = #{availableBalance}</if>
+                                                                            <if test="freezedBalance != null "> and mt.freezed_balance = #{freezedBalance}</if>
+                                                                            <if test="color != null  and color != ''"> and mt.color = #{color}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="counterpartyId != null  and counterpartyId != ''"> and mt.counterparty_id = #{counterpartyId}</if>
+                                                                            <if test="counterpartyState != null  and counterpartyState != ''"> and mt.counterparty_state = #{counterpartyState}</if>
+                                                                            <if test="counterpartyType != null "> and mt.counterparty_type = #{counterpartyType}</if>
+                                                                            <if test="internalBankAccountId != null  and internalBankAccountId != ''"> and mt.internal_bank_account_id = #{internalBankAccountId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertAccount" parameterType="com.games.payment.domain.Account" useGeneratedKeys="true" keyProperty="id">
+        insert into account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id,</if>
+                                                                <if test="name != null and name != ''">name,</if>
+                                                                <if test="bankAccountId != null">bank_account_id,</if>
+                                                                <if test="totalBalance != null">total_balance,</if>
+                                                                <if test="availableBalance != null">available_balance,</if>
+                                                                <if test="freezedBalance != null">freezed_balance,</if>
+                                                                <if test="color != null and color != ''">color,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="counterpartyId != null and counterpartyId != ''">counterparty_id,</if>
+                                                                <if test="counterpartyState != null and counterpartyState != ''">counterparty_state,</if>
+                                                                <if test="counterpartyType != null">counterparty_type,</if>
+                                                                <if test="internalBankAccountId != null">internal_bank_account_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">#{userId},</if>
+                                                                <if test="name != null and name != ''">#{name},</if>
+                                                                <if test="bankAccountId != null">#{bankAccountId},</if>
+                                                                <if test="totalBalance != null">#{totalBalance},</if>
+                                                                <if test="availableBalance != null">#{availableBalance},</if>
+                                                                <if test="freezedBalance != null">#{freezedBalance},</if>
+                                                                <if test="color != null and color != ''">#{color},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="counterpartyId != null and counterpartyId != ''">#{counterpartyId},</if>
+                                                                <if test="counterpartyState != null and counterpartyState != ''">#{counterpartyState},</if>
+                                                                <if test="counterpartyType != null">#{counterpartyType},</if>
+                                                                <if test="internalBankAccountId != null">#{internalBankAccountId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateAccount" parameterType="com.games.payment.domain.Account">
+        update account
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="name != null and name != ''">name = #{name},</if>
+                                                                <if test="bankAccountId != null">bank_account_id = #{bankAccountId},</if>
+                                                                <if test="totalBalance != null">total_balance = #{totalBalance},</if>
+                                                                <if test="availableBalance != null">available_balance = #{availableBalance},</if>
+                                                                <if test="freezedBalance != null">freezed_balance = #{freezedBalance},</if>
+                                                                <if test="color != null and color != ''">color = #{color},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="counterpartyId != null and counterpartyId != ''">counterparty_id = #{counterpartyId},</if>
+                                                                <if test="counterpartyState != null and counterpartyState != ''">counterparty_state = #{counterpartyState},</if>
+                                                                <if test="counterpartyType != null">counterparty_type = #{counterpartyType},</if>
+                                                                <if test="internalBankAccountId != null">internal_bank_account_id = #{internalBankAccountId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAccountById" parameterType="Long">
+        delete from account where id = #{id}
+    </delete>
+
+    <delete id="deleteAccountByIds" parameterType="String">
+        delete from account where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

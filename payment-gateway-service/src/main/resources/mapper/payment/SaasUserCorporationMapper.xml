@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.SaasUserCorporationMapper">
+
+    <resultMap type="com.games.payment.domain.SaasUserCorporation" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="acquirerId"    column="acquirer_id"    />
+                    <result property="code"    column="code"    />
+                    <result property="name"    column="name"    />
+                    <result property="domain"    column="domain"    />
+                    <result property="themeUrl"    column="theme_url"    />
+                    <result property="partnerBank"    column="partner_bank"    />
+                    <result property="partnerBankSortCode"    column="partner_bank_sort_code"    />
+                    <result property="emailIdVerifyCode"    column="email_id_verify_code"    />
+                    <result property="emailIdVeriff"    column="email_id_veriff"    />
+                    <result property="emailIdVeriffAddress"    column="email_id_veriff_address"    />
+                    <result property="emailIdBank"    column="email_id_bank"    />
+                    <result property="emailIdForgotPwd"    column="email_id_forgot_pwd"    />
+                    <result property="emailIdVeriffKyc"    column="email_id_veriff_kyc"    />
+                    <result property="revenueShare"    column="revenue_share"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="addressId"    column="address_id"    />
+                    <result property="notabeneVaspDid"    column="notabene_vasp_did"    />
+                    <result property="notabeneClientId"    column="notabene_client_id"    />
+                    <result property="notabeneClientSecret"    column="notabene_client_secret"    />
+                    <result property="notabeneClientCredentials"    column="notabene_client_credentials"    />
+                    <result property="emailTemplateSendfrom"    column="email_template_sendfrom"    />
+                    <result property="emailIdEmailAddressVerification"    column="email_id_email_address_verification"    />
+                    <result property="legalPersonName"    column="legal_person_name"    />
+                    <result property="emailIdOrderCompletionNotification"    column="email_id_order_completion_notification"    />
+                    <result property="houseWalletProvider"    column="house_wallet_provider"    />
+                    <result property="travelRuleCheckLimit"    column="travel_rule_check_limit"    />
+                    <result property="travelRuleLimitCurrencyId"    column="travel_rule_limit_currency_id"    />
+                    <result property="fireblocksWithdrawalAccountId"    column="fireblocks_withdrawal_account_id"    />
+                    <result property="fireblocksOperationalAccountId"    column="fireblocks_operational_account_id"    />
+                    <result property="fireblocksHiddenOnUi"    column="fireblocks_hidden_on_ui"    />
+                    <result property="fireblocksAutoFuel"    column="fireblocks_auto_fuel"    />
+                    <result property="emailIdOffOrderCompletionNotification"    column="email_id_off_order_completion_notification"    />
+                    <result property="emailIdOffOrderFailedNotification"    column="email_id_off_order_failed_notification"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.acquirer_id, mt.code, mt.name, mt.domain, mt.theme_url, mt.partner_bank, mt.partner_bank_sort_code, mt.email_id_verify_code, mt.email_id_veriff, mt.email_id_veriff_address, mt.email_id_bank, mt.email_id_forgot_pwd, mt.email_id_veriff_kyc, mt.revenue_share, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.address_id, mt.notabene_vasp_did, mt.notabene_client_id, mt.notabene_client_secret, mt.notabene_client_credentials, mt.email_template_sendfrom, mt.email_id_email_address_verification, mt.legal_person_name, mt.email_id_order_completion_notification, mt.house_wallet_provider, mt.travel_rule_check_limit, mt.travel_rule_limit_currency_id, mt.fireblocks_withdrawal_account_id, mt.fireblocks_operational_account_id, mt.fireblocks_hidden_on_ui, mt.fireblocks_auto_fuel, mt.email_id_off_order_completion_notification, mt.email_id_off_order_failed_notification    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.SaasUserCorporation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from saas_user_corporation mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="acquirerId != null "> and mt.acquirer_id = #{acquirerId}</if>
+                                                                            <if test="code != null  and code != ''"> and mt.code = #{code}</if>
+                                                                            <if test="name != null  and name != ''"> and mt.name like concat('%', #{name}, '%')</if>
+                                                                            <if test="domain != null  and domain != ''"> and mt.domain = #{domain}</if>
+                                                                            <if test="themeUrl != null  and themeUrl != ''"> and mt.theme_url = #{themeUrl}</if>
+                                                                            <if test="partnerBank != null  and partnerBank != ''"> and mt.partner_bank = #{partnerBank}</if>
+                                                                            <if test="partnerBankSortCode != null  and partnerBankSortCode != ''"> and mt.partner_bank_sort_code = #{partnerBankSortCode}</if>
+                                                                            <if test="emailIdVerifyCode != null  and emailIdVerifyCode != ''"> and mt.email_id_verify_code = #{emailIdVerifyCode}</if>
+                                                                            <if test="emailIdVeriff != null  and emailIdVeriff != ''"> and mt.email_id_veriff = #{emailIdVeriff}</if>
+                                                                            <if test="emailIdVeriffAddress != null  and emailIdVeriffAddress != ''"> and mt.email_id_veriff_address = #{emailIdVeriffAddress}</if>
+                                                                            <if test="emailIdBank != null  and emailIdBank != ''"> and mt.email_id_bank = #{emailIdBank}</if>
+                                                                            <if test="emailIdForgotPwd != null  and emailIdForgotPwd != ''"> and mt.email_id_forgot_pwd = #{emailIdForgotPwd}</if>
+                                                                            <if test="emailIdVeriffKyc != null  and emailIdVeriffKyc != ''"> and mt.email_id_veriff_kyc = #{emailIdVeriffKyc}</if>
+                                                                            <if test="revenueShare != null  and revenueShare != ''"> and mt.revenue_share = #{revenueShare}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="addressId != null "> and mt.address_id = #{addressId}</if>
+                                                                            <if test="notabeneVaspDid != null  and notabeneVaspDid != ''"> and mt.notabene_vasp_did = #{notabeneVaspDid}</if>
+                                                                            <if test="notabeneClientId != null  and notabeneClientId != ''"> and mt.notabene_client_id = #{notabeneClientId}</if>
+                                                                            <if test="notabeneClientSecret != null  and notabeneClientSecret != ''"> and mt.notabene_client_secret = #{notabeneClientSecret}</if>
+                                                                            <if test="notabeneClientCredentials != null  and notabeneClientCredentials != ''"> and mt.notabene_client_credentials = #{notabeneClientCredentials}</if>
+                                                                            <if test="emailTemplateSendfrom != null  and emailTemplateSendfrom != ''"> and mt.email_template_sendfrom = #{emailTemplateSendfrom}</if>
+                                                                            <if test="emailIdEmailAddressVerification != null  and emailIdEmailAddressVerification != ''"> and mt.email_id_email_address_verification = #{emailIdEmailAddressVerification}</if>
+                                                                            <if test="legalPersonName != null  and legalPersonName != ''"> and mt.legal_person_name like concat('%', #{legalPersonName}, '%')</if>
+                                                                            <if test="emailIdOrderCompletionNotification != null  and emailIdOrderCompletionNotification != ''"> and mt.email_id_order_completion_notification = #{emailIdOrderCompletionNotification}</if>
+                                                                            <if test="houseWalletProvider != null  and houseWalletProvider != ''"> and mt.house_wallet_provider = #{houseWalletProvider}</if>
+                                                                            <if test="travelRuleCheckLimit != null "> and mt.travel_rule_check_limit = #{travelRuleCheckLimit}</if>
+                                                                            <if test="travelRuleLimitCurrencyId != null "> and mt.travel_rule_limit_currency_id = #{travelRuleLimitCurrencyId}</if>
+                                                                            <if test="fireblocksWithdrawalAccountId != null "> and mt.fireblocks_withdrawal_account_id = #{fireblocksWithdrawalAccountId}</if>
+                                                                            <if test="fireblocksOperationalAccountId != null "> and mt.fireblocks_operational_account_id = #{fireblocksOperationalAccountId}</if>
+                                                                            <if test="fireblocksHiddenOnUi != null "> and mt.fireblocks_hidden_on_ui = #{fireblocksHiddenOnUi}</if>
+                                                                            <if test="fireblocksAutoFuel != null "> and mt.fireblocks_auto_fuel = #{fireblocksAutoFuel}</if>
+                                                                            <if test="emailIdOffOrderCompletionNotification != null  and emailIdOffOrderCompletionNotification != ''"> and mt.email_id_off_order_completion_notification = #{emailIdOffOrderCompletionNotification}</if>
+                                                                            <if test="emailIdOffOrderFailedNotification != null  and emailIdOffOrderFailedNotification != ''"> and mt.email_id_off_order_failed_notification = #{emailIdOffOrderFailedNotification}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertSaasUserCorporation" parameterType="com.games.payment.domain.SaasUserCorporation" useGeneratedKeys="true" keyProperty="id">
+        insert into saas_user_corporation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="acquirerId != null">acquirer_id,</if>
+                                                                <if test="code != null and code != ''">code,</if>
+                                                                <if test="name != null">name,</if>
+                                                                <if test="domain != null and domain != ''">domain,</if>
+                                                                <if test="themeUrl != null">theme_url,</if>
+                                                                <if test="partnerBank != null and partnerBank != ''">partner_bank,</if>
+                                                                <if test="partnerBankSortCode != null and partnerBankSortCode != ''">partner_bank_sort_code,</if>
+                                                                <if test="emailIdVerifyCode != null and emailIdVerifyCode != ''">email_id_verify_code,</if>
+                                                                <if test="emailIdVeriff != null and emailIdVeriff != ''">email_id_veriff,</if>
+                                                                <if test="emailIdVeriffAddress != null and emailIdVeriffAddress != ''">email_id_veriff_address,</if>
+                                                                <if test="emailIdBank != null and emailIdBank != ''">email_id_bank,</if>
+                                                                <if test="emailIdForgotPwd != null and emailIdForgotPwd != ''">email_id_forgot_pwd,</if>
+                                                                <if test="emailIdVeriffKyc != null and emailIdVeriffKyc != ''">email_id_veriff_kyc,</if>
+                                                                <if test="revenueShare != null">revenue_share,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="addressId != null">address_id,</if>
+                                                                <if test="notabeneVaspDid != null and notabeneVaspDid != ''">notabene_vasp_did,</if>
+                                                                <if test="notabeneClientId != null and notabeneClientId != ''">notabene_client_id,</if>
+                                                                <if test="notabeneClientSecret != null and notabeneClientSecret != ''">notabene_client_secret,</if>
+                                                                <if test="notabeneClientCredentials != null and notabeneClientCredentials != ''">notabene_client_credentials,</if>
+                                                                <if test="emailTemplateSendfrom != null and emailTemplateSendfrom != ''">email_template_sendfrom,</if>
+                                                                <if test="emailIdEmailAddressVerification != null and emailIdEmailAddressVerification != ''">email_id_email_address_verification,</if>
+                                                                <if test="legalPersonName != null">legal_person_name,</if>
+                                                                <if test="emailIdOrderCompletionNotification != null and emailIdOrderCompletionNotification != ''">email_id_order_completion_notification,</if>
+                                                                <if test="houseWalletProvider != null and houseWalletProvider != ''">house_wallet_provider,</if>
+                                                                <if test="travelRuleCheckLimit != null">travel_rule_check_limit,</if>
+                                                                <if test="travelRuleLimitCurrencyId != null">travel_rule_limit_currency_id,</if>
+                                                                <if test="fireblocksWithdrawalAccountId != null">fireblocks_withdrawal_account_id,</if>
+                                                                <if test="fireblocksOperationalAccountId != null">fireblocks_operational_account_id,</if>
+                                                                <if test="fireblocksHiddenOnUi != null">fireblocks_hidden_on_ui,</if>
+                                                                <if test="fireblocksAutoFuel != null">fireblocks_auto_fuel,</if>
+                                                                <if test="emailIdOffOrderCompletionNotification != null">email_id_off_order_completion_notification,</if>
+                                                                <if test="emailIdOffOrderFailedNotification != null">email_id_off_order_failed_notification,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="acquirerId != null">#{acquirerId},</if>
+                                                                <if test="code != null and code != ''">#{code},</if>
+                                                                <if test="name != null">#{name},</if>
+                                                                <if test="domain != null and domain != ''">#{domain},</if>
+                                                                <if test="themeUrl != null">#{themeUrl},</if>
+                                                                <if test="partnerBank != null and partnerBank != ''">#{partnerBank},</if>
+                                                                <if test="partnerBankSortCode != null and partnerBankSortCode != ''">#{partnerBankSortCode},</if>
+                                                                <if test="emailIdVerifyCode != null and emailIdVerifyCode != ''">#{emailIdVerifyCode},</if>
+                                                                <if test="emailIdVeriff != null and emailIdVeriff != ''">#{emailIdVeriff},</if>
+                                                                <if test="emailIdVeriffAddress != null and emailIdVeriffAddress != ''">#{emailIdVeriffAddress},</if>
+                                                                <if test="emailIdBank != null and emailIdBank != ''">#{emailIdBank},</if>
+                                                                <if test="emailIdForgotPwd != null and emailIdForgotPwd != ''">#{emailIdForgotPwd},</if>
+                                                                <if test="emailIdVeriffKyc != null and emailIdVeriffKyc != ''">#{emailIdVeriffKyc},</if>
+                                                                <if test="revenueShare != null">#{revenueShare},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="addressId != null">#{addressId},</if>
+                                                                <if test="notabeneVaspDid != null and notabeneVaspDid != ''">#{notabeneVaspDid},</if>
+                                                                <if test="notabeneClientId != null and notabeneClientId != ''">#{notabeneClientId},</if>
+                                                                <if test="notabeneClientSecret != null and notabeneClientSecret != ''">#{notabeneClientSecret},</if>
+                                                                <if test="notabeneClientCredentials != null and notabeneClientCredentials != ''">#{notabeneClientCredentials},</if>
+                                                                <if test="emailTemplateSendfrom != null and emailTemplateSendfrom != ''">#{emailTemplateSendfrom},</if>
+                                                                <if test="emailIdEmailAddressVerification != null and emailIdEmailAddressVerification != ''">#{emailIdEmailAddressVerification},</if>
+                                                                <if test="legalPersonName != null">#{legalPersonName},</if>
+                                                                <if test="emailIdOrderCompletionNotification != null and emailIdOrderCompletionNotification != ''">#{emailIdOrderCompletionNotification},</if>
+                                                                <if test="houseWalletProvider != null and houseWalletProvider != ''">#{houseWalletProvider},</if>
+                                                                <if test="travelRuleCheckLimit != null">#{travelRuleCheckLimit},</if>
+                                                                <if test="travelRuleLimitCurrencyId != null">#{travelRuleLimitCurrencyId},</if>
+                                                                <if test="fireblocksWithdrawalAccountId != null">#{fireblocksWithdrawalAccountId},</if>
+                                                                <if test="fireblocksOperationalAccountId != null">#{fireblocksOperationalAccountId},</if>
+                                                                <if test="fireblocksHiddenOnUi != null">#{fireblocksHiddenOnUi},</if>
+                                                                <if test="fireblocksAutoFuel != null">#{fireblocksAutoFuel},</if>
+                                                                <if test="emailIdOffOrderCompletionNotification != null">#{emailIdOffOrderCompletionNotification},</if>
+                                                                <if test="emailIdOffOrderFailedNotification != null">#{emailIdOffOrderFailedNotification},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateSaasUserCorporation" parameterType="com.games.payment.domain.SaasUserCorporation">
+        update saas_user_corporation
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="acquirerId != null">acquirer_id = #{acquirerId},</if>
+                                                                <if test="code != null and code != ''">code = #{code},</if>
+                                                                <if test="name != null">name = #{name},</if>
+                                                                <if test="domain != null and domain != ''">domain = #{domain},</if>
+                                                                <if test="themeUrl != null">theme_url = #{themeUrl},</if>
+                                                                <if test="partnerBank != null and partnerBank != ''">partner_bank = #{partnerBank},</if>
+                                                                <if test="partnerBankSortCode != null and partnerBankSortCode != ''">partner_bank_sort_code = #{partnerBankSortCode},</if>
+                                                                <if test="emailIdVerifyCode != null and emailIdVerifyCode != ''">email_id_verify_code = #{emailIdVerifyCode},</if>
+                                                                <if test="emailIdVeriff != null and emailIdVeriff != ''">email_id_veriff = #{emailIdVeriff},</if>
+                                                                <if test="emailIdVeriffAddress != null and emailIdVeriffAddress != ''">email_id_veriff_address = #{emailIdVeriffAddress},</if>
+                                                                <if test="emailIdBank != null and emailIdBank != ''">email_id_bank = #{emailIdBank},</if>
+                                                                <if test="emailIdForgotPwd != null and emailIdForgotPwd != ''">email_id_forgot_pwd = #{emailIdForgotPwd},</if>
+                                                                <if test="emailIdVeriffKyc != null and emailIdVeriffKyc != ''">email_id_veriff_kyc = #{emailIdVeriffKyc},</if>
+                                                                <if test="revenueShare != null">revenue_share = #{revenueShare},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="addressId != null">address_id = #{addressId},</if>
+                                                                <if test="notabeneVaspDid != null and notabeneVaspDid != ''">notabene_vasp_did = #{notabeneVaspDid},</if>
+                                                                <if test="notabeneClientId != null and notabeneClientId != ''">notabene_client_id = #{notabeneClientId},</if>
+                                                                <if test="notabeneClientSecret != null and notabeneClientSecret != ''">notabene_client_secret = #{notabeneClientSecret},</if>
+                                                                <if test="notabeneClientCredentials != null and notabeneClientCredentials != ''">notabene_client_credentials = #{notabeneClientCredentials},</if>
+                                                                <if test="emailTemplateSendfrom != null and emailTemplateSendfrom != ''">email_template_sendfrom = #{emailTemplateSendfrom},</if>
+                                                                <if test="emailIdEmailAddressVerification != null and emailIdEmailAddressVerification != ''">email_id_email_address_verification = #{emailIdEmailAddressVerification},</if>
+                                                                <if test="legalPersonName != null">legal_person_name = #{legalPersonName},</if>
+                                                                <if test="emailIdOrderCompletionNotification != null and emailIdOrderCompletionNotification != ''">email_id_order_completion_notification = #{emailIdOrderCompletionNotification},</if>
+                                                                <if test="houseWalletProvider != null and houseWalletProvider != ''">house_wallet_provider = #{houseWalletProvider},</if>
+                                                                <if test="travelRuleCheckLimit != null">travel_rule_check_limit = #{travelRuleCheckLimit},</if>
+                                                                <if test="travelRuleLimitCurrencyId != null">travel_rule_limit_currency_id = #{travelRuleLimitCurrencyId},</if>
+                                                                <if test="fireblocksWithdrawalAccountId != null">fireblocks_withdrawal_account_id = #{fireblocksWithdrawalAccountId},</if>
+                                                                <if test="fireblocksOperationalAccountId != null">fireblocks_operational_account_id = #{fireblocksOperationalAccountId},</if>
+                                                                <if test="fireblocksHiddenOnUi != null">fireblocks_hidden_on_ui = #{fireblocksHiddenOnUi},</if>
+                                                                <if test="fireblocksAutoFuel != null">fireblocks_auto_fuel = #{fireblocksAutoFuel},</if>
+                                                                <if test="emailIdOffOrderCompletionNotification != null">email_id_off_order_completion_notification = #{emailIdOffOrderCompletionNotification},</if>
+                                                                <if test="emailIdOffOrderFailedNotification != null">email_id_off_order_failed_notification = #{emailIdOffOrderFailedNotification},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSaasUserCorporationById" parameterType="Long">
+        delete from saas_user_corporation where id = #{id}
+    </delete>
+
+    <delete id="deleteSaasUserCorporationByIds" parameterType="String">
+        delete from saas_user_corporation where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

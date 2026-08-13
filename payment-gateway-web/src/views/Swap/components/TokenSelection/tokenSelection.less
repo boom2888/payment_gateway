@@ -1,0 +1,134 @@
+.token_selection {
+  .show_token {
+    display: flex;
+    align-items: center;
+    color: rgb(34, 34, 34);
+    height: 36px;
+    border: 1px solid rgb(242, 242, 242);
+    padding: 0 12px 0 5px;
+    border-radius: 18px;
+    background: #fff;
+    .selected_token {
+      display: flex;
+      align-items: center;
+      > img {
+        width: 28px;
+        height: 28px;
+        margin-right: 5px;
+      }
+    }
+  }
+  .show_token_no_data {
+    padding: 0 12px;
+    background: rgb(252, 114, 255);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 18px;
+    border: none;
+    &:hover {
+      background: rgb(253, 60, 254);
+    }
+    &:focus,
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.75;
+    }
+  }
+  .arrow_icon {
+    width: 26px;
+    height: 26px;
+    transform: rotate(270deg);
+  }
+}
+.token_modal {
+  width: 400px !important;
+  .ant-modal-content {
+    padding: 16px 0 !important;
+  }
+  .token_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    padding: 0 16px;
+    color: #222;
+    .closure_icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+  .search_bar_con {
+    padding: 0 16px;
+    .search_bar {
+      width: 100%;
+      height: 48px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      background: rgb(249, 249, 249);
+      padding: 0 16px;
+      border-radius: 24px;
+      .search_icon {
+        width: 20px;
+        height: 20px;
+      }
+      .search_input {
+        border: none;
+        outline: none;
+        background: transparent;
+        margin-left: 5px;
+        font-size: 16px;
+        &::placeholder {
+          color: #bfbfbf;
+        }
+      }
+    }
+  }
+
+  .token_list {
+    margin-top: 10px;
+    max-height: 408px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 16px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #f4f4f4;
+    }
+    .list_item {
+      height: 68px;
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      &:hover {
+        background: #f9f9f9;
+        cursor: pointer;
+      }
+      .item_icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        > img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .item_info {
+        display: flex;
+        flex-direction: column;
+        .item_name {
+          font-size: 18px;
+          line-height: 22px;
+          color: rgb(34, 34, 34);
+        }
+        .item_symbol {
+          font-size: 14px;
+          line-height: 18px;
+          color: rgb(125, 125, 125);
+        }
+      }
+    }
+  }
+}

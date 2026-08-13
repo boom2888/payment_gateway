@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.SaasUserCorporationSupportedCountryMapper">
+
+    <resultMap type="com.games.payment.domain.SaasUserCorporationSupportedCountry" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="saasUserCorporationId"    column="saas_user_corporation_id"    />
+                    <result property="countryCode"    column="country_code"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+        
+        <result property="memberName"    column="memberName"    />
+    </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.saas_user_corporation_id, mt.country_code, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.SaasUserCorporationSupportedCountry" resultMap="BaseResultMap">
+        select
+
+        mem.user_name as memberName,
+        <include refid="Base_Column_List"/>
+        from saas_user_corporation_supported_country mt
+        left join credit_user mem on mt.user_id = mem.user_id
+
+
+        <where>
+
+            <if test="memberName != null  and memberName != ''"> and mem.user_name like concat('%', #{memberName}, '%')</if>
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+                                                                            <if test="countryCode != null  and countryCode != ''"> and mt.country_code = #{countryCode}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertSaasUserCorporationSupportedCountry" parameterType="com.games.payment.domain.SaasUserCorporationSupportedCountry" useGeneratedKeys="true" keyProperty="id">
+        insert into saas_user_corporation_supported_country
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="saasUserCorporationId != null">saas_user_corporation_id,</if>
+                                                                <if test="countryCode != null and countryCode != ''">country_code,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="saasUserCorporationId != null">#{saasUserCorporationId},</if>
+                                                                <if test="countryCode != null and countryCode != ''">#{countryCode},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateSaasUserCorporationSupportedCountry" parameterType="com.games.payment.domain.SaasUserCorporationSupportedCountry">
+        update saas_user_corporation_supported_country
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="saasUserCorporationId != null">saas_user_corporation_id = #{saasUserCorporationId},</if>
+                                                                <if test="countryCode != null and countryCode != ''">country_code = #{countryCode},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSaasUserCorporationSupportedCountryById" parameterType="Long">
+        delete from saas_user_corporation_supported_country where id = #{id}
+    </delete>
+
+    <delete id="deleteSaasUserCorporationSupportedCountryByIds" parameterType="String">
+        delete from saas_user_corporation_supported_country where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

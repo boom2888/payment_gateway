@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.MerchantAccountChangeLogMapper">
+
+    <resultMap type="com.games.payment.domain.MerchantAccountChangeLog" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="merchantId" column="merchant_id"/>
+        <result property="currency" column="currency"/>
+        <result property="balanceBefore" column="balance_before"/>
+        <result property="balanceAfter" column="balance_after"/>
+        <result property="changeAmount" column="change_amount"/>
+        <result property="changeType" column="change_type"/>
+        <result property="movementImportId" column="movement_import_id"/>
+        <result property="remark" column="remark"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO merchant_account_change_log
+        (merchant_id, currency, balance_before, balance_after, change_amount, change_type, movement_import_id, remark, created_at)
+        VALUES
+        <foreach collection="changeLogs" item="item" separator=",">
+            (#{item.merchantId}, #{item.currency}, #{item.balanceBefore}, #{item.balanceAfter}, 
+             #{item.changeAmount}, #{item.changeType}, #{item.movementImportId}, #{item.remark}, now())
+        </foreach>
+    </insert>
+
+    <select id="selectByMovementImportId" resultMap="BaseResultMap">
+        SELECT
+            id,
+            merchant_id,
+            currency,
+            balance_before,
+            balance_after,
+            change_amount,
+            change_type,
+            movement_import_id,
+            remark,
+            created_at
+        FROM merchant_account_change_log
+        WHERE movement_import_id = #{movementImportId}
+        <if test="type != null">
+            AND change_type = #{type}
+        </if>
+    </select>
+
+</mapper>

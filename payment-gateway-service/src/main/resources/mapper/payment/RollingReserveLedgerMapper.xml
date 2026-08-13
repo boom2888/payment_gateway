@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.RollingReserveLedgerMapper">
+
+    <resultMap type="com.games.payment.domain.RollingReserveLedger" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="settlementId"    column="settlement_id"    />
+                    <result property="merchantId"    column="merchant_id"    />
+                    <result property="transactionDate"    column="transaction_date"    />
+                    <result property="transactionType"    column="transaction_type"    />
+                    <result property="reference"    column="reference"    />
+                    <result property="rollingBalance"    column="rolling_balance"    />
+                    <result property="payoutDate"    column="payout_date"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.settlement_id, mt.merchant_id, mt.transaction_date, mt.transaction_type, mt.reference, mt.rolling_balance, mt.payout_date    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.RollingReserveLedger" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from rolling_reserve_ledger mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="settlementId != null  and settlementId != ''"> and mt.settlement_id = #{settlementId}</if>
+                                                                            <if test="merchantId != null "> and mt.merchant_id = #{merchantId}</if>
+                                                                            <if test="transactionDate != null "> and mt.transaction_date = #{transactionDate}</if>
+                                                                            <if test="transactionType != null "> and mt.transaction_type = #{transactionType}</if>
+                                                                            <if test="reference != null "> and mt.reference = #{reference}</if>
+                                                                            <if test="rollingBalance != null "> and mt.rolling_balance = #{rollingBalance}</if>
+                                                                            <if test="payoutDate != null "> and mt.payout_date = #{payoutDate}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertRollingReserveLedger" parameterType="com.games.payment.domain.RollingReserveLedger" useGeneratedKeys="true" keyProperty="id">
+        insert into rolling_reserve_ledger
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="settlementId != null">settlement_id,</if>
+                                                                <if test="merchantId != null">merchant_id,</if>
+                                                                <if test="transactionDate != null">transaction_date,</if>
+                                                                <if test="transactionType != null">transaction_type,</if>
+                                                                <if test="reference != null">reference,</if>
+                                                                <if test="rollingBalance != null">rolling_balance,</if>
+                                                                <if test="payoutDate != null">payout_date,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="settlementId != null">#{settlementId},</if>
+                                                                <if test="merchantId != null">#{merchantId},</if>
+                                                                <if test="transactionDate != null">#{transactionDate},</if>
+                                                                <if test="transactionType != null">#{transactionType},</if>
+                                                                <if test="reference != null">#{reference},</if>
+                                                                <if test="rollingBalance != null">#{rollingBalance},</if>
+                                                                <if test="payoutDate != null">#{payoutDate},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateRollingReserveLedger" parameterType="com.games.payment.domain.RollingReserveLedger">
+        update rolling_reserve_ledger
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="settlementId != null">settlement_id = #{settlementId},</if>
+                                                                <if test="merchantId != null">merchant_id = #{merchantId},</if>
+                                                                <if test="transactionDate != null">transaction_date = #{transactionDate},</if>
+                                                                <if test="transactionType != null">transaction_type = #{transactionType},</if>
+                                                                <if test="reference != null">reference = #{reference},</if>
+                                                                <if test="rollingBalance != null">rolling_balance = #{rollingBalance},</if>
+                                                                <if test="payoutDate != null">payout_date = #{payoutDate},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRollingReserveLedgerById" parameterType="Long">
+        delete from rolling_reserve_ledger where id = #{id}
+    </delete>
+
+    <delete id="deleteRollingReserveLedgerByIds" parameterType="String">
+        delete from rolling_reserve_ledger where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

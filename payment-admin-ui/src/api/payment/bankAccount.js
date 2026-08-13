@@ -1,0 +1,53 @@
+import request from '@/utils/request'
+
+// 查询银行账户列表
+export function listBankAccount(query) {
+  return request({
+    url: '/payment/bankAccount/list',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询银行账户详细
+export function getBankAccount(id) {
+  return request({
+    url: '/payment/bankAccount/' + id,
+    method: 'get'
+  })
+}
+
+// 新增银行账户
+export function addBankAccount(data) {
+  return request({
+    url: '/payment/bankAccount',
+    method: 'post',
+    data: data
+  })
+}
+
+// 修改银行账户
+export function updateBankAccount(data) {
+  return request({
+    url: '/payment/bankAccount',
+    method: 'put',
+    data: data
+  })
+}
+
+// 删除银行账户
+export function delBankAccount(id) {
+  return request({
+    url: '/payment/bankAccount/' + id,
+    method: 'delete'
+  })
+}
+
+// 导出银行账户
+export function exportBankAccount(query) {
+  return request({
+    url: '/payment/bankAccount/export',
+    method: 'get',
+    params: query
+  })
+}

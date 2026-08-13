@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.RefundMapper">
+
+    <resultMap type="com.games.payment.domain.RefundOrder" id="RefundMapperMap">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="merchantName" column="merchant_name" />
+        <result property="orderId"    column="order_id"    />
+        <result property="refundSsoId"    column="refund_sso_id"    />
+        <result property="transactionId"    column="transaction_id"    />
+        <result property="refundAmount"    column="refund_amount"    />
+        <result property="refundCurrencyId"    column="refund_currency_id"    />
+        <result property="status"    column="status"    />
+        <result property="remainingRefundableAmount"    column="remaining_refundable_amount"    />
+        <result property="failReason"    column="fail_reason"    />
+        <result property="createAt"    column="create_at"    />
+        <!-- Fields joined from `order` table -->
+        <result property="fiatAmount" column="fiat_amount" />
+        <result property="payTime" column="pay_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        mt.id, mt.merchant_id,
+        s.business_name as merchant_name,
+        mt.order_id, mt.refund_sso_id, mt.transaction_id, mt.refund_amount, mt.refund_currency_id, mt.status,
+        COALESCE(mt.remaining_refundable_amount, 0) as remaining_refundable_amount, mt.fail_reason, mt.create_at,
+        o.fiat_amount as fiat_amount, o.pay_time as pay_time
+    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.RefundOrder" resultMap="RefundMapperMap">
+        select
+            <include refid="Base_Column_List"></include>
+        from refund_order as mt
+        left join `order` o on o.id = mt.order_id
+        left join shop s on s.id = mt.merchant_id
+        <where>
+            <if test="id != null" >and mt.id = #{id}</if>
+            <if test="merchantId != null"> and mt.merchant_id = #{merchantId}</if>
+            <if test="orderId != null"> and mt.order_id = #{orderId}</if>
+            <if test="refundSsoId != null"> and mt.refund_sso_id = #{refundSsoId}</if>
+            <if test="transactionId != null"> and mt.transaction_id = #{transactionId}</if>
+            <if test="refundAmount != null"> and mt.refund_amount = #{refundAmount}</if>
+            <if test="refundCurrencyId != null"> and mt.refund_currency_id = #{refundCurrencyId}</if>
+            <if test="status != null"> and mt.status = #{status}</if>
+            <if test="remainingRefundableAmount != null"> and mt.remaining_refundable_amount = #{remainingRefundableAmount}</if>
+            <if test="failReason != null"> and mt.fail_reason = #{failReason}</if>
+            <!-- 仅保留顶层 beginTime / endTime（按天） -->
+            <if test="beginTime != null"> AND mt.create_at &gt;= #{beginTime}</if>
+            <if test="endTime != null"> AND mt.create_at &lt; DATE_ADD(#{endTime}, INTERVAL 1 DAY)</if>
+            <if test="ids != null and ids.size() > 0">
+                AND mt.id in
+                <foreach collection="ids" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        order by mt.id desc
+    </select>
+
+    <select id="countRefundOrdersByDate" resultType="map">
+        SELECT DATE(create_at) AS date, COUNT(*) AS cnt
+        FROM refund_order
+        <where>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND create_at BETWEEN #{startTime} AND #{endTime}
+            </if>
+        </where>
+        GROUP BY DATE(create_at)
+        ORDER BY date
+    </select>
+
+    <select id="sumRefundAmountByDate" resultType="map">
+        SELECT DATE(create_at) AS date, COALESCE(SUM(refund_amount), 0) AS amount
+        FROM refund_order
+        <where>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND create_at BETWEEN #{startTime} AND #{endTime}
+            </if>
+        </where>
+        GROUP BY DATE(create_at)
+        ORDER BY date
+    </select>
+
+</mapper>

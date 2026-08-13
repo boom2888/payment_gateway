@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    parameters {
+        gitParameter(branch: '', branchFilter: 'origin/(.*)', defaultValue: '', description: 'Branch for build and deploy', name: 'BRANCH', quickFilterEnabled: false, selectedValue: 'NONE', sortMode: 'NONE', tagFilter: '*', type: 'PT_BRANCH')
+    }
+    stages {
+        stage('Pulling Code') {
+            steps {
+                script {
+                    def branch = env.gitlabBranch ?: "${BRANCH}"
+                    try {
+                        echo "开始拉取代码，使用分支: ${branch}"
+                        git(changelog: true, poll: true, url: 'git@github.com:pay-groups/payment-gateway-web.git', branch: branch)
+                        echo "代码拉取成功"
+                    } catch (Exception e) {
+                        echo "代码拉取失败: ${e.message}"
+                        error("代码拉取失败，请检查配置或网络连接")
+                    }
+                }
+            }
+        }
+        stage('Building'){
+            steps{
+                nodejs('nodejs'){
+                    sh """
+                    which node
+                    npm root -g
+
+                        npm install
+                        npm run build
+
+
+                    """
+                }
+            }
+        }
+        stage('Deploying') {
+            steps {
+                script {
+
+                    try {
+                        echo "开始构建"
+                        sh """
+
+                        """
+                        echo "构建步骤执行成功"
+                    } catch (Exception e) {
+                        echo "构建步骤执行失败: ${e.message}"
+                        error("构建步骤执行失败，请检查脚本或环境配置")
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.MfaCodeMapper">
+
+    <resultMap type="com.games.payment.domain.MfaCode" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="userId"    column="user_id"    />
+                    <result property="code"    column="code"    />
+                    <result property="otpAscii"    column="otp_ascii"    />
+                    <result property="otpHex"    column="otp_hex"    />
+                    <result property="otpBase32"    column="otp_base_32"    />
+                    <result property="otpAuthUrl"    column="otp_auth_url"    />
+                    <result property="expireAt"    column="expire_at"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.user_id, mt.code, mt.otp_ascii, mt.otp_hex, mt.otp_base_32, mt.otp_auth_url, mt.expire_at, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.MfaCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mfa_code mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                                                            <if test="code != null  and code != ''"> and mt.code = #{code}</if>
+                                                                            <if test="otpAscii != null  and otpAscii != ''"> and mt.otp_ascii = #{otpAscii}</if>
+                                                                            <if test="otpHex != null  and otpHex != ''"> and mt.otp_hex = #{otpHex}</if>
+                                                                            <if test="otpBase32 != null  and otpBase32 != ''"> and mt.otp_base_32 = #{otpBase32}</if>
+                                                                            <if test="otpAuthUrl != null  and otpAuthUrl != ''"> and mt.otp_auth_url = #{otpAuthUrl}</if>
+                                                                            <if test="expireAt != null "> and mt.expire_at = #{expireAt}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertMfaCode" parameterType="com.games.payment.domain.MfaCode" useGeneratedKeys="true" keyProperty="id">
+        insert into mfa_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id,</if>
+                                                                <if test="code != null and code != ''">code,</if>
+                                                                <if test="otpAscii != null">otp_ascii,</if>
+                                                                <if test="otpHex != null">otp_hex,</if>
+                                                                <if test="otpBase32 != null">otp_base_32,</if>
+                                                                <if test="otpAuthUrl != null">otp_auth_url,</if>
+                                                                <if test="expireAt != null">expire_at,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">#{userId},</if>
+                                                                <if test="code != null and code != ''">#{code},</if>
+                                                                <if test="otpAscii != null">#{otpAscii},</if>
+                                                                <if test="otpHex != null">#{otpHex},</if>
+                                                                <if test="otpBase32 != null">#{otpBase32},</if>
+                                                                <if test="otpAuthUrl != null">#{otpAuthUrl},</if>
+                                                                <if test="expireAt != null">#{expireAt},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateMfaCode" parameterType="com.games.payment.domain.MfaCode">
+        update mfa_code
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="code != null and code != ''">code = #{code},</if>
+                                                                <if test="otpAscii != null">otp_ascii = #{otpAscii},</if>
+                                                                <if test="otpHex != null">otp_hex = #{otpHex},</if>
+                                                                <if test="otpBase32 != null">otp_base_32 = #{otpBase32},</if>
+                                                                <if test="otpAuthUrl != null">otp_auth_url = #{otpAuthUrl},</if>
+                                                                <if test="expireAt != null">expire_at = #{expireAt},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMfaCodeById" parameterType="Long">
+        delete from mfa_code where id = #{id}
+    </delete>
+
+    <delete id="deleteMfaCodeByIds" parameterType="String">
+        delete from mfa_code where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

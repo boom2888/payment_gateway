@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.UserMapper">
+
+    <resultMap type="com.games.payment.domain.User" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="email"    column="email"    />
+                    <result property="countryCode"    column="country_code"    />
+                    <result property="phoneNumber"    column="phone_number"    />
+                    <result property="password"    column="password"    />
+                    <result property="displayName"    column="display_name"    />
+                    <result property="type"    column="type"    />
+                    <result property="avatar"    column="avatar"    />
+                    <result property="mfaSetting"    column="mfa_setting"    />
+                    <result property="notificationSetting"    column="notification_setting"    />
+                    <result property="kycId"    column="kyc_id"    />
+                    <result property="kycVeriffUuid"    column="kyc_veriff_uuid"    />
+                    <result property="kycStatus"    column="kyc_status"    />
+                    <result property="role"    column="role"    />
+                    <result property="activated"    column="activated"    />
+                    <result property="idRef"    column="id_ref"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.email, mt.country_code, mt.phone_number, mt.password, mt.display_name, mt.type, mt.avatar, mt.mfa_setting, mt.notification_setting, mt.kyc_id, mt.kyc_veriff_uuid, mt.kyc_status, mt.role, mt.activated, mt.id_ref, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="email != null  and email != ''"> and mt.email = #{email}</if>
+                                                                            <if test="countryCode != null  and countryCode != ''"> and mt.country_code = #{countryCode}</if>
+                                                                            <if test="phoneNumber != null  and phoneNumber != ''"> and mt.phone_number = #{phoneNumber}</if>
+                                                                            <if test="password != null  and password != ''"> and mt.password = #{password}</if>
+                                                                            <if test="displayName != null  and displayName != ''"> and mt.display_name like concat('%', #{displayName}, '%')</if>
+                                                                            <if test="type != null "> and mt.type = #{type}</if>
+                                                                            <if test="avatar != null  and avatar != ''"> and mt.avatar = #{avatar}</if>
+                                                                            <if test="mfaSetting != null "> and mt.mfa_setting = #{mfaSetting}</if>
+                                                                            <if test="notificationSetting != null "> and mt.notification_setting = #{notificationSetting}</if>
+                                                                            <if test="kycId != null "> and mt.kyc_id = #{kycId}</if>
+                                                                            <if test="kycVeriffUuid != null  and kycVeriffUuid != ''"> and mt.kyc_veriff_uuid = #{kycVeriffUuid}</if>
+                                                                            <if test="kycStatus != null "> and mt.kyc_status = #{kycStatus}</if>
+                                                                            <if test="role != null "> and mt.role = #{role}</if>
+                                                                            <if test="activated != null "> and mt.activated = #{activated}</if>
+                                                                            <if test="idRef != null  and idRef != ''"> and mt.id_ref = #{idRef}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertUser" parameterType="com.games.payment.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="email != null">email,</if>
+                                                                <if test="countryCode != null">country_code,</if>
+                                                                <if test="phoneNumber != null">phone_number,</if>
+                                                                <if test="password != null">password,</if>
+                                                                <if test="displayName != null">display_name,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="avatar != null">avatar,</if>
+                                                                <if test="mfaSetting != null">mfa_setting,</if>
+                                                                <if test="notificationSetting != null">notification_setting,</if>
+                                                                <if test="kycId != null">kyc_id,</if>
+                                                                <if test="kycVeriffUuid != null">kyc_veriff_uuid,</if>
+                                                                <if test="kycStatus != null">kyc_status,</if>
+                                                                <if test="role != null">role,</if>
+                                                                <if test="activated != null">activated,</if>
+                                                                <if test="idRef != null">id_ref,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="email != null">#{email},</if>
+                                                                <if test="countryCode != null">#{countryCode},</if>
+                                                                <if test="phoneNumber != null">#{phoneNumber},</if>
+                                                                <if test="password != null">#{password},</if>
+                                                                <if test="displayName != null">#{displayName},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="avatar != null">#{avatar},</if>
+                                                                <if test="mfaSetting != null">#{mfaSetting},</if>
+                                                                <if test="notificationSetting != null">#{notificationSetting},</if>
+                                                                <if test="kycId != null">#{kycId},</if>
+                                                                <if test="kycVeriffUuid != null">#{kycVeriffUuid},</if>
+                                                                <if test="kycStatus != null">#{kycStatus},</if>
+                                                                <if test="role != null">#{role},</if>
+                                                                <if test="activated != null">#{activated},</if>
+                                                                <if test="idRef != null">#{idRef},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateUser" parameterType="com.games.payment.domain.User">
+        update user
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="email != null">email = #{email},</if>
+                                                                <if test="countryCode != null">country_code = #{countryCode},</if>
+                                                                <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+                                                                <if test="password != null">password = #{password},</if>
+                                                                <if test="displayName != null">display_name = #{displayName},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="avatar != null">avatar = #{avatar},</if>
+                                                                <if test="mfaSetting != null">mfa_setting = #{mfaSetting},</if>
+                                                                <if test="notificationSetting != null">notification_setting = #{notificationSetting},</if>
+                                                                <if test="kycId != null">kyc_id = #{kycId},</if>
+                                                                <if test="kycVeriffUuid != null">kyc_veriff_uuid = #{kycVeriffUuid},</if>
+                                                                <if test="kycStatus != null">kyc_status = #{kycStatus},</if>
+                                                                <if test="role != null">role = #{role},</if>
+                                                                <if test="activated != null">activated = #{activated},</if>
+                                                                <if test="idRef != null">id_ref = #{idRef},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="Long">
+        delete from user where id = #{id}
+    </delete>
+
+    <delete id="deleteUserByIds" parameterType="String">
+        delete from user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

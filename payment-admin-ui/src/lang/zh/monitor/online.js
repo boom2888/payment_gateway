@@ -1,0 +1,22 @@
+export default {
+  ipaddr: '登录地址',
+  userName: '用户名称',
+  search: '搜索',
+  reset: '重置',
+  index: '序号',
+  tokenId: '会话编号',
+  deptName: '部门名称',
+  loginLocation: '登录地点',
+  browser: '浏览器',
+  os: '操作系统',
+  loginTime: '登录时间',
+  action: '操作',
+  forceLogout: '强退',
+  confirmTitle: '警告',
+  confirmContent: '是否确认强退名称为"{userName}"的数据项?',
+  confirmButton: '确定',
+  cancelButton: '取消',
+  successMsg: '强退成功',
+  placeholderIp: '请输入登录地址',
+  placeholderUser: '请输入用户名称'
+}

@@ -1,0 +1,141 @@
+.OrderCommit {
+  flex: 1;
+  padding-bottom: 50px;
+
+  .InputCom,
+  .Order_Card {
+    border-radius: 8px;
+    background-color: var(--color-5);
+    border: 1px solid rgba(215, 216, 218, 1);
+  }
+  .ErrCommit{
+    font-size: var(--text-min);
+    font-family: Inter;
+    display: flex;
+    align-content: center;
+    padding-top: 6px;
+    position: absolute;
+    top: 100%;
+    img{
+      width: 28px;
+      padding-right: 8px;
+    }
+  }
+  .order_form_item{
+    position: relative;
+  }
+  .OrderCommitPays{
+    opacity: 0;
+  }
+  .OrderCommitPay {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 21px;
+    img {
+      height: 16px;
+    }
+    .Order_Card {
+      padding-top: 12px;
+      height: 64px;
+      padding-left: 14px;
+      color: var(--color-3);
+    }
+    .lable {
+      font-family: Inter;
+      padding-top: 4px;
+    }
+    .Order_Card_Select {
+      background: var(--color-7);
+      color: var(--color-5);
+      border: none;
+    }
+  }
+  .OrderCommitPayApple{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  }
+
+  .OrderCommit_center {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 21px;
+    }
+  }
+  .OrderCommit_Footer {
+    .ant-btn {
+    margin-top: 50px;
+      height: 80px;
+      background: var(--color-8) !important;
+      color: var(--color-1) !important;
+      border: none;
+      font-family: Poppins;
+      font-weight: var(--font-bold);
+      font-size: var(--text-Semibold);
+    }
+    .delivering_disabled{
+      opacity: 0.5;
+    }
+  }
+
+  .SelectComs,.InputComs{
+    border: 2px solid var(--color-6)
+
+  }
+  .InputComsErr{
+    border: 2px solid var(--color-9)
+
+  }
+  .inputLabel{
+    color: var(--color-6);
+    font-size: var(--text-min);
+    font-weight: var(--font-Semibold);
+    padding: 0 16px;
+
+  }
+  .SelectCom{
+    position: relative;
+    .ant-select-dropdown{
+      bottom: calc(100% + 10px) !important;
+      padding: 20px 0 20px 32px !important;
+    }
+  }
+  .inputRules{
+    color: var(--color-9);
+    padding-right: 2px;
+  }
+  .InputCom {
+    margin-top: 32px;
+    padding: 10px 0px;
+    .ant-picker,
+    .ant-select-selector,
+    .ant-select-selector:focus,
+    input:focus,
+    input {
+      outline: none;
+      box-shadow: none !important;
+      border-color: transparent;
+      padding: 0 16px;
+      font-size: var(--text-light);
+      color: var(--color-2);
+      font-weight: var(--font-Semibold);
+      border: none !important;
+    }
+
+    
+  }
+
+
+  .ant-form-item-label{
+    display: none;
+  }
+  .ant-form-item{
+    margin-bottom: 0;
+  }
+  .HideHomeBotton{
+  }
+
+  .Flag{
+    width: 24px;
+  }
+}

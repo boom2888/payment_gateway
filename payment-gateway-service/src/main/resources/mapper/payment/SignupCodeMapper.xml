@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.SignupCodeMapper">
+
+    <resultMap type="com.games.payment.domain.SignupCode" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="identifier"    column="identifier"    />
+                    <result property="saasUserCorporationId"    column="saas_user_corporation_id"    />
+                    <result property="code"    column="code"    />
+                    <result property="password"    column="password"    />
+                    <result property="type"    column="type"    />
+                    <result property="expireAt"    column="expire_at"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="merchantId"    column="merchant_id"    />
+                    <result property="referralCode"    column="referral_code"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.identifier, mt.saas_user_corporation_id, mt.code, mt.password, mt.type, mt.expire_at, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.merchant_id, mt.referral_code    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.SignupCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from signup_code mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="identifier != null  and identifier != ''"> and mt.identifier = #{identifier}</if>
+                                                                            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+                                                                            <if test="code != null  and code != ''"> and mt.code = #{code}</if>
+                                                                            <if test="password != null  and password != ''"> and mt.password = #{password}</if>
+                                                                            <if test="type != null  and type != ''"> and mt.type = #{type}</if>
+                                                                            <if test="expireAt != null "> and mt.expire_at = #{expireAt}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="merchantId != null "> and mt.merchant_id = #{merchantId}</if>
+                                                                            <if test="referralCode != null  and referralCode != ''"> and mt.referral_code = #{referralCode}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertSignupCode" parameterType="com.games.payment.domain.SignupCode" useGeneratedKeys="true" keyProperty="id">
+        insert into signup_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="identifier != null and identifier != ''">identifier,</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id,</if>
+                                                                <if test="code != null and code != ''">code,</if>
+                                                                <if test="password != null and password != ''">password,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="expireAt != null">expire_at,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="merchantId != null">merchant_id,</if>
+                                                                <if test="referralCode != null">referral_code,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="identifier != null and identifier != ''">#{identifier},</if>
+                                                                <if test="saasUserCorporationId != null">#{saasUserCorporationId},</if>
+                                                                <if test="code != null and code != ''">#{code},</if>
+                                                                <if test="password != null and password != ''">#{password},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="expireAt != null">#{expireAt},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="merchantId != null">#{merchantId},</if>
+                                                                <if test="referralCode != null">#{referralCode},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateSignupCode" parameterType="com.games.payment.domain.SignupCode">
+        update signup_code
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="identifier != null and identifier != ''">identifier = #{identifier},</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id = #{saasUserCorporationId},</if>
+                                                                <if test="code != null and code != ''">code = #{code},</if>
+                                                                <if test="password != null and password != ''">password = #{password},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="expireAt != null">expire_at = #{expireAt},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="merchantId != null">merchant_id = #{merchantId},</if>
+                                                                <if test="referralCode != null">referral_code = #{referralCode},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSignupCodeById" parameterType="Long">
+        delete from signup_code where id = #{id}
+    </delete>
+
+    <delete id="deleteSignupCodeByIds" parameterType="String">
+        delete from signup_code where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

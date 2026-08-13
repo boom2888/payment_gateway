@@ -1,0 +1,22 @@
+export default {
+  ipaddr: 'IP Address',
+  userName: 'Username',
+  search: 'Search',
+  reset: 'Reset',
+  index: 'No.',
+  tokenId: 'Session ID',
+  deptName: 'Department',
+  loginLocation: 'Location',
+  browser: 'Browser',
+  os: 'OS',
+  loginTime: 'Login Time',
+  action: 'Action',
+  forceLogout: 'Force Logout',
+  confirmTitle: 'Warning',
+  confirmContent: 'Are you sure to force logout the item with name "{userName}"?',
+  confirmButton: 'OK',
+  cancelButton: 'Cancel',
+  successMsg: 'Force logout succeeded',
+  placeholderIp: 'Please enter IP address',
+  placeholderUser: 'Please enter username'
+}

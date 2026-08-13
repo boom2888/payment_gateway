@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.RoleMapper">
+
+    <resultMap type="com.games.payment.domain.Role" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="name"    column="name"    />
+                    <result property="description"    column="description"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.name, mt.description, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Role" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from role mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="name != null  and name != ''"> and mt.name like concat('%', #{name}, '%')</if>
+                                                                            <if test="description != null  and description != ''"> and mt.description = #{description}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertRole" parameterType="com.games.payment.domain.Role" useGeneratedKeys="true" keyProperty="id">
+        insert into role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="name != null">name,</if>
+                                                                <if test="description != null">description,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="name != null">#{name},</if>
+                                                                <if test="description != null">#{description},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateRole" parameterType="com.games.payment.domain.Role">
+        update role
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="name != null">name = #{name},</if>
+                                                                <if test="description != null">description = #{description},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRoleById" parameterType="Long">
+        delete from role where id = #{id}
+    </delete>
+
+    <delete id="deleteRoleByIds" parameterType="String">
+        delete from role where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

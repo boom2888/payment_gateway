@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.MovementImportMapper">
+
+    <resultMap type="com.games.payment.domain.MovementImport" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="originName" column="origin_name"/>
+        <result property="newName" column="new_name"/>
+        <result property="fileUrl" column="file_url"/>
+        <result property="importTotalNum" column="import_total_num"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="excelExportUrl" column="excel_export_url"/>
+        <result property="deleted" column="deleted"/>
+        <result property="deletedBy" column="deleted_by"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <result property="remark" column="remark"/>
+        <result property="dataCount" column="data_count"/>
+        <result property="b2c2FxRate" column="b2c2_fx_rate"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        mt.id, mt.origin_name,mt.new_name, mt.file_url, mt.import_total_num, mt.status, mt.created_at,mt.excel_export_url,
+        mt.deleted,mt.deleted_by,mt.deleted_at,mt.remark,mt.b2c2_fx_rate
+    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.MovementImport" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,(SELECT COUNT(1) FROM movement_data d WHERE mt.id = d.movement_import_id) as data_count
+        from movement_import mt
+        <where>
+            <if test="id != null  and id != ''">and mt.id = #{id}</if>
+            <if test="originName != null  and originName != ''">and mt.origin_name like concat('%', #{originName},
+                '%')
+            </if>
+            <if test="newName != null  and newName != ''">and mt.new_name like concat('%', #{newName},
+                '%')
+            </if>
+            <if test="fileUrl != null  and fileUrl != ''">and mt.file_url = #{fileUrl}</if>
+            <if test="importTotalNum != null ">and mt.import_total_num = #{importTotalNum}</if>
+            <if test="status != null ">and mt.status = #{status}</if>
+            <if test="createdAt != null ">and mt.created_at &gt;= #{createdAt} and mt.created_at &lt; DATE_ADD(#{createdAt}, INTERVAL 1 DAY)</if>
+            and mt.deleted = 0
+        </where>
+         order by mt.id desc
+    </select>
+
+    <insert id="insertMovementImport" parameterType="com.games.payment.domain.MovementImport" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into movement_import
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="originName != null">origin_name,</if>
+            <if test="newName != null">new_name,</if>
+            <if test="fileUrl != null">file_url,</if>
+            <if test="importTotalNum != null">import_total_num,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="originName != null">#{originName},</if>
+            <if test="newName != null">#{newName},</if>
+            <if test="fileUrl != null">#{fileUrl},</if>
+            <if test="importTotalNum != null">#{importTotalNum},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMovementImport" parameterType="com.games.payment.domain.MovementImport">
+        update movement_import
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="originName != null">origin_name = #{originName},</if>
+            <if test="newName != null">new_name = #{newName},</if>
+            <if test="fileUrl != null">file_url = #{fileUrl},</if>
+            <if test="importTotalNum != null">import_total_num = #{importTotalNum},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+    <update id="invalid">
+        update movement_import
+        set status = 3
+        where id = #{movementImportId} and status = 1
+    </update>
+
+    <select id="selectByOriginNameIncludeDeleted" resultMap="BaseResultMap">
+        select id, origin_name, new_name, file_url, import_total_num, status, b2c2_fx_rate, 
+               created_at, excel_export_url, deleted_at, deleted_by, deleted, remark
+        from movement_import
+        where origin_name = #{originName}
+        limit 1
+    </select>
+
+    <update id="updateByIdIgnoreDeleted">
+        update movement_import
+        <set>
+            <if test="originName != null">origin_name = #{originName},</if>
+            <if test="newName != null">new_name = #{newName},</if>
+            <if test="fileUrl != null">file_url = #{fileUrl},</if>
+            <if test="importTotalNum != null">import_total_num = #{importTotalNum},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+            <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+            <if test="b2c2FxRate != null">b2c2_fx_rate = #{b2c2FxRate},</if>
+            <if test="excelExportUrl != null">excel_export_url = #{excelExportUrl},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMovementImportById" parameterType="String">
+        delete
+        from movement_import
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteMovementImportByIds" parameterType="String">
+        delete from movement_import where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

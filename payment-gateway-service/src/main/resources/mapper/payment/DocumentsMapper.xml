@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.DocumentsMapper">
+
+    <resultMap type="com.games.payment.domain.Documents" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="businessCustomerCorporationId"    column="business_customer_corporation_id"    />
+                    <result property="customerId"    column="customer_id"    />
+                    <result property="documentUrl"    column="document_url"    />
+                    <result property="documentTypeCode"    column="document_type_code"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="otherDocumentDesc"    column="other_document_desc"    />
+                    <result property="businessMemberId"    column="business_member_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.business_customer_corporation_id, mt.customer_id, mt.document_url, mt.document_type_code, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.remark, mt.deleted, mt.other_document_desc, mt.business_member_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Documents" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from documents mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="businessCustomerCorporationId != null "> and mt.business_customer_corporation_id = #{businessCustomerCorporationId}</if>
+                                                                            <if test="customerId != null "> and mt.customer_id = #{customerId}</if>
+                                                                            <if test="documentUrl != null  and documentUrl != ''"> and mt.document_url = #{documentUrl}</if>
+                                                                            <if test="documentTypeCode != null  and documentTypeCode != ''"> and mt.document_type_code = #{documentTypeCode}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="otherDocumentDesc != null  and otherDocumentDesc != ''"> and mt.other_document_desc = #{otherDocumentDesc}</if>
+                                                                            <if test="businessMemberId != null "> and mt.business_member_id = #{businessMemberId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertDocuments" parameterType="com.games.payment.domain.Documents" useGeneratedKeys="true" keyProperty="id">
+        insert into documents
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="businessCustomerCorporationId != null">business_customer_corporation_id,</if>
+                                                                <if test="customerId != null">customer_id,</if>
+                                                                <if test="documentUrl != null">document_url,</if>
+                                                                <if test="documentTypeCode != null">document_type_code,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="otherDocumentDesc != null">other_document_desc,</if>
+                                                                <if test="businessMemberId != null">business_member_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="businessCustomerCorporationId != null">#{businessCustomerCorporationId},</if>
+                                                                <if test="customerId != null">#{customerId},</if>
+                                                                <if test="documentUrl != null">#{documentUrl},</if>
+                                                                <if test="documentTypeCode != null">#{documentTypeCode},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="otherDocumentDesc != null">#{otherDocumentDesc},</if>
+                                                                <if test="businessMemberId != null">#{businessMemberId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateDocuments" parameterType="com.games.payment.domain.Documents">
+        update documents
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="businessCustomerCorporationId != null">business_customer_corporation_id = #{businessCustomerCorporationId},</if>
+                                                                <if test="customerId != null">customer_id = #{customerId},</if>
+                                                                <if test="documentUrl != null">document_url = #{documentUrl},</if>
+                                                                <if test="documentTypeCode != null">document_type_code = #{documentTypeCode},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="otherDocumentDesc != null">other_document_desc = #{otherDocumentDesc},</if>
+                                                                <if test="businessMemberId != null">business_member_id = #{businessMemberId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDocumentsById" parameterType="Long">
+        delete from documents where id = #{id}
+    </delete>
+
+    <delete id="deleteDocumentsByIds" parameterType="String">
+        delete from documents where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

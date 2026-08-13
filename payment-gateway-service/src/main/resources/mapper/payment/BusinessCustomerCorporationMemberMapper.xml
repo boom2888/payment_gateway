@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.BusinessCustomerCorporationMemberMapper">
+
+    <resultMap type="com.games.payment.domain.BusinessCustomerCorporationMember" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="businessCustomerCorporationId"    column="business_customer_corporation_id"    />
+                    <result property="firstName"    column="first_name"    />
+                    <result property="middleName"    column="middle_name"    />
+                    <result property="lastName"    column="last_name"    />
+                    <result property="birthday"    column="birthday"    />
+                    <result property="nationality"    column="nationality"    />
+                    <result property="documentType"    column="document_type"    />
+                    <result property="documentNo"    column="document_no"    />
+                    <result property="documentFrontUrl"    column="document_front_url"    />
+                    <result property="documentBackUrl"    column="document_back_url"    />
+                    <result property="documentHandyUrl"    column="document_handy_url"    />
+                    <result property="memberType"    column="member_type"    />
+                    <result property="email"    column="email"    />
+                    <result property="countryCode"    column="country_code"    />
+                    <result property="phoneNumber"    column="phone_number"    />
+                    <result property="address"    column="address"    />
+                    <result property="city"    column="city"    />
+                    <result property="postCode"    column="post_code"    />
+                    <result property="country"    column="country"    />
+                    <result property="kycVeriffUuid"    column="kyc_veriff_uuid"    />
+                    <result property="kycStatus"    column="kyc_status"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="businessName"    column="business_name"    />
+                    <result property="businessRegistrationNo"    column="business_registration_no"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.business_customer_corporation_id, mt.first_name, mt.middle_name, mt.last_name, mt.birthday, mt.nationality, mt.document_type, mt.document_no, mt.document_front_url, mt.document_back_url, mt.document_handy_url, mt.member_type, mt.email, mt.country_code, mt.phone_number, mt.address, mt.city, mt.post_code, mt.country, mt.kyc_veriff_uuid, mt.kyc_status, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.remark, mt.deleted, mt.business_name, mt.business_registration_no    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.BusinessCustomerCorporationMember" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from business_customer_corporation_member mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="businessCustomerCorporationId != null "> and mt.business_customer_corporation_id = #{businessCustomerCorporationId}</if>
+                                                                            <if test="firstName != null  and firstName != ''"> and mt.first_name like concat('%', #{firstName}, '%')</if>
+                                                                            <if test="middleName != null  and middleName != ''"> and mt.middle_name like concat('%', #{middleName}, '%')</if>
+                                                                            <if test="lastName != null  and lastName != ''"> and mt.last_name like concat('%', #{lastName}, '%')</if>
+                                                                            <if test="birthday != null "> and mt.birthday = #{birthday}</if>
+                                                                            <if test="nationality != null  and nationality != ''"> and mt.nationality = #{nationality}</if>
+                                                                            <if test="documentType != null "> and mt.document_type = #{documentType}</if>
+                                                                            <if test="documentNo != null  and documentNo != ''"> and mt.document_no = #{documentNo}</if>
+                                                                            <if test="documentFrontUrl != null  and documentFrontUrl != ''"> and mt.document_front_url = #{documentFrontUrl}</if>
+                                                                            <if test="documentBackUrl != null  and documentBackUrl != ''"> and mt.document_back_url = #{documentBackUrl}</if>
+                                                                            <if test="documentHandyUrl != null  and documentHandyUrl != ''"> and mt.document_handy_url = #{documentHandyUrl}</if>
+                                                                            <if test="memberType != null "> and mt.member_type = #{memberType}</if>
+                                                                            <if test="email != null  and email != ''"> and mt.email = #{email}</if>
+                                                                            <if test="countryCode != null  and countryCode != ''"> and mt.country_code = #{countryCode}</if>
+                                                                            <if test="phoneNumber != null  and phoneNumber != ''"> and mt.phone_number = #{phoneNumber}</if>
+                                                                            <if test="address != null  and address != ''"> and mt.address = #{address}</if>
+                                                                            <if test="city != null  and city != ''"> and mt.city = #{city}</if>
+                                                                            <if test="postCode != null  and postCode != ''"> and mt.post_code = #{postCode}</if>
+                                                                            <if test="country != null  and country != ''"> and mt.country = #{country}</if>
+                                                                            <if test="kycVeriffUuid != null  and kycVeriffUuid != ''"> and mt.kyc_veriff_uuid = #{kycVeriffUuid}</if>
+                                                                            <if test="kycStatus != null "> and mt.kyc_status = #{kycStatus}</if>
+                                                                            <if test="createdAt != null ">
+                                                                                and mt.created_at &gt;= #{createdAt}
+                                                                                and mt.created_at &lt; DATE_ADD(#{createdAt}, INTERVAL 1 DAY)
+                                                                            </if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="businessName != null  and businessName != ''"> and mt.business_name like concat('%', #{businessName}, '%')</if>
+                                                                            <if test="businessRegistrationNo != null  and businessRegistrationNo != ''"> and mt.business_registration_no = #{businessRegistrationNo}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertBusinessCustomerCorporationMember" parameterType="com.games.payment.domain.BusinessCustomerCorporationMember" useGeneratedKeys="true" keyProperty="id">
+        insert into business_customer_corporation_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="businessCustomerCorporationId != null">business_customer_corporation_id,</if>
+                                                                <if test="firstName != null">first_name,</if>
+                                                                <if test="middleName != null">middle_name,</if>
+                                                                <if test="lastName != null">last_name,</if>
+                                                                <if test="birthday != null">birthday,</if>
+                                                                <if test="nationality != null">nationality,</if>
+                                                                <if test="documentType != null">document_type,</if>
+                                                                <if test="documentNo != null">document_no,</if>
+                                                                <if test="documentFrontUrl != null">document_front_url,</if>
+                                                                <if test="documentBackUrl != null">document_back_url,</if>
+                                                                <if test="documentHandyUrl != null">document_handy_url,</if>
+                                                                <if test="memberType != null">member_type,</if>
+                                                                <if test="email != null and email != ''">email,</if>
+                                                                <if test="countryCode != null and countryCode != ''">country_code,</if>
+                                                                <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
+                                                                <if test="address != null and address != ''">address,</if>
+                                                                <if test="city != null and city != ''">city,</if>
+                                                                <if test="postCode != null and postCode != ''">post_code,</if>
+                                                                <if test="country != null and country != ''">country,</if>
+                                                                <if test="kycVeriffUuid != null">kyc_veriff_uuid,</if>
+                                                                <if test="kycStatus != null">kyc_status,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="businessName != null">business_name,</if>
+                                                                <if test="businessRegistrationNo != null">business_registration_no,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="businessCustomerCorporationId != null">#{businessCustomerCorporationId},</if>
+                                                                <if test="firstName != null">#{firstName},</if>
+                                                                <if test="middleName != null">#{middleName},</if>
+                                                                <if test="lastName != null">#{lastName},</if>
+                                                                <if test="birthday != null">#{birthday},</if>
+                                                                <if test="nationality != null">#{nationality},</if>
+                                                                <if test="documentType != null">#{documentType},</if>
+                                                                <if test="documentNo != null">#{documentNo},</if>
+                                                                <if test="documentFrontUrl != null">#{documentFrontUrl},</if>
+                                                                <if test="documentBackUrl != null">#{documentBackUrl},</if>
+                                                                <if test="documentHandyUrl != null">#{documentHandyUrl},</if>
+                                                                <if test="memberType != null">#{memberType},</if>
+                                                                <if test="email != null and email != ''">#{email},</if>
+                                                                <if test="countryCode != null and countryCode != ''">#{countryCode},</if>
+                                                                <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
+                                                                <if test="address != null and address != ''">#{address},</if>
+                                                                <if test="city != null and city != ''">#{city},</if>
+                                                                <if test="postCode != null and postCode != ''">#{postCode},</if>
+                                                                <if test="country != null and country != ''">#{country},</if>
+                                                                <if test="kycVeriffUuid != null">#{kycVeriffUuid},</if>
+                                                                <if test="kycStatus != null">#{kycStatus},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="businessName != null">#{businessName},</if>
+                                                                <if test="businessRegistrationNo != null">#{businessRegistrationNo},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateBusinessCustomerCorporationMember" parameterType="com.games.payment.domain.BusinessCustomerCorporationMember">
+        update business_customer_corporation_member
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="businessCustomerCorporationId != null">business_customer_corporation_id = #{businessCustomerCorporationId},</if>
+                                                                <if test="firstName != null">first_name = #{firstName},</if>
+                                                                <if test="middleName != null">middle_name = #{middleName},</if>
+                                                                <if test="lastName != null">last_name = #{lastName},</if>
+                                                                <if test="birthday != null">birthday = #{birthday},</if>
+                                                                <if test="nationality != null">nationality = #{nationality},</if>
+                                                                <if test="documentType != null">document_type = #{documentType},</if>
+                                                                <if test="documentNo != null">document_no = #{documentNo},</if>
+                                                                <if test="documentFrontUrl != null">document_front_url = #{documentFrontUrl},</if>
+                                                                <if test="documentBackUrl != null">document_back_url = #{documentBackUrl},</if>
+                                                                <if test="documentHandyUrl != null">document_handy_url = #{documentHandyUrl},</if>
+                                                                <if test="memberType != null">member_type = #{memberType},</if>
+                                                                <if test="email != null and email != ''">email = #{email},</if>
+                                                                <if test="countryCode != null and countryCode != ''">country_code = #{countryCode},</if>
+                                                                <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber},</if>
+                                                                <if test="address != null and address != ''">address = #{address},</if>
+                                                                <if test="city != null and city != ''">city = #{city},</if>
+                                                                <if test="postCode != null and postCode != ''">post_code = #{postCode},</if>
+                                                                <if test="country != null and country != ''">country = #{country},</if>
+                                                                <if test="kycVeriffUuid != null">kyc_veriff_uuid = #{kycVeriffUuid},</if>
+                                                                <if test="kycStatus != null">kyc_status = #{kycStatus},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="businessName != null">business_name = #{businessName},</if>
+                                                                <if test="businessRegistrationNo != null">business_registration_no = #{businessRegistrationNo},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusinessCustomerCorporationMemberById" parameterType="Long">
+        delete from business_customer_corporation_member where id = #{id}
+    </delete>
+
+    <delete id="deleteBusinessCustomerCorporationMemberByIds" parameterType="String">
+        delete from business_customer_corporation_member where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

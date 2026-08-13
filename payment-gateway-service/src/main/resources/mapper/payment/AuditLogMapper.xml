@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.AuditLogMapper">
+
+    <resultMap type="com.games.payment.domain.AuditLog" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="auditEntityType"    column="audit_entity_type"    />
+                    <result property="entityId"    column="entity_id"    />
+                    <result property="saasUserCorporationId"    column="saas_user_corporation_id"    />
+                    <result property="requesterId"    column="requester_id"    />
+                    <result property="content"    column="content"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="action"    column="action"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.audit_entity_type, mt.entity_id, mt.saas_user_corporation_id, mt.requester_id, mt.content, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.action    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.AuditLog" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from audit_log mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="auditEntityType != null "> and mt.audit_entity_type = #{auditEntityType}</if>
+                                                                            <if test="entityId != null "> and mt.entity_id = #{entityId}</if>
+                                                                            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+                                                                            <if test="requesterId != null "> and mt.requester_id = #{requesterId}</if>
+                                                                            <if test="content != null  and content != ''"> and mt.content = #{content}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="action != null "> and mt.action = #{action}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertAuditLog" parameterType="com.games.payment.domain.AuditLog" useGeneratedKeys="true" keyProperty="id">
+        insert into audit_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="auditEntityType != null">audit_entity_type,</if>
+                                                                <if test="entityId != null">entity_id,</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id,</if>
+                                                                <if test="requesterId != null">requester_id,</if>
+                                                                <if test="content != null">content,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="action != null">action,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="auditEntityType != null">#{auditEntityType},</if>
+                                                                <if test="entityId != null">#{entityId},</if>
+                                                                <if test="saasUserCorporationId != null">#{saasUserCorporationId},</if>
+                                                                <if test="requesterId != null">#{requesterId},</if>
+                                                                <if test="content != null">#{content},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="action != null">#{action},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateAuditLog" parameterType="com.games.payment.domain.AuditLog">
+        update audit_log
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="auditEntityType != null">audit_entity_type = #{auditEntityType},</if>
+                                                                <if test="entityId != null">entity_id = #{entityId},</if>
+                                                                <if test="saasUserCorporationId != null">saas_user_corporation_id = #{saasUserCorporationId},</if>
+                                                                <if test="requesterId != null">requester_id = #{requesterId},</if>
+                                                                <if test="content != null">content = #{content},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="action != null">action = #{action},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAuditLogById" parameterType="Long">
+        delete from audit_log where id = #{id}
+    </delete>
+
+    <delete id="deleteAuditLogByIds" parameterType="String">
+        delete from audit_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

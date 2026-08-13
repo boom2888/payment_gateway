@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ConfigContinentMapper">
+
+    <resultMap type="com.games.payment.domain.ConfigContinent" id="BaseResultMap">
+                    <result property="code"    column="code"    />
+                    <result property="name"    column="name"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.code, mt.name    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ConfigContinent" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from config_continent mt
+        <where>
+
+                                                        <if test="code != null  and code != ''"> and mt.code = #{code}</if>
+                                                                            <if test="name != null  and name != ''"> and mt.name like concat('%', #{name}, '%')</if>
+                                        </where>
+    </select>
+
+    <insert id="insertConfigContinent" parameterType="com.games.payment.domain.ConfigContinent">
+        insert into config_continent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="code != null">code,</if>
+                                                                <if test="name != null">name,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="code != null">#{code},</if>
+                                                                <if test="name != null">#{name},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateConfigContinent" parameterType="com.games.payment.domain.ConfigContinent">
+        update config_continent
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="name != null">name = #{name},</if>
+                                    </trim>
+        where code = #{code}
+    </update>
+
+    <delete id="deleteConfigContinentByCode" parameterType="String">
+        delete from config_continent where code = #{code}
+    </delete>
+
+    <delete id="deleteConfigContinentByCodes" parameterType="String">
+        delete from config_continent where code in
+        <foreach item="code" collection="array" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+    </mapper>

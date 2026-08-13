@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CryptoTransactionMapper">
+
+    <resultMap type="com.games.payment.domain.CryptoTransaction" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="orderId"    column="order_id"    />
+                    <result property="transactionId"    column="transaction_id"    />
+                    <result property="transactionHash"    column="transaction_hash"    />
+                    <result property="cryptoAmount"    column="crypto_amount"    />
+                    <result property="networkFee"    column="network_fee"    />
+                    <result property="fromWallet"    column="from_wallet"    />
+                    <result property="toWallet"    column="to_wallet"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.order_id, mt.transaction_id, mt.transaction_hash, mt.crypto_amount, mt.network_fee, mt.from_wallet, mt.to_wallet, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.CryptoTransaction" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from crypto_transaction mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="orderId != null "> and mt.order_id = #{orderId}</if>
+                                                                            <if test="transactionId != null  and transactionId != ''"> and mt.transaction_id = #{transactionId}</if>
+                                                                            <if test="transactionHash != null  and transactionHash != ''"> and mt.transaction_hash = #{transactionHash}</if>
+                                                                            <if test="cryptoAmount != null "> and mt.crypto_amount = #{cryptoAmount}</if>
+                                                                            <if test="networkFee != null "> and mt.network_fee = #{networkFee}</if>
+                                                                            <if test="fromWallet != null  and fromWallet != ''"> and mt.from_wallet = #{fromWallet}</if>
+                                                                            <if test="toWallet != null  and toWallet != ''"> and mt.to_wallet = #{toWallet}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertCryptoTransaction" parameterType="com.games.payment.domain.CryptoTransaction" useGeneratedKeys="true" keyProperty="id">
+        insert into crypto_transaction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="orderId != null">order_id,</if>
+                                                                <if test="transactionId != null">transaction_id,</if>
+                                                                <if test="transactionHash != null">transaction_hash,</if>
+                                                                <if test="cryptoAmount != null">crypto_amount,</if>
+                                                                <if test="networkFee != null">network_fee,</if>
+                                                                <if test="fromWallet != null">from_wallet,</if>
+                                                                <if test="toWallet != null">to_wallet,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="orderId != null">#{orderId},</if>
+                                                                <if test="transactionId != null">#{transactionId},</if>
+                                                                <if test="transactionHash != null">#{transactionHash},</if>
+                                                                <if test="cryptoAmount != null">#{cryptoAmount},</if>
+                                                                <if test="networkFee != null">#{networkFee},</if>
+                                                                <if test="fromWallet != null">#{fromWallet},</if>
+                                                                <if test="toWallet != null">#{toWallet},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateCryptoTransaction" parameterType="com.games.payment.domain.CryptoTransaction">
+        update crypto_transaction
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="orderId != null">order_id = #{orderId},</if>
+                                                                <if test="transactionId != null">transaction_id = #{transactionId},</if>
+                                                                <if test="transactionHash != null">transaction_hash = #{transactionHash},</if>
+                                                                <if test="cryptoAmount != null">crypto_amount = #{cryptoAmount},</if>
+                                                                <if test="networkFee != null">network_fee = #{networkFee},</if>
+                                                                <if test="fromWallet != null">from_wallet = #{fromWallet},</if>
+                                                                <if test="toWallet != null">to_wallet = #{toWallet},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCryptoTransactionById" parameterType="Long">
+        delete from crypto_transaction where id = #{id}
+    </delete>
+
+    <delete id="deleteCryptoTransactionByIds" parameterType="String">
+        delete from crypto_transaction where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

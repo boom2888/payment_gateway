@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiPaymentHistoryMapper">
+
+    <resultMap type="com.games.payment.domain.EmiPaymentHistory" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="payTime"    column="pay_time"    />
+                    <result property="withdrawalNumber"    column="withdrawal_number"    />
+                    <result property="beneficiaryBank"    column="beneficiary_bank"    />
+                    <result property="payee"    column="payee"    />
+                    <result property="paymentAccountNumber"    column="payment_account_number"    />
+                    <result property="paymentAmount"    column="payment_amount"    />
+                    <result property="amountReceived"    column="amount_received"    />
+                    <result property="status"    column="status"    />
+                    <result property="userId"    column="user_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.pay_time, mt.withdrawal_number, mt.beneficiary_bank, mt.payee, mt.payment_account_number, mt.payment_amount, mt.amount_received, mt.status, mt.user_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiPaymentHistory" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_payment_history mt
+        <where>
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="beginTime != null and endTime != null"> and mt.pay_time between #{beginTime} and #{endTime}</if>
+                                                                            <if test="beginTime != null and endTime == null"> and mt.pay_time &gt;= #{beginTime}</if>
+                                                                            <if test="beginTime == null and endTime != null"> and mt.pay_time &lt;= #{endTime}</if>
+                                                                            <if test="payTime != null "> and mt.pay_time = #{payTime}</if>
+                                                                            <if test="withdrawalNumber != null  and withdrawalNumber != ''"> and mt.withdrawal_number = #{withdrawalNumber}</if>
+                                                                            <if test="beneficiaryBank != null  and beneficiaryBank != ''"> and mt.beneficiary_bank = #{beneficiaryBank}</if>
+                                                                            <if test="payee != null  and payee != ''"> and mt.payee = #{payee}</if>
+                                                                            <if test="paymentAccountNumber != null  and paymentAccountNumber != ''"> and mt.payment_account_number = #{paymentAccountNumber}</if>
+                                                                            <if test="paymentAmount != null  and paymentAmount != ''"> and mt.payment_amount = #{paymentAmount}</if>
+                                                                            <if test="amountReceived != null  and amountReceived != ''"> and mt.amount_received = #{amountReceived}</if>
+                                                                            <if test="status != null  and status != ''"> and mt.status = #{status}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiPaymentHistory" parameterType="com.games.payment.domain.EmiPaymentHistory">
+        insert into emi_payment_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">id,</if>
+                                                                <if test="payTime != null">pay_time,</if>
+                                                                <if test="withdrawalNumber != null">withdrawal_number,</if>
+                                                                <if test="beneficiaryBank != null">beneficiary_bank,</if>
+                                                                <if test="payee != null">payee,</if>
+                                                                <if test="paymentAccountNumber != null">payment_account_number,</if>
+                                                                <if test="paymentAmount != null">payment_amount,</if>
+                                                                <if test="amountReceived != null">amount_received,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="userId != null">user_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">#{id},</if>
+                                                                <if test="payTime != null">#{payTime},</if>
+                                                                <if test="withdrawalNumber != null">#{withdrawalNumber},</if>
+                                                                <if test="beneficiaryBank != null">#{beneficiaryBank},</if>
+                                                                <if test="payee != null">#{payee},</if>
+                                                                <if test="paymentAccountNumber != null">#{paymentAccountNumber},</if>
+                                                                <if test="paymentAmount != null">#{paymentAmount},</if>
+                                                                <if test="amountReceived != null">#{amountReceived},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="userId != null">#{userId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiPaymentHistory" parameterType="com.games.payment.domain.EmiPaymentHistory">
+        update emi_payment_history
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="payTime != null">pay_time = #{payTime},</if>
+                                                                <if test="withdrawalNumber != null">withdrawal_number = #{withdrawalNumber},</if>
+                                                                <if test="beneficiaryBank != null">beneficiary_bank = #{beneficiaryBank},</if>
+                                                                <if test="payee != null">payee = #{payee},</if>
+                                                                <if test="paymentAccountNumber != null">payment_account_number = #{paymentAccountNumber},</if>
+                                                                <if test="paymentAmount != null">payment_amount = #{paymentAmount},</if>
+                                                                <if test="amountReceived != null">amount_received = #{amountReceived},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="userId != null">user_id = #{userId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiPaymentHistoryById" parameterType="Long">
+        delete from emi_payment_history where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiPaymentHistoryByIds" parameterType="String">
+        delete from emi_payment_history where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

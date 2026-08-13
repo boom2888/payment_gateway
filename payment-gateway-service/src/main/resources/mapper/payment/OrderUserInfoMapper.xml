@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.OrderUserInfoMapper">
+
+    <resultMap type="com.games.payment.domain.OrderUserInfo" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="orderId"    column="order_id"    />
+                    <result property="email"    column="email"    />
+                    <result property="country"    column="country"    />
+                    <result property="city"    column="city"    />
+                    <result property="addressLine1"    column="address_line1"    />
+                    <result property="zip"    column="zip"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.order_id, mt.email, mt.country, mt.city, mt.address_line1, mt.zip    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.OrderUserInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_user_info mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="orderId != null "> and mt.order_id = #{orderId}</if>
+                                                                            <if test="email != null  and email != ''"> and mt.email = #{email}</if>
+                                                                            <if test="country != null  and country != ''"> and mt.country = #{country}</if>
+                                                                            <if test="city != null  and city != ''"> and mt.city = #{city}</if>
+                                                                            <if test="addressLine1 != null  and addressLine1 != ''"> and mt.address_line1 = #{addressLine1}</if>
+                                                                            <if test="zip != null  and zip != ''"> and mt.zip = #{zip}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertOrderUserInfo" parameterType="com.games.payment.domain.OrderUserInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into order_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="orderId != null">order_id,</if>
+                                                                <if test="email != null">email,</if>
+                                                                <if test="country != null">country,</if>
+                                                                <if test="city != null">city,</if>
+                                                                <if test="addressLine1 != null">address_line1,</if>
+                                                                <if test="zip != null">zip,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="orderId != null">#{orderId},</if>
+                                                                <if test="email != null">#{email},</if>
+                                                                <if test="country != null">#{country},</if>
+                                                                <if test="city != null">#{city},</if>
+                                                                <if test="addressLine1 != null">#{addressLine1},</if>
+                                                                <if test="zip != null">#{zip},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateOrderUserInfo" parameterType="com.games.payment.domain.OrderUserInfo">
+        update order_user_info
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="orderId != null">order_id = #{orderId},</if>
+                                                                <if test="email != null">email = #{email},</if>
+                                                                <if test="country != null">country = #{country},</if>
+                                                                <if test="city != null">city = #{city},</if>
+                                                                <if test="addressLine1 != null">address_line1 = #{addressLine1},</if>
+                                                                <if test="zip != null">zip = #{zip},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderUserInfoById" parameterType="Long">
+        delete from order_user_info where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderUserInfoByIds" parameterType="String">
+        delete from order_user_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

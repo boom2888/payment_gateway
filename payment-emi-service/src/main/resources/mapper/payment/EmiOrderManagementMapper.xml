@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiOrderManagementMapper">
+
+    <resultMap type="com.games.payment.domain.EmiOrderManagement" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="orderTime"    column="order_time"    />
+                    <result property="orderNumber"    column="order_number"    />
+                    <result property="orderAmount"    column="order_amount"    />
+                    <result property="remainingBalance"    column="remaining_balance"    />
+                    <result property="nation"    column="nation"    />
+                    <result property="tradeMethod"    column="trade_method"    />
+                    <result property="buyerName"    column="buyer_name"    />
+                    <result property="status"    column="status"    />
+                    <result property="payerName"    column="payer_name"    />
+                    <result property="paymentAccountName"    column="payment_account_name"    />
+                    <result property="paymentAccount"    column="payment_account"    />
+                    <result property="paymentBank"    column="payment_bank"    />
+                    <result property="account"    column="account"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.order_time, mt.order_number, mt.order_amount, mt.remaining_balance, mt.nation, mt.trade_method, mt.buyer_name, mt.status, mt.payer_name, mt.payment_account_name, mt.payment_account, mt.payment_bank, mt.account    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiOrderManagement" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_order_management mt
+        <where>
+
+                                                <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="beginTime != null and endTime != null"> and mt.order_time between #{beginTime} and #{endTime}</if>
+                                                                            <if test="beginTime != null and endTime == null"> and mt.order_time &gt;= #{beginTime}</if>
+                                                                            <if test="beginTime == null and endTime != null"> and mt.order_time &lt;= #{endTime}</if>
+                                                                            <if test="orderTime != null "> and mt.order_time = #{orderTime}</if>
+                                                                            <if test="orderNumber != null  and orderNumber != ''"> and mt.order_number = #{orderNumber}</if>
+                                                                            <if test="orderAmount != null  and orderAmount != ''"> and mt.order_amount = #{orderAmount}</if>
+                                                                            <if test="remainingBalance != null  and remainingBalance != ''"> and mt.remaining_balance = #{remainingBalance}</if>
+                                                                            <if test="nation != null  and nation != ''"> and mt.nation = #{nation}</if>
+                                                                            <if test="tradeMethod != null  and tradeMethod != ''"> and mt.trade_method = #{tradeMethod}</if>
+                                                                            <if test="buyerName != null  and buyerName != ''"> and mt.buyer_name like concat('%', #{buyerName}, '%')</if>
+                                                                            <if test="status != null  and status != ''"> and mt.status = #{status}</if>
+                                                                        <if test="payerName != null  and payerName != ''"> and mt.payer_name = #{payerName}</if>
+                                                                        <if test="paymentAccountName != null  and paymentAccountName != ''"> and mt.payment_account_name = #{paymentAccountName}</if>
+                                                                        <if test="paymentAccount != null  and paymentAccount != ''"> and mt.payment_account = #{paymentAccount}</if>
+                                                                        <if test="paymentBank != null  and paymentBank != ''"> and mt.payment_bank = #{paymentBank}</if>
+                                                                        <if test="account != null  and account != ''"> and mt.account = #{account}</if>
+                                                                        <if test="userCardNumbers != null and userCardNumbers.size() > 0">
+                                                                            and mt.account in
+                                                                            <foreach item="cardNumber" collection="userCardNumbers" open="(" separator="," close=")">
+                                                                                #{cardNumber}
+                                                                            </foreach>
+                                                                        </if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiOrderManagement" parameterType="com.games.payment.domain.EmiOrderManagement">
+        insert into emi_order_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">id,</if>
+                                                                <if test="orderTime != null">order_time,</if>
+                                                                <if test="orderNumber != null">order_number,</if>
+                                                                <if test="orderAmount != null">order_amount,</if>
+                                                                <if test="remainingBalance != null">remaining_balance,</if>
+                                                                <if test="nation != null">nation,</if>
+                                                                <if test="tradeMethod != null">trade_method,</if>
+                                                                <if test="buyerName != null">buyer_name,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="payerName != null">payer_name,</if>
+                                                                <if test="paymentAccountName != null">payment_account_name,</if>
+                                                                <if test="paymentAccount != null">payment_account,</if>
+                                                                <if test="paymentBank != null">payment_bank,</if>
+                                                                <if test="account != null">account,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">#{id},</if>
+                                                                <if test="orderTime != null">#{orderTime},</if>
+                                                                <if test="orderNumber != null">#{orderNumber},</if>
+                                                                <if test="orderAmount != null">#{orderAmount},</if>
+                                                                <if test="remainingBalance != null">#{remainingBalance},</if>
+                                                                <if test="nation != null">#{nation},</if>
+                                                                <if test="tradeMethod != null">#{tradeMethod},</if>
+                                                                <if test="buyerName != null">#{buyerName},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="payerName != null">#{payerName},</if>
+                                                                <if test="paymentAccountName != null">#{paymentAccountName},</if>
+                                                                <if test="paymentAccount != null">#{paymentAccount},</if>
+                                                                <if test="paymentBank != null">#{paymentBank},</if>
+                                                                <if test="account != null">#{account},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiOrderManagement" parameterType="com.games.payment.domain.EmiOrderManagement">
+        update emi_order_management
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="orderTime != null">order_time = #{orderTime},</if>
+                                                                <if test="orderNumber != null">order_number = #{orderNumber},</if>
+                                                                <if test="orderAmount != null">order_amount = #{orderAmount},</if>
+                                                                <if test="remainingBalance != null">remaining_balance = #{remainingBalance},</if>
+                                                                <if test="nation != null">nation = #{nation},</if>
+                                                                <if test="tradeMethod != null">trade_method = #{tradeMethod},</if>
+                                                                <if test="buyerName != null">buyer_name = #{buyerName},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="payerName != null">payer_name = #{payerName},</if>
+                                                                <if test="paymentAccountName != null">payment_account_name = #{paymentAccountName},</if>
+                                                                <if test="paymentAccount != null">payment_account = #{paymentAccount},</if>
+                                                                <if test="paymentBank != null">payment_bank = #{paymentBank},</if>
+                                                                <if test="account != null">account = #{account},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiOrderManagementById" parameterType="Long">
+        delete from emi_order_management where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiOrderManagementByIds" parameterType="String">
+        delete from emi_order_management where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

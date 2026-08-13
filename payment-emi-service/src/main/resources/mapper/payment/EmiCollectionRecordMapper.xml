@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiCollectionRecordMapper">
+
+    <resultMap type="com.games.payment.domain.EmiCollectionRecord" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="collectionTime"    column="collection_time"    />
+                    <result property="receiptNumber"    column="receipt_number"    />
+                    <result property="applicationAmount"    column="application_amount"    />
+                    <result property="paymentAmount"    column="payment_amount"    />
+                    <result property="amountEntered"    column="amount_entered"    />
+                    <result property="paymentStatus"    column="payment_status"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.collection_time, mt.receipt_number, mt.application_amount, mt.payment_amount, mt.amount_entered, mt.payment_status    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiCollectionRecord" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_collection_record mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="collectionTime != null "> and mt.collection_time = #{collectionTime}</if>
+                                                                            <if test="receiptNumber != null  and receiptNumber != ''"> and mt.receipt_number = #{receiptNumber}</if>
+                                                                            <if test="applicationAmount != null  and applicationAmount != ''"> and mt.application_amount = #{applicationAmount}</if>
+                                                                            <if test="paymentAmount != null  and paymentAmount != ''"> and mt.payment_amount = #{paymentAmount}</if>
+                                                                            <if test="amountEntered != null  and amountEntered != ''"> and mt.amount_entered = #{amountEntered}</if>
+                                                                            <if test="paymentStatus != null  and paymentStatus != ''"> and mt.payment_status = #{paymentStatus}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiCollectionRecord" parameterType="com.games.payment.domain.EmiCollectionRecord">
+        insert into emi_collection_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">id,</if>
+                                                                <if test="collectionTime != null">collection_time,</if>
+                                                                <if test="receiptNumber != null">receipt_number,</if>
+                                                                <if test="applicationAmount != null">application_amount,</if>
+                                                                <if test="paymentAmount != null">payment_amount,</if>
+                                                                <if test="amountEntered != null">amount_entered,</if>
+                                                                <if test="paymentStatus != null">payment_status,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">#{id},</if>
+                                                                <if test="collectionTime != null">#{collectionTime},</if>
+                                                                <if test="receiptNumber != null">#{receiptNumber},</if>
+                                                                <if test="applicationAmount != null">#{applicationAmount},</if>
+                                                                <if test="paymentAmount != null">#{paymentAmount},</if>
+                                                                <if test="amountEntered != null">#{amountEntered},</if>
+                                                                <if test="paymentStatus != null">#{paymentStatus},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiCollectionRecord" parameterType="com.games.payment.domain.EmiCollectionRecord">
+        update emi_collection_record
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="collectionTime != null">collection_time = #{collectionTime},</if>
+                                                                <if test="receiptNumber != null">receipt_number = #{receiptNumber},</if>
+                                                                <if test="applicationAmount != null">application_amount = #{applicationAmount},</if>
+                                                                <if test="paymentAmount != null">payment_amount = #{paymentAmount},</if>
+                                                                <if test="amountEntered != null">amount_entered = #{amountEntered},</if>
+                                                                <if test="paymentStatus != null">payment_status = #{paymentStatus},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiCollectionRecordById" parameterType="Long">
+        delete from emi_collection_record where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiCollectionRecordByIds" parameterType="String">
+        delete from emi_collection_record where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CustomerTokenMappingMapper">
+
+    <resultMap type="com.games.payment.domain.CustomTokenMapping" id="BaseResultMap">
+        <result property="id"    column="id"/>
+        <result property="cardNumber"    column="card_number"/>
+        <result property="userTokenId"    column="user_token_id"/>
+        <result property="paymentOptionId"    column="payment_option_id"/>
+        <result property="count"    column="count"/>
+        <result property="lastUsedOrderId"    column="last_used_order_id"/>
+        <result property="createTime"    column="create_time"/>
+        <result property="lastUsedTime"    column="last_used_time"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ctm.id, ctm.card_number, ctm.user_token_id, ctm.payment_option_id, ctm.count, ctm.last_used_order_id,
+        ctm.create_time, ctm.last_used_time
+    </sql>
+
+    <select id="selectAllList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from customer_token_mapping ctm
+        <where>
+            <if test="cardNumber != null and cardNumber != ''">
+                and ctm.card_number = #{cardNumber}
+            </if>
+            <if test="userTokenId != null and userTokenId != ''">
+                and ctm.user_token_id = #{userTokenId}
+            </if>
+            <if test="paymentOptionId != null and paymentOptionId != ''">
+                and ctm.payment_option_id = #{paymentOptionId}
+            </if>
+        </where>
+    </select>
+
+    <update id="increaseCountAndReset">
+        UPDATE customer_token_mapping
+        SET count = CASE
+                WHEN COALESCE(count, 0) + 1 >= #{maxCount}
+                THEN 0
+                ELSE COALESCE(count, 0) + 1
+            END,
+            last_used_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+</mapper>

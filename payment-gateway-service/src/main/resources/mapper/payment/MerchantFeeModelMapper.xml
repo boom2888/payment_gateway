@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.MerchantFeeModelMapper">
+
+    <resultMap type="com.games.payment.domain.MerchantFeeModel" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="processFeeEuUsd" column="process_fee_eu_usd"/>
+        <result property="processFeeEuNonUsd" column="process_fee_eu_non_usd"/>
+        <result property="processFeeNonEuUsd" column="process_fee_non_eu_usd"/>
+        <result property="processFeeNonEuNonUsd" column="process_fee_non_eu_non_usd"/>
+        <result property="gatewayFeeThreshold" column="gateway_fee_threshold"/>
+        <result property="gatewayFeeBelowThreshold" column="gateway_fee_below_threshold"/>
+        <result property="gatewayFeeAboveThreshold" column="gateway_fee_above_threshold"/>
+        <result property="rollingReserveRate" column="rolling_reserve_rate"/>
+        <result property="rollingReserveReleaseDays" column="rolling_reserve_release_days"/>
+        <result property="exchangeRateBps" column="exchange_rate_bps"/>
+        <result property="refundFee" column="refund_fee"/>
+        <result property="rdrFee" column="rdr_fee"/>
+        <result property="cbFee" column="cb_fee"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateAt" column="update_at"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        mt.id, mt.name, mt.process_fee_eu_usd, mt.process_fee_eu_non_usd, mt.process_fee_non_eu_usd, mt.process_fee_non_eu_non_usd, mt.gateway_fee_threshold, mt.gateway_fee_below_threshold, mt.gateway_fee_above_threshold, mt.rolling_reserve_rate, mt.rolling_reserve_release_days, mt.exchange_rate_bps, mt.refund_fee, mt.rdr_fee, mt.cb_fee, mt.created_by, mt.created_at, mt.update_by, mt.update_at, mt.deleted_at, mt.deleted    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.MerchantFeeModel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,s.shopNum
+        from merchant_fee_model mt
+        LEFT JOIN (SELECT merchant_fee_model_id,count(1) as shopNum from shop WHERE deleted = 0 GROUP BY
+        merchant_fee_model_id) s
+        on mt.id = s.merchant_fee_model_id
+        <where>
+            <if test="id != null  and id != ''">and mt.id = #{id}</if>
+            <if test="name != null  and name != ''">and mt.name like concat('%', #{name}, '%')</if>
+            <if test="processFeeEuUsd != null ">and mt.process_fee_eu_usd = #{processFeeEuUsd}</if>
+            <if test="processFeeEuNonUsd != null ">and mt.process_fee_eu_non_usd = #{processFeeEuNonUsd}</if>
+            <if test="processFeeNonEuUsd != null ">and mt.process_fee_non_eu_usd = #{processFeeNonEuUsd}</if>
+            <if test="processFeeNonEuNonUsd != null ">and mt.process_fee_non_eu_non_usd = #{processFeeNonEuNonUsd}</if>
+            <if test="gatewayFeeThreshold != null ">and mt.gateway_fee_threshold = #{gatewayFeeThreshold}</if>
+            <if test="gatewayFeeBelowThreshold != null ">and mt.gateway_fee_below_threshold =
+                #{gatewayFeeBelowThreshold}
+            </if>
+            <if test="gatewayFeeAboveThreshold != null ">and mt.gateway_fee_above_threshold =
+                #{gatewayFeeAboveThreshold}
+            </if>
+            <if test="rollingReserveRate != null ">and mt.rolling_reserve_rate = #{rollingReserveRate}</if>
+            <if test="rollingReserveReleaseDays != null ">and mt.rolling_reserve_release_days =
+                #{rollingReserveReleaseDays}
+            </if>
+            <if test="exchangeRateBps != null ">and mt.exchange_rate_bps = #{exchangeRateBps}</if>
+            <if test="refundFee != null ">and mt.refund_fee = #{refundFee}</if>
+            <if test="rdrFee != null ">and mt.rdr_fee = #{rdrFee}</if>
+            <if test="cbFee != null ">and mt.cb_fee = #{cbFee}</if>
+            <if test="createdBy != null ">and mt.created_by = #{createdBy}</if>
+            <if test="createdAt != null ">and mt.created_at = #{createdAt}</if>
+            <if test="updateBy != null ">and mt.update_by = #{updateBy}</if>
+            <if test="updateAt != null ">and mt.update_at = #{updateAt}</if>
+            <if test="deletedAt != null ">and mt.deleted_at = #{deletedAt}</if>
+            <if test="deleted != null ">and mt.deleted = #{deleted}</if>
+            and mt.deleted = 0
+        </where>
+        order by mt.id desc
+    </select>
+
+    <insert id="insertMerchantFeeModel" parameterType="com.games.payment.domain.MerchantFeeModel"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into merchant_fee_model
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="processFeeEuUsd != null">process_fee_eu_usd,</if>
+            <if test="processFeeEuNonUsd != null">process_fee_eu_non_usd,</if>
+            <if test="processFeeNonEuUsd != null">process_fee_non_eu_usd,</if>
+            <if test="processFeeNonEuNonUsd != null">process_fee_non_eu_non_usd,</if>
+            <if test="gatewayFeeThreshold != null">gateway_fee_threshold,</if>
+            <if test="gatewayFeeBelowThreshold != null">gateway_fee_below_threshold,</if>
+            <if test="gatewayFeeAboveThreshold != null">gateway_fee_above_threshold,</if>
+            <if test="rollingReserveRate != null">rolling_reserve_rate,</if>
+            <if test="rollingReserveReleaseDays != null">rolling_reserve_release_days,</if>
+            <if test="exchangeRateBps != null">exchange_rate_bps,</if>
+            <if test="refundFee != null">refund_fee,</if>
+            <if test="rdrFee != null">rdr_fee,</if>
+            <if test="cbFee != null">cb_fee,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateAt != null">update_at,</if>
+            <if test="deletedAt != null">deleted_at,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="processFeeEuUsd != null">#{processFeeEuUsd},</if>
+            <if test="processFeeEuNonUsd != null">#{processFeeEuNonUsd},</if>
+            <if test="processFeeNonEuUsd != null">#{processFeeNonEuUsd},</if>
+            <if test="processFeeNonEuNonUsd != null">#{processFeeNonEuNonUsd},</if>
+            <if test="gatewayFeeThreshold != null">#{gatewayFeeThreshold},</if>
+            <if test="gatewayFeeBelowThreshold != null">#{gatewayFeeBelowThreshold},</if>
+            <if test="gatewayFeeAboveThreshold != null">#{gatewayFeeAboveThreshold},</if>
+            <if test="rollingReserveRate != null">#{rollingReserveRate},</if>
+            <if test="rollingReserveReleaseDays != null">#{rollingReserveReleaseDays},</if>
+            <if test="exchangeRateBps != null">#{exchangeRateBps},</if>
+            <if test="refundFee != null">#{refundFee},</if>
+            <if test="rdrFee != null">#{rdrFee},</if>
+            <if test="cbFee != null">#{cbFee},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateAt != null">#{updateAt},</if>
+            <if test="deletedAt != null">#{deletedAt},</if>
+            <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMerchantFeeModel" parameterType="com.games.payment.domain.MerchantFeeModel">
+        update merchant_fee_model
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="processFeeEuUsd != null">process_fee_eu_usd = #{processFeeEuUsd},</if>
+            <if test="processFeeEuNonUsd != null">process_fee_eu_non_usd = #{processFeeEuNonUsd},</if>
+            <if test="processFeeNonEuUsd != null">process_fee_non_eu_usd = #{processFeeNonEuUsd},</if>
+            <if test="processFeeNonEuNonUsd != null">process_fee_non_eu_non_usd = #{processFeeNonEuNonUsd},</if>
+            <if test="gatewayFeeThreshold != null">gateway_fee_threshold = #{gatewayFeeThreshold},</if>
+            <if test="gatewayFeeBelowThreshold != null">gateway_fee_below_threshold = #{gatewayFeeBelowThreshold},</if>
+            <if test="gatewayFeeAboveThreshold != null">gateway_fee_above_threshold = #{gatewayFeeAboveThreshold},</if>
+            <if test="rollingReserveRate != null">rolling_reserve_rate = #{rollingReserveRate},</if>
+            <if test="rollingReserveReleaseDays != null">rolling_reserve_release_days = #{rollingReserveReleaseDays},
+            </if>
+            <if test="exchangeRateBps != null">exchange_rate_bps = #{exchangeRateBps},</if>
+            <if test="refundFee != null">refund_fee = #{refundFee},</if>
+            <if test="rdrFee != null">rdr_fee = #{rdrFee},</if>
+            <if test="cbFee != null">cb_fee = #{cbFee},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateAt != null">update_at = #{updateAt},</if>
+            <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMerchantFeeModelById" parameterType="String">
+        delete
+        from merchant_fee_model
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteMerchantFeeModelByIds" parameterType="String">
+        delete from merchant_fee_model where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CompanyAccountMapper">
+
+    <resultMap type="com.games.payment.domain.CompanyAccount" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="accountId"    column="account_id"    />
+                    <result property="currency"    column="currency"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.account_id, mt.currency, mt.created_at, mt.updated_at    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.CompanyAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from company_account mt
+        <where>
+
+                                                        <if test="id != null  and id != ''"> and mt.id = #{id}</if>
+                                                                            <if test="accountId != null  and accountId != ''"> and mt.account_id = #{accountId}</if>
+                                                                            <if test="currency != null  and currency != ''"> and mt.currency = #{currency}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertCompanyAccount" parameterType="com.games.payment.domain.CompanyAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into company_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="accountId != null and accountId != ''">account_id,</if>
+                                                                <if test="currency != null and currency != ''">currency,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="accountId != null and accountId != ''">#{accountId},</if>
+                                                                <if test="currency != null and currency != ''">#{currency},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateCompanyAccount" parameterType="com.games.payment.domain.CompanyAccount">
+        update company_account
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="accountId != null and accountId != ''">account_id = #{accountId},</if>
+                                                                <if test="currency != null and currency != ''">currency = #{currency},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCompanyAccountById" parameterType="String">
+        delete from company_account where id = #{id}
+    </delete>
+
+    <delete id="deleteCompanyAccountByIds" parameterType="String">
+        delete from company_account where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

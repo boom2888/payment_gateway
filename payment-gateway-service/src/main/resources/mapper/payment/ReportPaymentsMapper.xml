@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ReportPaymentsMapper">
+
+    <resultMap type="com.games.payment.domain.ReportPayments" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="uploadId"    column="upload_id"    />
+                    <result property="bin"    column="bin"    />
+                    <result property="reference"    column="reference"    />
+                    <result property="methodName"    column="method_name"    />
+                    <result property="status"    column="status"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+                    <result property="issuerCountry"    column="issuer_country"    />
+                    <result property="failReason"    column="fail_reason"    />
+                    <result property="actionType"    column="action_type"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.upload_id, mt.bin, mt.reference, mt.method_name, mt.status, mt.created_at, mt.updated_at, mt.issuer_country, mt.fail_reason, mt.action_type    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ReportPayments" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from report_payments mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="uploadId != null "> and mt.upload_id = #{uploadId}</if>
+                                                                            <if test="bin != null "> and mt.bin = #{bin}</if>
+                                                                            <if test="reference != null "> and mt.reference = #{reference}</if>
+                                                                            <if test="methodName != null "> and mt.method_name like concat('%', #{methodName}, '%')</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                                                            <if test="issuerCountry != null  and issuerCountry != ''"> and mt.issuer_country = #{issuerCountry}</if>
+                                                                            <if test="failReason != null  and failReason != ''"> and mt.fail_reason = #{failReason}</if>
+                                                                            <if test="actionType != null  and actionType != ''"> and mt.action_type = #{actionType}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertReportPayments" parameterType="com.games.payment.domain.ReportPayments" useGeneratedKeys="true" keyProperty="id">
+        insert into report_payments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadId != null">upload_id,</if>
+                                                                <if test="bin != null">bin,</if>
+                                                                <if test="reference != null">reference,</if>
+                                                                <if test="methodName != null">method_name,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">issuer_country,</if>
+                                                                <if test="failReason != null and failReason != ''">fail_reason,</if>
+                                                                <if test="actionType != null">action_type,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadId != null">#{uploadId},</if>
+                                                                <if test="bin != null">#{bin},</if>
+                                                                <if test="reference != null">#{reference},</if>
+                                                                <if test="methodName != null">#{methodName},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">#{issuerCountry},</if>
+                                                                <if test="failReason != null and failReason != ''">#{failReason},</if>
+                                                                <if test="actionType != null">#{actionType},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateReportPayments" parameterType="com.games.payment.domain.ReportPayments">
+        update report_payments
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="uploadId != null">upload_id = #{uploadId},</if>
+                                                                <if test="bin != null">bin = #{bin},</if>
+                                                                <if test="reference != null">reference = #{reference},</if>
+                                                                <if test="methodName != null">method_name = #{methodName},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">issuer_country = #{issuerCountry},</if>
+                                                                <if test="failReason != null and failReason != ''">fail_reason = #{failReason},</if>
+                                                                <if test="actionType != null">action_type = #{actionType},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReportPaymentsById" parameterType="Long">
+        delete from report_payments where id = #{id}
+    </delete>
+
+    <delete id="deleteReportPaymentsByIds" parameterType="String">
+        delete from report_payments where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

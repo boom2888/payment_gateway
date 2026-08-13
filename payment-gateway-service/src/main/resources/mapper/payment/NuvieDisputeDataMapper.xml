@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.NuvieDisputeDataMapper">
+
+    <resultMap type="com.games.payment.domain.NuvieDisputeData" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="merchantId"    column="merchant_id"    />
+                    <result property="methodName"    column="method_name"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.merchant_id, mt.method_name, mt.created_at, mt.updated_at    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.NuvieDisputeData" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from nuvie_dispute_data mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="merchantId != null "> and mt.merchant_id = #{merchantId}</if>
+                                                                            <if test="methodName != null "> and mt.method_name like concat('%', #{methodName}, '%')</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertNuvieDisputeData" parameterType="com.games.payment.domain.NuvieDisputeData" useGeneratedKeys="true" keyProperty="id">
+        insert into nuvie_dispute_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="merchantId != null">merchant_id,</if>
+                                                                <if test="methodName != null">method_name,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="merchantId != null">#{merchantId},</if>
+                                                                <if test="methodName != null">#{methodName},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateNuvieDisputeData" parameterType="com.games.payment.domain.NuvieDisputeData">
+        update nuvie_dispute_data
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+                                                                <if test="methodName != null">method_name = #{methodName},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNuvieDisputeDataById" parameterType="Long">
+        delete from nuvie_dispute_data where id = #{id}
+    </delete>
+
+    <delete id="deleteNuvieDisputeDataByIds" parameterType="String">
+        delete from nuvie_dispute_data where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

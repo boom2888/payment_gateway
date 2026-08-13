@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CustomerCardTokenMapper">
+
+	    <resultMap type="com.games.payment.domain.Card" id="BaseResultMap">
+	                    <result property="id"    column="id"    />
+	                    <result property="userId"    column="user_id"    />
+	                    <result property="acquirerId"    column="acquirer_id"    />
+	                    <result property="token"    column="token"    />
+	                    <result property="cardNumber"    column="card_number"    />
+	                    <result property="cardFinger"    column="card_finger"    />
+	                    <result property="createdAt"    column="created_at"    />
+	                    <result property="createdBy"    column="created_by"    />
+	                    <result property="deletedAt"    column="deleted_at"    />
+	                    <result property="deletedBy"    column="deleted_by"    />
+	                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="cardType"    column="card_type"    />
+                    <result property="cardBrand"    column="card_brand"    />
+                    <result property="expiryMonth"    column="expiry_month"    />
+                    <result property="expiryYear"    column="expiry_year"    />
+                    <result property="bin"    column="bin"    />
+                    <result property="scheme"    column="scheme"    />
+                    <result property="currency"    column="currency"    />
+                    <result property="issuer"    column="issuer"    />
+                    <result property="issuerCountry"    column="issuer_country"    />
+                    <result property="cardholderName"    column="cardholder_name"    />
+                    <result property="cardholderEmailAddress"    column="cardholder_email_address"    />
+            </resultMap>
+
+    
+	    <sql id="Base_Column_List">
+	         mt.id, mt.user_id, mt.acquirer_id, mt.token, mt.card_number, mt.card_finger, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.card_type, mt.card_brand, mt.expiry_month, mt.expiry_year, mt.bin, mt.scheme, mt.currency, mt.issuer, mt.issuer_country, mt.cardholder_name, mt.cardholder_email_address    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Card" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_card_token mt
+        <where>
+
+        <if test="id != null "> and mt.id = #{id}</if>
+        <if test="userId != null "> and mt.user_id = #{userId}</if>
+        <if test="acquirerId != null "> and mt.acquirer_id = #{acquirerId}</if>
+        <if test="token != null  and token != ''"> and mt.token = #{token}</if>
+        <if test="cardNumber != null  and cardNumber != ''"> and mt.card_number = #{cardNumber}</if>
+        <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+        <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+        <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+        <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+        <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+        <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+        <if test="cardType != null  and cardType != ''"> and mt.card_type = #{cardType}</if>
+        <if test="cardBrand != null  and cardBrand != ''"> and mt.card_brand = #{cardBrand}</if>
+        <if test="expiryMonth != null "> and mt.expiry_month = #{expiryMonth}</if>
+        <if test="expiryYear != null "> and mt.expiry_year = #{expiryYear}</if>
+        <if test="bin != null  and bin != ''"> and mt.bin = #{bin}</if>
+        <if test="scheme != null  and scheme != ''"> and mt.scheme = #{scheme}</if>
+        <if test="currency != null  and currency != ''"> and mt.currency = #{currency}</if>
+        <if test="issuer != null  and issuer != ''"> and mt.issuer = #{issuer}</if>
+        <if test="issuerCountry != null  and issuerCountry != ''"> and mt.issuer_country = #{issuerCountry}</if>
+        <if test="cardholderName != null  and cardholderName != ''"> and mt.cardholder_name like concat('%', #{cardholderName}, '%')</if>
+        <if test="cardholderEmailAddress != null  and cardholderEmailAddress != ''"> and mt.cardholder_email_address = #{cardholderEmailAddress}</if>
+    </where>
+    </select>
+
+    <insert id="insertCustomerCardToken" parameterType="com.games.payment.domain.Card" useGeneratedKeys="true" keyProperty="id">
+        insert into customer_card_token
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id,</if>
+                                                                <if test="acquirerId != null">acquirer_id,</if>
+                                                                <if test="token != null">token,</if>
+                                                                <if test="cardNumber != null">card_number,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="cardType != null and cardType != ''">card_type,</if>
+                                                                <if test="expiryMonth != null">expiry_month,</if>
+                                                                <if test="expiryYear != null">expiry_year,</if>
+                                                                <if test="bin != null">bin,</if>
+                                                                <if test="scheme != null">scheme,</if>
+                                                                <if test="currency != null">currency,</if>
+                                                                <if test="issuer != null">issuer,</if>
+                                                                <if test="issuerCountry != null">issuer_country,</if>
+                                                                <if test="cardholderName != null">cardholder_name,</if>
+                                                                <if test="cardholderEmailAddress != null">cardholder_email_address,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="userId != null">#{userId},</if>
+                                                                <if test="acquirerId != null">#{acquirerId},</if>
+                                                                <if test="token != null">#{token},</if>
+                                                                <if test="cardNumber != null">#{cardNumber},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="cardType != null and cardType != ''">#{cardType},</if>
+                                                                <if test="expiryMonth != null">#{expiryMonth},</if>
+                                                                <if test="expiryYear != null">#{expiryYear},</if>
+                                                                <if test="bin != null">#{bin},</if>
+                                                                <if test="scheme != null">#{scheme},</if>
+                                                                <if test="currency != null">#{currency},</if>
+                                                                <if test="issuer != null">#{issuer},</if>
+                                                                <if test="issuerCountry != null">#{issuerCountry},</if>
+                                                                <if test="cardholderName != null">#{cardholderName},</if>
+                                                                <if test="cardholderEmailAddress != null">#{cardholderEmailAddress},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateCustomerCardToken" parameterType="com.games.payment.domain.Card">
+        update customer_card_token
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="acquirerId != null">acquirer_id = #{acquirerId},</if>
+                                                                <if test="token != null">token = #{token},</if>
+                                                                <if test="cardNumber != null">card_number = #{cardNumber},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="cardType != null and cardType != ''">card_type = #{cardType},</if>
+                                                                <if test="expiryMonth != null">expiry_month = #{expiryMonth},</if>
+                                                                <if test="expiryYear != null">expiry_year = #{expiryYear},</if>
+                                                                <if test="bin != null">bin = #{bin},</if>
+                                                                <if test="scheme != null">scheme = #{scheme},</if>
+                                                                <if test="currency != null">currency = #{currency},</if>
+                                                                <if test="issuer != null">issuer = #{issuer},</if>
+                                                                <if test="issuerCountry != null">issuer_country = #{issuerCountry},</if>
+                                                                <if test="cardholderName != null">cardholder_name = #{cardholderName},</if>
+                                                                <if test="cardholderEmailAddress != null">cardholder_email_address = #{cardholderEmailAddress},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerCardTokenById" parameterType="Long">
+        delete from customer_card_token where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerCardTokenByIds" parameterType="String">
+        delete from customer_card_token where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+	    <select id="selectCustomerId" resultType="Long">
+	        select c.id
+	        from customer_card_token t
+	                join customer c on t.user_id = c.user_id
+	        where t.acquirer_id = #{acquirerId}
+	          and t.card_finger = #{cardFinger}
+	          and t.user_id = #{userID}
+	          and c.merchant_id = #{merchantId}
+	    </select>
+
+	    <select id="selectByCardFingerAndUserID" resultMap="BaseResultMap">
+	        select
+	        <include refid="Base_Column_List"/>
+	        from customer_card_token mt
+	        join customer c on mt.user_id = c.user_id
+	        where mt.acquirer_id = #{acquirerId}
+	        and mt.card_finger = #{cardFinger}
+	        and mt.user_id = #{userID}
+	    </select>
+	    </mapper>

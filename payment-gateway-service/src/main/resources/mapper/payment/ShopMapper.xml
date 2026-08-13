@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ShopMapper">
+
+    <resultMap type="com.games.pay.vo.ShopEntity" id="BaseResultMap">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="businessName"    column="business_name"    />
+        <result property="businessNo"    column="business_no"    />
+        <result property="businessAddress"    column="business_address"    />
+        <result property="country"    column="country"    />
+        <result property="industry"    column="industry"    />
+        <result property="sideIndustry"    column="side_industry"    />
+        <result property="registrationDate"    column="registration_date"    />
+        <result property="registrationAddress"    column="registration_address"    />
+        <result property="shareholdingStructure"    column="shareholding_structure"    />
+        <result property="turnoverYear"    column="turnover_year"    />
+        <result property="turnoverWeek"    column="turnover_week"    />
+        <result property="station"    column="station"    />
+        <result property="website"    column="website"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierContracts"    column="supplier_contracts"    />
+        <result property="businessProfileStatus"    column="business_profile_status"    />
+        <result property="directorProfileStatus"    column="director_profile_status"    />
+        <result property="directorDocumentStatus"    column="director_document_status"    />
+        <result property="saasUserCorporationId"    column="saas_user_corporation_id"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="deletedAt"    column="deleted_at"    />
+        <result property="deletedBy"    column="deleted_by"    />
+        <result property="remark"    column="remark"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="businessDesc"    column="business_desc"    />
+        <result property="mid"    column="mid"    />
+        <result property="requestCryptoTransactionEndpoint"    column="request_crypto_transaction_endpoint"    />
+        <result property="merchantHashSecretKey"    column="merchant_hash_secret_key"    />
+        <result property="notifyOrderStatusEndpoint"    column="notify_order_status_endpoint"    />
+        <result property="isSiftOn"    column="is_sift_on"    />
+        <result property="is3dsOn"    column="is_3ds_on"    />
+        <result property="cryptoDeliveryMethod"    column="crypto_delivery_method"    />
+        <result property="isHouseMerchant"    column="is_house_merchant"    />
+        <result property="notifyOrderStatusEndpoint2"    column="notify_order_status_endpoint_2"    />
+        <result property="reservePercentage"    column="reserve_percentage"    />
+        <result property="reserveHoldingPeriod"    column="reserve_holding_period"    />
+        <result property="settlementCurrency"    column="settlement_currency"    />
+        <result property="profitSharing"    column="profit_sharing"    />
+        <result property="isWhitelistOn"    column="is_whitelist_on"    />
+        <result property="notifyOrderStatusEndpoint3"    column="notify_order_status_endpoint_3"    />
+        <result property="aniCheck"    column="ani_check"    />
+        <result property="acquirerId"    column="acquirer_id"    />
+        <result property="cryptoDeliveryDelayTime"    column="crypto_delivery_delay_time"    />
+        <result property="orderStatusChangeNotification"    column="order_status_change_notification"    />
+        <result property="threeDSuccessUrl"    column="three_d_success_url"    />
+        <result property="threeDFailureUrl"    column="three_d_failure_url"    />
+        <result property="defaultRedirectSuccessUrl"    column="default_redirect_success_url"    />
+        <result property="defaultRedirectFailureUrl"    column="default_redirect_failure_url"    />
+        <result property="onRampMin"    column="on_ramp_min"    />
+        <result property="onRampMax"    column="on_ramp_max"    />
+        <result property="offRampMin"    column="off_ramp_min"    />
+        <result property="offRampMax"    column="off_ramp_max"    />
+        <result property="vatNumber"    column="vat_number"    />
+        <result property="merchantFeeModelId"    column="merchant_fee_model_id"    />
+        <result property="feeModelName"    column="fee_model_name"    />
+        <result property="phonenumber"    column="phonenumber"    />
+        <result property="companyAuthType"    column="company_auth_type"    />
+        <result property="companyAuthTypeUrl"    column="company_auth_type_url"    />
+        <result property="companyDocUrl"    column="company_doc_url"    />
+        <result property="directorName"    column="director_name"    />
+        <result property="directorEmail"    column="director_email"    />
+        <result property="backOpen"    column="back_open"    />
+        <result property="fromSource"    column="from_source"    />
+        <result property="status"    column="status"    />
+        <result property="descriptor"    column="descriptor"    />
+        <result property="userName"    column="user_name"    />
+        <result property="isRedirect"    column="is_redirect"    />
+        <result property="entityId"    column="entity_id"    />
+        <result property="endpoint2Percent"    column="endpoint_2_percent"    />
+        <result property="notifyOrderStatusEndpointNft"    column="notify_order_status_endpoint_nft"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="parentBusinessName"    column="parent_business_name"    />
+        <result property="accountName"    column="account_name"    />
+        <result property="thunesTransferFee"    column="thunes_transfer_fee"    />
+        <result property="stripeAccount"    column="stripe_account"    />
+        <result property="stripeFeeType"    column="stripe_fee_type"    />
+        <result property="stripeFee"    column="stripe_fee"    />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        mt.id, mt.user_id, mt.business_name, mt.business_no, mt.business_address, mt.country, mt.industry, mt.side_industry,
+         mt.registration_date, mt.registration_address, mt.shareholding_structure, mt.turnover_year, mt.turnover_week,
+         mt.station, mt.website, mt.supplier_name, mt.supplier_contracts, mt.business_profile_status, mt.director_profile_status,
+         mt.director_document_status, mt.saas_user_corporation_id, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by,
+         mt.remark, mt.deleted, mt.business_desc, mt.mid, mt.request_crypto_transaction_endpoint, mt.merchant_hash_secret_key,
+         mt.notify_order_status_endpoint, mt.is_sift_on, mt.is_3ds_on, mt.crypto_delivery_method, mt.is_house_merchant,
+         mt.notify_order_status_endpoint_2, mt.reserve_percentage, mt.reserve_holding_period, mt.settlement_currency,
+        mt.profit_sharing, mt.is_whitelist_on, mt.notify_order_status_endpoint_3, mt.ani_check, mt.acquirer_id,
+        mt.crypto_delivery_delay_time, mt.order_status_change_notification, mt.three_d_success_url, mt.three_d_failure_url,
+        mt.default_redirect_success_url, mt.default_redirect_failure_url, mt.on_ramp_min, mt.on_ramp_max, mt.off_ramp_min,
+        mt.off_ramp_max, mt.vat_number, mt.merchant_fee_model_id, mt.company_auth_type, mt.company_auth_type_url, mt.company_doc_url,
+        mt.director_name,mt.director_email, mt.back_open, mt.from_source, mt.descriptor, mt.is_redirect, mt.entity_id, mt.endpoint_2_percent,
+        mt.notify_order_status_endpoint_nft, mt.parent_id, mt.thunes_transfer_fee, mt.stripe_account, mt.stripe_fee_type, mt.stripe_fee
+    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Shop" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>, mfm.name as fee_model_name, u.status, u.user_name as account_name, p.business_name as parent_business_name
+        from shop mt left join merchant_fee_model mfm on mt.merchant_fee_model_id = mfm.id
+            left join sys_user u on mt.user_id = u.user_id
+            left join shop p on mt.parent_id = p.id
+        <where>
+            <if test="status != null "> and u.status = #{status}</if>
+
+            <if test="id != null "> and mt.id = #{id}</if>
+            <if test="userId != null "> and mt.user_id = #{userId}</if>
+            <if test="businessName != null  and businessName != ''"> and mt.business_name like concat('%', #{businessName}, '%')</if>
+            <if test="businessNo != null  and businessNo != ''"> and mt.business_no = #{businessNo}</if>
+            <if test="businessAddress != null "> and mt.business_address = #{businessAddress}</if>
+            <if test="country != null  and country != ''"> and mt.country = #{country}</if>
+            <if test="industry != null  and industry != ''"> and mt.industry = #{industry}</if>
+            <if test="sideIndustry != null  and sideIndustry != ''"> and mt.side_industry = #{sideIndustry}</if>
+            <if test="registrationDate != null "> and mt.registration_date = #{registrationDate}</if>
+            <if test="registrationAddress != null "> and mt.registration_address = #{registrationAddress}</if>
+            <if test="shareholdingStructure != null  and shareholdingStructure != ''"> and mt.shareholding_structure = #{shareholdingStructure}</if>
+            <if test="turnoverYear != null  and turnoverYear != ''"> and mt.turnover_year = #{turnoverYear}</if>
+            <if test="turnoverWeek != null  and turnoverWeek != ''"> and mt.turnover_week = #{turnoverWeek}</if>
+            <if test="station != null  and station != ''"> and mt.station = #{station}</if>
+            <if test="website != null  and website != ''"> and mt.website = #{website}</if>
+            <if test="supplierName != null  and supplierName != ''"> and mt.supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="supplierContracts != null  and supplierContracts != ''"> and mt.supplier_contracts = #{supplierContracts}</if>
+            <if test="businessProfileStatus != null "> and mt.business_profile_status = #{businessProfileStatus}</if>
+            <if test="directorProfileStatus != null  and directorProfileStatus != ''"> and mt.director_profile_status = #{directorProfileStatus}</if>
+            <if test="directorDocumentStatus != null  and directorDocumentStatus != ''"> and mt.director_document_status = #{directorDocumentStatus}</if>
+            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+            <if test="createdAt != null ">
+                and date_format(convert_tz(mt.created_at,'+00:00','+08:00'),'%Y-%m-%d') = date_format(#{createdAt},'%Y-%m-%d')
+            </if>
+            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+            <if test="businessDesc != null  and businessDesc != ''"> and mt.business_desc = #{businessDesc}</if>
+            <if test="mid != null  and mid != ''"> and mt.mid = #{mid}</if>
+            <if test="requestCryptoTransactionEndpoint != null  and requestCryptoTransactionEndpoint != ''"> and mt.request_crypto_transaction_endpoint = #{requestCryptoTransactionEndpoint}</if>
+            <if test="merchantHashSecretKey != null  and merchantHashSecretKey != ''"> and mt.merchant_hash_secret_key = #{merchantHashSecretKey}</if>
+            <if test="notifyOrderStatusEndpoint != null  and notifyOrderStatusEndpoint != ''"> and mt.notify_order_status_endpoint = #{notifyOrderStatusEndpoint}</if>
+            <if test="isSiftOn != null "> and mt.is_sift_on = #{isSiftOn}</if>
+            <if test="is3dsOn != null "> and mt.is_3ds_on = #{is3dsOn}</if>
+            <if test="cryptoDeliveryMethod != null "> and mt.crypto_delivery_method = #{cryptoDeliveryMethod}</if>
+            <if test="isHouseMerchant != null "> and mt.is_house_merchant = #{isHouseMerchant}</if>
+            <if test="notifyOrderStatusEndpoint2 != null  and notifyOrderStatusEndpoint2 != ''"> and mt.notify_order_status_endpoint_2 = #{notifyOrderStatusEndpoint2}</if>
+            <if test="reservePercentage != null "> and mt.reserve_percentage = #{reservePercentage}</if>
+            <if test="reserveHoldingPeriod != null "> and mt.reserve_holding_period = #{reserveHoldingPeriod}</if>
+            <if test="settlementCurrency != null "> and mt.settlement_currency = #{settlementCurrency}</if>
+            <if test="profitSharing != null  and profitSharing != ''"> and mt.profit_sharing = #{profitSharing}</if>
+            <if test="descriptor != null  and descriptor != ''"> and mt.descriptor like concat('%', #{descriptor}, '%')</if>
+            <if test="isWhitelistOn != null "> and mt.is_whitelist_on = #{isWhitelistOn}</if>
+            <if test="notifyOrderStatusEndpoint3 != null  and notifyOrderStatusEndpoint3 != ''"> and mt.notify_order_status_endpoint_3 = #{notifyOrderStatusEndpoint3}</if>
+            <if test="aniCheck != null "> and mt.ani_check = #{aniCheck}</if>
+            <if test="acquirerId != null "> and mt.acquirer_id = #{acquirerId}</if>
+            <if test="cryptoDeliveryDelayTime != null  and cryptoDeliveryDelayTime != ''"> and mt.crypto_delivery_delay_time = #{cryptoDeliveryDelayTime}</if>
+            <if test="orderStatusChangeNotification != null  and orderStatusChangeNotification != ''"> and mt.order_status_change_notification = #{orderStatusChangeNotification}</if>
+            <if test="threeDSuccessUrl != null  and threeDSuccessUrl != ''"> and mt.three_d_success_url = #{threeDSuccessUrl}</if>
+            <if test="threeDFailureUrl != null  and threeDFailureUrl != ''"> and mt.three_d_failure_url = #{threeDFailureUrl}</if>
+            <if test="defaultRedirectSuccessUrl != null  and defaultRedirectSuccessUrl != ''"> and mt.default_redirect_success_url = #{defaultRedirectSuccessUrl}</if>
+            <if test="defaultRedirectFailureUrl != null  and defaultRedirectFailureUrl != ''"> and mt.default_redirect_failure_url = #{defaultRedirectFailureUrl}</if>
+            <if test="onRampMin != null "> and mt.on_ramp_min = #{onRampMin}</if>
+            <if test="onRampMax != null "> and mt.on_ramp_max = #{onRampMax}</if>
+            <if test="offRampMin != null "> and mt.off_ramp_min = #{offRampMin}</if>
+            <if test="offRampMax != null "> and mt.off_ramp_max = #{offRampMax}</if>
+            <if test="merchantFeeModelId != null "> and mt.merchant_fee_model_id = #{merchantFeeModelId}</if>
+            <if test="entityId != null"> and mt.entity_id = #{entityId}</if>
+            <if test="endpoint2Percent != null"> and mt.endpoint_2_percent = #{endpoint2Percent}</if>
+            <if test="parentId != null"> and mt.parent_id = #{parentId}</if>
+            <if test="type != null and type == 1"> and mt.parent_id is null</if>
+            <if test="type != null and type == 2"> and mt.parent_id is not null</if>
+            <if test="beginTime != null and beginTime != ''">
+                and date_format(convert_tz(mt.created_at,'+00:00','+08:00'),'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and date_format(convert_tz(mt.created_at,'+00:00','+08:00'),'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+            </if>
+        </where>
+        order by mt.id desc
+    </select>
+    <select id="selectListWithUser" parameterType="com.games.payment.domain.Shop" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>, u.phonenumber
+        from shop mt left join sys_user u on mt.user_id = u.user_id
+        <where>
+            <if test="id != null "> and mt.id = #{id}</if>
+            <if test="userId != null "> and mt.user_id = #{userId}</if>
+            <if test="businessName != null  and businessName != ''"> and mt.business_name like concat('%', #{businessName}, '%')</if>
+            <if test="businessNo != null  and businessNo != ''"> and mt.business_no = #{businessNo}</if>
+            <if test="businessAddress != null "> and mt.business_address = #{businessAddress}</if>
+            <if test="country != null  and country != ''"> and mt.country = #{country}</if>
+            <if test="industry != null  and industry != ''"> and mt.industry = #{industry}</if>
+            <if test="sideIndustry != null  and sideIndustry != ''"> and mt.side_industry = #{sideIndustry}</if>
+            <if test="registrationDate != null "> and mt.registration_date = #{registrationDate}</if>
+            <if test="registrationAddress != null "> and mt.registration_address = #{registrationAddress}</if>
+            <if test="shareholdingStructure != null  and shareholdingStructure != ''"> and mt.shareholding_structure = #{shareholdingStructure}</if>
+            <if test="turnoverYear != null  and turnoverYear != ''"> and mt.turnover_year = #{turnoverYear}</if>
+            <if test="turnoverWeek != null  and turnoverWeek != ''"> and mt.turnover_week = #{turnoverWeek}</if>
+            <if test="station != null  and station != ''"> and mt.station = #{station}</if>
+            <if test="website != null  and website != ''"> and mt.website = #{website}</if>
+            <if test="supplierName != null  and supplierName != ''"> and mt.supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="supplierContracts != null  and supplierContracts != ''"> and mt.supplier_contracts = #{supplierContracts}</if>
+            <if test="businessProfileStatus != null "> and mt.business_profile_status = #{businessProfileStatus}</if>
+            <if test="directorProfileStatus != null  and directorProfileStatus != ''"> and mt.director_profile_status = #{directorProfileStatus}</if>
+            <if test="directorDocumentStatus != null  and directorDocumentStatus != ''"> and mt.director_document_status = #{directorDocumentStatus}</if>
+            <if test="saasUserCorporationId != null "> and mt.saas_user_corporation_id = #{saasUserCorporationId}</if>
+            <if test="createdAt != null ">
+                and date_format(convert_tz(mt.created_at,'+00:00','+08:00'),'%Y-%m-%d') = date_format(#{createdAt},'%Y-%m-%d')
+            </if>
+            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+            <if test="businessDesc != null  and businessDesc != ''"> and mt.business_desc = #{businessDesc}</if>
+            <if test="mid != null  and mid != ''"> and mt.mid = #{mid}</if>
+            <if test="requestCryptoTransactionEndpoint != null  and requestCryptoTransactionEndpoint != ''"> and mt.request_crypto_transaction_endpoint = #{requestCryptoTransactionEndpoint}</if>
+            <if test="merchantHashSecretKey != null  and merchantHashSecretKey != ''"> and mt.merchant_hash_secret_key = #{merchantHashSecretKey}</if>
+            <if test="notifyOrderStatusEndpoint != null  and notifyOrderStatusEndpoint != ''"> and mt.notify_order_status_endpoint = #{notifyOrderStatusEndpoint}</if>
+            <if test="isSiftOn != null "> and mt.is_sift_on = #{isSiftOn}</if>
+            <if test="is3dsOn != null "> and mt.is_3ds_on = #{is3dsOn}</if>
+            <if test="cryptoDeliveryMethod != null "> and mt.crypto_delivery_method = #{cryptoDeliveryMethod}</if>
+            <if test="isHouseMerchant != null "> and mt.is_house_merchant = #{isHouseMerchant}</if>
+            <if test="notifyOrderStatusEndpoint2 != null  and notifyOrderStatusEndpoint2 != ''"> and mt.notify_order_status_endpoint_2 = #{notifyOrderStatusEndpoint2}</if>
+            <if test="reservePercentage != null "> and mt.reserve_percentage = #{reservePercentage}</if>
+            <if test="reserveHoldingPeriod != null "> and mt.reserve_holding_period = #{reserveHoldingPeriod}</if>
+            <if test="settlementCurrency != null "> and mt.settlement_currency = #{settlementCurrency}</if>
+            <if test="profitSharing != null  and profitSharing != ''"> and mt.profit_sharing = #{profitSharing}</if>
+            <if test="descriptor != null  and descriptor != ''"> and mt.descriptor like concat('%', #{descriptor}, '%')</if>
+            <if test="isWhitelistOn != null "> and mt.is_whitelist_on = #{isWhitelistOn}</if>
+            <if test="notifyOrderStatusEndpoint3 != null  and notifyOrderStatusEndpoint3 != ''"> and mt.notify_order_status_endpoint_3 = #{notifyOrderStatusEndpoint3}</if>
+            <if test="aniCheck != null "> and mt.ani_check = #{aniCheck}</if>
+            <if test="acquirerId != null "> and mt.acquirer_id = #{acquirerId}</if>
+            <if test="cryptoDeliveryDelayTime != null  and cryptoDeliveryDelayTime != ''"> and mt.crypto_delivery_delay_time = #{cryptoDeliveryDelayTime}</if>
+            <if test="orderStatusChangeNotification != null  and orderStatusChangeNotification != ''"> and mt.order_status_change_notification = #{orderStatusChangeNotification}</if>
+            <if test="threeDSuccessUrl != null  and threeDSuccessUrl != ''"> and mt.three_d_success_url = #{threeDSuccessUrl}</if>
+            <if test="threeDFailureUrl != null  and threeDFailureUrl != ''"> and mt.three_d_failure_url = #{threeDFailureUrl}</if>
+            <if test="defaultRedirectSuccessUrl != null  and defaultRedirectSuccessUrl != ''"> and mt.default_redirect_success_url = #{defaultRedirectSuccessUrl}</if>
+            <if test="defaultRedirectFailureUrl != null  and defaultRedirectFailureUrl != ''"> and mt.default_redirect_failure_url = #{defaultRedirectFailureUrl}</if>
+            <if test="onRampMin != null "> and mt.on_ramp_min = #{onRampMin}</if>
+            <if test="onRampMax != null "> and mt.on_ramp_max = #{onRampMax}</if>
+            <if test="offRampMin != null "> and mt.off_ramp_min = #{offRampMin}</if>
+            <if test="offRampMax != null "> and mt.off_ramp_max = #{offRampMax}</if>
+            <if test="merchantFeeModelId != null "> and mt.merchant_fee_model_id = #{merchantFeeModelId}</if>
+            <if test="entityId != null"> and mt.entity_id = #{entityId}</if>
+            <if test="endpoint2Percent != null"> and mt.endpoint_2_percent = #{endpoint2Percent}</if>
+            <if test="parentId != null"> and mt.parent_id = #{parentId}</if>
+            <if test="beginTime != null and beginTime != ''">
+                and date_format(convert_tz(mt.created_at,'+00:00','+08:00'),'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and date_format(convert_tz(mt.created_at,'+00:00','+08:00'),'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+    <resultMap type="com.games.pay.vo.ShopEntity" id="ShopEntityResultMap" extends="BaseResultMap">
+        <result property="feeModelName" column="fee_model_name"/>
+        <collection property="ubos" ofType="com.games.payment.domain.Ubo">
+            <result property="id" column="ubo_id"/>
+            <result property="shopId" column="shop_id"/>
+            <result property="authType" column="auth_type"/>
+            <result property="idDocFrontUrl" column="id_doc_front_url"/>
+            <result property="idDocBackUrl" column="id_doc_back_url"/>
+            <result property="addressType" column="address_type"/>
+            <result property="addressDocUrl" column="address_doc_url"/>
+            <result property="uboEmail" column="ubo_email"/>
+            <result property="createTime" column="create_time"/>
+            <result property="updateTime" column="update_time"/>
+        </collection>
+    </resultMap>
+    <select id="listWhitelistSecondaryMerchantDetails" resultMap="ShopEntityResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        , mfm.id as fee_model_id, mfm.name as fee_model_name,
+        cu.id AS ubo_id,
+        cu.shop_id AS shop_id,
+        cu.auth_type,
+        cu.id_doc_front_url,
+        cu.id_doc_back_url,
+        cu.address_type,
+        cu.address_doc_url,
+        cu.ubo_email,
+        cu.create_time,
+        cu.update_time,
+        u.status,
+        u.user_name as account_name,
+        p.business_name as parent_business_name
+        from shop mt
+        left join merchant_fee_model mfm on mt.merchant_fee_model_id = mfm.id
+        LEFT JOIN credit_ubo cu ON mt.id = cu.shop_id
+        left join sys_user u on mt.user_id = u.user_id
+        left join shop p on mt.parent_id = p.id
+        where mt.parent_id = #{parentId}
+          and mt.is_whitelist_on = #{whiteListOn}
+          and mt.deleted = 0
+    </select>
+    <select id="getInfoById" resultMap="ShopEntityResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        , mfm.id as fee_model_id, mfm.name as fee_model_name,
+        cu.id AS ubo_id,
+        cu.shop_id AS shop_id,
+        cu.auth_type,
+        cu.id_doc_front_url,
+        cu.id_doc_back_url,
+        cu.address_type,
+        cu.address_doc_url,
+        cu.ubo_email,
+        cu.create_time,
+        cu.update_time,u.status,u.user_name
+        from shop mt left join merchant_fee_model mfm on mt.merchant_fee_model_id = mfm.id
+        LEFT JOIN credit_ubo cu ON mt.id = cu.shop_id
+        left join sys_user u on mt.user_id = u.user_id
+        where mt.id = #{id}
+    </select>
+
+    <insert id="insertBusinessCustomerCorporation" parameterType="com.games.payment.domain.Shop" useGeneratedKeys="true" keyProperty="id">
+        insert into shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="businessName != null and businessName != ''">business_name,</if>
+            <if test="businessNo != null">business_no,</if>
+            <if test="businessAddress != null">business_address,</if>
+            <if test="country != null">country,</if>
+            <if test="industry != null">industry,</if>
+            <if test="sideIndustry != null">side_industry,</if>
+            <if test="registrationDate != null">registration_date,</if>
+            <if test="registrationAddress != null">registration_address,</if>
+            <if test="shareholdingStructure != null">shareholding_structure,</if>
+            <if test="turnoverYear != null">turnover_year,</if>
+            <if test="turnoverWeek != null">turnover_week,</if>
+            <if test="station != null">station,</if>
+            <if test="website != null">website,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="supplierContracts != null">supplier_contracts,</if>
+            <if test="businessProfileStatus != null">business_profile_status,</if>
+            <if test="directorProfileStatus != null">director_profile_status,</if>
+            <if test="directorDocumentStatus != null">director_document_status,</if>
+            <if test="saasUserCorporationId != null">saas_user_corporation_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="deletedAt != null">deleted_at,</if>
+            <if test="deletedBy != null">deleted_by,</if>
+            <if test="remark != null">remark,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="businessDesc != null">business_desc,</if>
+            <if test="mid != null">mid,</if>
+            <if test="requestCryptoTransactionEndpoint != null">request_crypto_transaction_endpoint,</if>
+            <if test="merchantHashSecretKey != null">merchant_hash_secret_key,</if>
+            <if test="notifyOrderStatusEndpoint != null">notify_order_status_endpoint,</if>
+            <if test="isSiftOn != null">is_sift_on,</if>
+            <if test="is3dsOn != null">is_3ds_on,</if>
+            <if test="cryptoDeliveryMethod != null">crypto_delivery_method,</if>
+            <if test="isHouseMerchant != null">is_house_merchant,</if>
+            <if test="notifyOrderStatusEndpoint2 != null">notify_order_status_endpoint_2,</if>
+            <if test="reservePercentage != null">reserve_percentage,</if>
+            <if test="reserveHoldingPeriod != null">reserve_holding_period,</if>
+            <if test="settlementCurrency != null">settlement_currency,</if>
+            <if test="profitSharing != null">profit_sharing,</if>
+            <if test="isWhitelistOn != null">is_whitelist_on,</if>
+            <if test="notifyOrderStatusEndpoint3 != null and notifyOrderStatusEndpoint3 != ''">notify_order_status_endpoint_3,</if>
+            <if test="aniCheck != null">ani_check,</if>
+            <if test="acquirerId != null">acquirer_id,</if>
+            <if test="cryptoDeliveryDelayTime != null">crypto_delivery_delay_time,</if>
+            <if test="orderStatusChangeNotification != null">order_status_change_notification,</if>
+            <if test="threeDSuccessUrl != null">three_d_success_url,</if>
+            <if test="threeDFailureUrl != null">three_d_failure_url,</if>
+            <if test="defaultRedirectSuccessUrl != null">default_redirect_success_url,</if>
+            <if test="defaultRedirectFailureUrl != null">default_redirect_failure_url,</if>
+            <if test="onRampMin != null">on_ramp_min,</if>
+            <if test="onRampMax != null">on_ramp_max,</if>
+            <if test="offRampMin != null">off_ramp_min,</if>
+            <if test="offRampMax != null">off_ramp_max,</if>
+            <if test="vatNumber != null and vatNumber != ''">vat_number,</if>
+            <if test="entityId != null">entity_id,</if>
+            <if test="endpoint2Percent != null">endpoint_2_percent,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="thunesTransferFee != null">thunes_transfer_fee,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="businessName != null and businessName != ''">#{businessName},</if>
+            <if test="businessNo != null">#{businessNo},</if>
+            <if test="businessAddress != null">#{businessAddress},</if>
+            <if test="country != null">#{country},</if>
+            <if test="industry != null">#{industry},</if>
+            <if test="sideIndustry != null">#{sideIndustry},</if>
+            <if test="registrationDate != null">#{registrationDate},</if>
+            <if test="registrationAddress != null">#{registrationAddress},</if>
+            <if test="shareholdingStructure != null">#{shareholdingStructure},</if>
+            <if test="turnoverYear != null">#{turnoverYear},</if>
+            <if test="turnoverWeek != null">#{turnoverWeek},</if>
+            <if test="station != null">#{station},</if>
+            <if test="website != null">#{website},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="supplierContracts != null">#{supplierContracts},</if>
+            <if test="businessProfileStatus != null">#{businessProfileStatus},</if>
+            <if test="directorProfileStatus != null">#{directorProfileStatus},</if>
+            <if test="directorDocumentStatus != null">#{directorDocumentStatus},</if>
+            <if test="saasUserCorporationId != null">#{saasUserCorporationId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="deletedAt != null">#{deletedAt},</if>
+            <if test="deletedBy != null">#{deletedBy},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="businessDesc != null">#{businessDesc},</if>
+            <if test="mid != null">#{mid},</if>
+            <if test="requestCryptoTransactionEndpoint != null">#{requestCryptoTransactionEndpoint},</if>
+            <if test="merchantHashSecretKey != null">#{merchantHashSecretKey},</if>
+            <if test="notifyOrderStatusEndpoint != null">#{notifyOrderStatusEndpoint},</if>
+            <if test="isSiftOn != null">#{isSiftOn},</if>
+            <if test="is3dsOn != null">#{is3dsOn},</if>
+            <if test="cryptoDeliveryMethod != null">#{cryptoDeliveryMethod},</if>
+            <if test="isHouseMerchant != null">#{isHouseMerchant},</if>
+            <if test="notifyOrderStatusEndpoint2 != null">#{notifyOrderStatusEndpoint2},</if>
+            <if test="reservePercentage != null">#{reservePercentage},</if>
+            <if test="reserveHoldingPeriod != null">#{reserveHoldingPeriod},</if>
+            <if test="settlementCurrency != null">#{settlementCurrency},</if>
+            <if test="profitSharing != null">#{profitSharing},</if>
+            <if test="isWhitelistOn != null">#{isWhitelistOn},</if>
+            <if test="notifyOrderStatusEndpoint3 != null and notifyOrderStatusEndpoint3 != ''">#{notifyOrderStatusEndpoint3},</if>
+            <if test="aniCheck != null">#{aniCheck},</if>
+            <if test="acquirerId != null">#{acquirerId},</if>
+            <if test="cryptoDeliveryDelayTime != null">#{cryptoDeliveryDelayTime},</if>
+            <if test="orderStatusChangeNotification != null">#{orderStatusChangeNotification},</if>
+            <if test="threeDSuccessUrl != null">#{threeDSuccessUrl},</if>
+            <if test="threeDFailureUrl != null">#{threeDFailureUrl},</if>
+            <if test="defaultRedirectSuccessUrl != null">#{defaultRedirectSuccessUrl},</if>
+            <if test="defaultRedirectFailureUrl != null">#{defaultRedirectFailureUrl},</if>
+            <if test="onRampMin != null">#{onRampMin},</if>
+            <if test="onRampMax != null">#{onRampMax},</if>
+            <if test="offRampMin != null">#{offRampMin},</if>
+            <if test="offRampMax != null">#{offRampMax},</if>
+            <if test="vatNumber != null and vatNumber != ''">#{vatNumber},</if>
+            <if test="entityId != null">#{entityId},</if>
+            <if test="endpoint2Percent != null">#{endpoint2Percent},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="thunesTransferFee != null">#{thunesTransferFee},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBusinessCustomerCorporation" parameterType="com.games.payment.domain.Shop">
+        update shop
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="businessName != null and businessName != ''">business_name = #{businessName},</if>
+            <if test="businessNo != null">business_no = #{businessNo},</if>
+            <if test="businessAddress != null">business_address = #{businessAddress},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="industry != null">industry = #{industry},</if>
+            <if test="sideIndustry != null">side_industry = #{sideIndustry},</if>
+            <if test="registrationDate != null">registration_date = #{registrationDate},</if>
+            <if test="registrationAddress != null">registration_address = #{registrationAddress},</if>
+            <if test="shareholdingStructure != null">shareholding_structure = #{shareholdingStructure},</if>
+            <if test="turnoverYear != null">turnover_year = #{turnoverYear},</if>
+            <if test="turnoverWeek != null">turnover_week = #{turnoverWeek},</if>
+            <if test="station != null">station = #{station},</if>
+            <if test="website != null">website = #{website},</if>
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="supplierContracts != null">supplier_contracts = #{supplierContracts},</if>
+            <if test="businessProfileStatus != null">business_profile_status = #{businessProfileStatus},</if>
+            <if test="directorProfileStatus != null">director_profile_status = #{directorProfileStatus},</if>
+            <if test="directorDocumentStatus != null">director_document_status = #{directorDocumentStatus},</if>
+            <if test="saasUserCorporationId != null">saas_user_corporation_id = #{saasUserCorporationId},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+            <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="businessDesc != null">business_desc = #{businessDesc},</if>
+            <if test="mid != null">mid = #{mid},</if>
+            <if test="requestCryptoTransactionEndpoint != null">request_crypto_transaction_endpoint = #{requestCryptoTransactionEndpoint},</if>
+            <if test="merchantHashSecretKey != null">merchant_hash_secret_key = #{merchantHashSecretKey},</if>
+            <if test="notifyOrderStatusEndpoint != null">notify_order_status_endpoint = #{notifyOrderStatusEndpoint},</if>
+            <if test="isSiftOn != null">is_sift_on = #{isSiftOn},</if>
+            <if test="is3dsOn != null">is_3ds_on = #{is3dsOn},</if>
+            <if test="cryptoDeliveryMethod != null">crypto_delivery_method = #{cryptoDeliveryMethod},</if>
+            <if test="isHouseMerchant != null">is_house_merchant = #{isHouseMerchant},</if>
+            <if test="notifyOrderStatusEndpoint2 != null">notify_order_status_endpoint_2 = #{notifyOrderStatusEndpoint2},</if>
+            <if test="reservePercentage != null">reserve_percentage = #{reservePercentage},</if>
+            <if test="reserveHoldingPeriod != null">reserve_holding_period = #{reserveHoldingPeriod},</if>
+            <if test="settlementCurrency != null">settlement_currency = #{settlementCurrency},</if>
+            <if test="profitSharing != null">profit_sharing = #{profitSharing},</if>
+            <if test="isWhitelistOn != null">is_whitelist_on = #{isWhitelistOn},</if>
+            <if test="notifyOrderStatusEndpoint3 != null and notifyOrderStatusEndpoint3 != ''">notify_order_status_endpoint_3 = #{notifyOrderStatusEndpoint3},</if>
+            <if test="aniCheck != null">ani_check = #{aniCheck},</if>
+            <if test="acquirerId != null">acquirer_id = #{acquirerId},</if>
+            <if test="cryptoDeliveryDelayTime != null">crypto_delivery_delay_time = #{cryptoDeliveryDelayTime},</if>
+            <if test="orderStatusChangeNotification != null">order_status_change_notification = #{orderStatusChangeNotification},</if>
+            <if test="threeDSuccessUrl != null">three_d_success_url = #{threeDSuccessUrl},</if>
+            <if test="threeDFailureUrl != null">three_d_failure_url = #{threeDFailureUrl},</if>
+            <if test="defaultRedirectSuccessUrl != null">default_redirect_success_url = #{defaultRedirectSuccessUrl},</if>
+            <if test="defaultRedirectFailureUrl != null">default_redirect_failure_url = #{defaultRedirectFailureUrl},</if>
+            <if test="onRampMin != null">on_ramp_min = #{onRampMin},</if>
+            <if test="onRampMax != null">on_ramp_max = #{onRampMax},</if>
+            <if test="offRampMin != null">off_ramp_min = #{offRampMin},</if>
+            <if test="offRampMax != null">off_ramp_max = #{offRampMax},</if>
+            <if test="vatNumber != null and vatNumber != ''">vat_number = #{vatNumber},</if>
+            <if test="entityId != null">entity_id = #{entityId},</if>
+            <if test="endpoint2Percent != null">endpoint_2_percent = #{endpoint2Percent},</if>
+            <if test="endpoint2Percent != null">endpoint_2_percent = #{endpoint2Percent},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="thunesTransferFee != null">thunes_transfer_fee = #{thunesTransferFee},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusinessCustomerCorporationById" parameterType="Long">
+        delete from shop where id = #{id}
+    </delete>
+
+    <delete id="deleteBusinessCustomerCorporationByIds" parameterType="String">
+        delete from shop where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

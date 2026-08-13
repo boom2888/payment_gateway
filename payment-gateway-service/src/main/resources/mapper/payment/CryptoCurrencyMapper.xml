@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CryptoCurrencyMapper">
+
+    <resultMap type="com.games.payment.domain.Crypto" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="shortName"    column="short_name"    />
+                    <result property="name"    column="name"    />
+                    <result property="chain"    column="chain"    />
+                    <result property="b2c2Ticker"    column="b2c2_ticker"    />
+                    <result property="decimalPrecision"    column="decimal_precision"    />
+                    <result property="isUtxoBased"    column="is_utxo_based"    />
+                    <result property="fireblocksAssetId"    column="fireblocks_asset_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.short_name, mt.name, mt.chain, mt.b2c2_ticker, mt.decimal_precision, mt.is_utxo_based, mt.fireblocks_asset_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Crypto" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from crypto_currency mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="shortName != null  and shortName != ''"> and mt.short_name like concat('%', #{shortName}, '%')</if>
+                                                                            <if test="name != null  and name != ''"> and mt.name like concat('%', #{name}, '%')</if>
+                                                                            <if test="chain != null  and chain != ''"> and mt.chain = #{chain}</if>
+                                                                            <if test="b2c2Ticker != null  and b2c2Ticker != ''"> and mt.b2c2_ticker = #{b2c2Ticker}</if>
+                                                                            <if test="decimalPrecision != null "> and mt.decimal_precision = #{decimalPrecision}</if>
+                                                                            <if test="isUtxoBased != null "> and mt.is_utxo_based = #{isUtxoBased}</if>
+                                                                            <if test="fireblocksAssetId != null  and fireblocksAssetId != ''"> and mt.fireblocks_asset_id = #{fireblocksAssetId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertCryptoCurrency" parameterType="com.games.payment.domain.Crypto" useGeneratedKeys="true" keyProperty="id">
+        insert into crypto_currency
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="shortName != null and shortName != ''">short_name,</if>
+                                                                <if test="name != null">name,</if>
+                                                                <if test="chain != null and chain != ''">chain,</if>
+                                                                <if test="b2c2Ticker != null and b2c2Ticker != ''">b2c2_ticker,</if>
+                                                                <if test="decimalPrecision != null">decimal_precision,</if>
+                                                                <if test="isUtxoBased != null">is_utxo_based,</if>
+                                                                <if test="fireblocksAssetId != null and fireblocksAssetId != ''">fireblocks_asset_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="shortName != null and shortName != ''">#{shortName},</if>
+                                                                <if test="name != null">#{name},</if>
+                                                                <if test="chain != null and chain != ''">#{chain},</if>
+                                                                <if test="b2c2Ticker != null and b2c2Ticker != ''">#{b2c2Ticker},</if>
+                                                                <if test="decimalPrecision != null">#{decimalPrecision},</if>
+                                                                <if test="isUtxoBased != null">#{isUtxoBased},</if>
+                                                                <if test="fireblocksAssetId != null and fireblocksAssetId != ''">#{fireblocksAssetId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateCryptoCurrency" parameterType="com.games.payment.domain.Crypto">
+        update crypto_currency
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="shortName != null and shortName != ''">short_name = #{shortName},</if>
+                                                                <if test="name != null">name = #{name},</if>
+                                                                <if test="chain != null and chain != ''">chain = #{chain},</if>
+                                                                <if test="b2c2Ticker != null and b2c2Ticker != ''">b2c2_ticker = #{b2c2Ticker},</if>
+                                                                <if test="decimalPrecision != null">decimal_precision = #{decimalPrecision},</if>
+                                                                <if test="isUtxoBased != null">is_utxo_based = #{isUtxoBased},</if>
+                                                                <if test="fireblocksAssetId != null and fireblocksAssetId != ''">fireblocks_asset_id = #{fireblocksAssetId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCryptoCurrencyById" parameterType="Long">
+        delete from crypto_currency where id = #{id}
+    </delete>
+
+    <delete id="deleteCryptoCurrencyByIds" parameterType="String">
+        delete from crypto_currency where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

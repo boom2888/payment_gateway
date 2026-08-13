@@ -1,0 +1,17 @@
+# 忽略build目录下类型为js的文件的语法检查
+build/*.js
+# 忽略src/assets目录下文件的语法检查
+src/assets
+# 忽略public目录下文件的语法检查
+public
+# 忽略node_modules
+node_modules
+# 忽略dist
+dist
+# 忽略根目录的配置文件
+*.config.js
+babel.config.js
+vue.config.js
+# 忽略根目录的js文件，但不忽略src目录下的
+/*.js
+# 不忽略src目录下的文件

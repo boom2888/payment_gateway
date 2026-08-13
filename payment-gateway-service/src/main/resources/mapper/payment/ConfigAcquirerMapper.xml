@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ConfigAcquirerMapper">
+
+    <resultMap type="com.games.payment.domain.ConfigAcquirer" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="acquirerName"    column="acquirer_name"    />
+                    <result property="status"    column="status"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.acquirer_name, mt.status    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ConfigAcquirer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from config_acquirer mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="acquirerName != null  and acquirerName != ''"> and mt.acquirer_name like concat('%', #{acquirerName}, '%')</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertConfigAcquirer" parameterType="com.games.payment.domain.ConfigAcquirer" useGeneratedKeys="true" keyProperty="id">
+        insert into config_acquirer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="acquirerName != null">acquirer_name,</if>
+                                                                <if test="status != null">status,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="acquirerName != null">#{acquirerName},</if>
+                                                                <if test="status != null">#{status},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateConfigAcquirer" parameterType="com.games.payment.domain.ConfigAcquirer">
+        update config_acquirer
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="acquirerName != null">acquirer_name = #{acquirerName},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteConfigAcquirerById" parameterType="Long">
+        delete from config_acquirer where id = #{id}
+    </delete>
+
+    <delete id="deleteConfigAcquirerByIds" parameterType="String">
+        delete from config_acquirer where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

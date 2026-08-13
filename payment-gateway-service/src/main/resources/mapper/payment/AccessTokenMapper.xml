@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.AccessTokenMapper">
+
+    <resultMap type="com.games.payment.domain.AccessToken" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="accessToken"    column="access_token"    />
+                    <result property="expiresIn"    column="expires_in"    />
+                    <result property="version"    column="version"    />
+                    <result property="tokenType"    column="token_type"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.access_token, mt.expires_in, mt.version, mt.token_type    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.AccessToken" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from access_token mt
+        <where>
+
+                                                        <if test="id != null  and id != ''"> and mt.id = #{id}</if>
+                                                                            <if test="accessToken != null  and accessToken != ''"> and mt.access_token = #{accessToken}</if>
+                                                                            <if test="expiresIn != null  and expiresIn != ''"> and mt.expires_in = #{expiresIn}</if>
+                                                                            <if test="version != null  and version != ''"> and mt.version = #{version}</if>
+                                                                            <if test="tokenType != null  and tokenType != ''"> and mt.token_type = #{tokenType}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertAccessToken" parameterType="com.games.payment.domain.AccessToken" useGeneratedKeys="true" keyProperty="id">
+        insert into access_token
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="accessToken != null and accessToken != ''">access_token,</if>
+                                                                <if test="expiresIn != null and expiresIn != ''">expires_in,</if>
+                                                                <if test="version != null and version != ''">version,</if>
+                                                                <if test="tokenType != null and tokenType != ''">token_type,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="accessToken != null and accessToken != ''">#{accessToken},</if>
+                                                                <if test="expiresIn != null and expiresIn != ''">#{expiresIn},</if>
+                                                                <if test="version != null and version != ''">#{version},</if>
+                                                                <if test="tokenType != null and tokenType != ''">#{tokenType},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateAccessToken" parameterType="com.games.payment.domain.AccessToken">
+        update access_token
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="accessToken != null and accessToken != ''">access_token = #{accessToken},</if>
+                                                                <if test="expiresIn != null and expiresIn != ''">expires_in = #{expiresIn},</if>
+                                                                <if test="version != null and version != ''">version = #{version},</if>
+                                                                <if test="tokenType != null and tokenType != ''">token_type = #{tokenType},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAccessTokenById" parameterType="String">
+        delete from access_token where id = #{id}
+    </delete>
+
+    <delete id="deleteAccessTokenByIds" parameterType="String">
+        delete from access_token where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

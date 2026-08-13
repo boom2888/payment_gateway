@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ReportQuoteMapper">
+
+    <resultMap type="com.games.payment.domain.ReportQuote" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="fromCode"    column="from_code"    />
+                    <result property="fromId"    column="from_id"    />
+                    <result property="toCode"    column="to_code"    />
+                    <result property="toId"    column="to_id"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+                    <result property="quote"    column="quote"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.from_code, mt.from_id, mt.to_code, mt.to_id, mt.created_at, mt.updated_at, mt.quote    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ReportQuote" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from report_quote mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="fromCode != null  and fromCode != ''"> and mt.from_code = #{fromCode}</if>
+                                                                            <if test="fromId != null "> and mt.from_id = #{fromId}</if>
+                                                                            <if test="toCode != null  and toCode != ''"> and mt.to_code = #{toCode}</if>
+                                                                            <if test="toId != null "> and mt.to_id = #{toId}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                                                            <if test="quote != null "> and mt.quote = #{quote}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertReportQuote" parameterType="com.games.payment.domain.ReportQuote" useGeneratedKeys="true" keyProperty="id">
+        insert into report_quote
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="fromCode != null and fromCode != ''">from_code,</if>
+                                                                <if test="fromId != null">from_id,</if>
+                                                                <if test="toCode != null and toCode != ''">to_code,</if>
+                                                                <if test="toId != null">to_id,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                                                <if test="quote != null">quote,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="fromCode != null and fromCode != ''">#{fromCode},</if>
+                                                                <if test="fromId != null">#{fromId},</if>
+                                                                <if test="toCode != null and toCode != ''">#{toCode},</if>
+                                                                <if test="toId != null">#{toId},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                                                <if test="quote != null">#{quote},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateReportQuote" parameterType="com.games.payment.domain.ReportQuote">
+        update report_quote
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="fromCode != null and fromCode != ''">from_code = #{fromCode},</if>
+                                                                <if test="fromId != null">from_id = #{fromId},</if>
+                                                                <if test="toCode != null and toCode != ''">to_code = #{toCode},</if>
+                                                                <if test="toId != null">to_id = #{toId},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                                                <if test="quote != null">quote = #{quote},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReportQuoteById" parameterType="Long">
+        delete from report_quote where id = #{id}
+    </delete>
+
+    <delete id="deleteReportQuoteByIds" parameterType="String">
+        delete from report_quote where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

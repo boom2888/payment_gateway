@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiEnterpriseInfoMapper">
+
+    <resultMap type="com.games.payment.domain.EmiEnterpriseInfo" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="companyNameChinese"    column="company_name_chinese"    />
+                    <result property="companyNameEnglish"    column="company_name_english"    />
+                    <result property="businessRegistrationNumber"    column="business_registration_number"    />
+                    <result property="companyRegistrationCode"    column="company_registration_code"    />
+                    <result property="registeredCountry"    column="registered_country"    />
+                    <result property="registeredAddress"    column="registered_address"    />
+                    <result property="actualOperationAddress"    column="actual_operation_address"    />
+                    <result property="employeeCount"    column="employee_count"    />
+                    <result property="establishmentDate"    column="establishment_date"    />
+                    <result property="expirationDate"    column="expiration_date"    />
+                    <result property="industryType"    column="industry_type"    />
+                    <result property="exportType"    column="export_type"    />
+                    <result property="exportCountries"    column="export_countries"    />
+                    <result property="exportProductName"    column="export_product_name"    />
+                    <result property="historicalAnnualExport"    column="historical_annual_export"    />
+                    <result property="estimatedAnnualExport"    column="estimated_annual_export"    />
+                    <result property="website"    column="website"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+                    <result property="userId"    column="user_id"    />
+                    <result property="nationality"    column="nationality"    />
+                    <result property="email"    column="email"    />
+                    <result property="idType"    column="id_type"    />
+                    <result property="idPhoto"    column="id_photo"    />
+                    <result property="fullName"    column="full_name"    />
+                    <result property="idNumber"    column="id_number"    />
+                    <result property="businessRegistration"    column="business_registration"    />
+                    <result property="companyRegistration"    column="company_registration"    />
+                    <result property="Incorporation"    column="Incorporation"    />
+                    <result property="officeScene"    column="office_scene"    />
+                    <result property="status"    column="status"    />
+                    <result property="entityId"    column="entity_id"    />
+                     <result property="enabledStatus"    column="enabled_status"    />
+        <result property="cardNumber"    column="card_number"    />
+        <result property="bank"    column="bank"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.company_name_chinese, mt.company_name_english, mt.business_registration_number, mt.company_registration_code, mt.registered_country, mt.registered_address, mt.actual_operation_address, mt.employee_count, mt.establishment_date, mt.expiration_date, mt.industry_type, mt.export_type, mt.export_countries, mt.export_product_name, mt.historical_annual_export, mt.estimated_annual_export, mt.website, mt.created_at, mt.updated_at, mt.user_id, mt.nationality, mt.email, mt.id_type, mt.id_photo, mt.full_name, mt.id_number ,mt.business_registration, mt.company_registration, mt.Incorporation, mt.office_scene, mt.status, mt.entity_id, mt.enabled_status, mt.card_number, mt.bank    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiEnterpriseInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_enterprise_info mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="companyNameChinese != null  and companyNameChinese != ''"> and mt.company_name_chinese = #{companyNameChinese}</if>
+                                                                            <if test="companyNameEnglish != null  and companyNameEnglish != ''"> and mt.company_name_english = #{companyNameEnglish}</if>
+                                                                            <if test="businessRegistrationNumber != null  and businessRegistrationNumber != ''"> and mt.business_registration_number = #{businessRegistrationNumber}</if>
+                                                                            <if test="companyRegistrationCode != null  and companyRegistrationCode != ''"> and mt.company_registration_code = #{companyRegistrationCode}</if>
+                                                                            <if test="registeredCountry != null  and registeredCountry != ''"> and mt.registered_country = #{registeredCountry}</if>
+                                                                            <if test="registeredAddress != null  and registeredAddress != ''"> and mt.registered_address = #{registeredAddress}</if>
+                                                                            <if test="actualOperationAddress != null  and actualOperationAddress != ''"> and mt.actual_operation_address = #{actualOperationAddress}</if>
+                                                                            <if test="employeeCount != null "> and mt.employee_count = #{employeeCount}</if>
+                                                                            <if test="establishmentDate != null "> and mt.establishment_date = #{establishmentDate}</if>
+                                                                            <if test="expirationDate != null "> and mt.expiration_date = #{expirationDate}</if>
+                                                                            <if test="industryType != null  and industryType != ''"> and mt.industry_type = #{industryType}</if>
+                                                                            <if test="exportType != null  and exportType != ''"> and mt.export_type = #{exportType}</if>
+                                                                            <if test="exportCountries != null  and exportCountries != ''"> and mt.export_countries = #{exportCountries}</if>
+                                                                            <if test="exportProductName != null  and exportProductName != ''"> and mt.export_product_name like concat('%', #{exportProductName}, '%')</if>
+                                                                            <if test="historicalAnnualExport != null "> and mt.historical_annual_export = #{historicalAnnualExport}</if>
+                                                                            <if test="estimatedAnnualExport != null "> and mt.estimated_annual_export = #{estimatedAnnualExport}</if>
+                                                                            <if test="website != null  and website != ''"> and mt.website = #{website}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                                                            <if test="nationality != null  and nationality != ''"> and mt.nationality = #{nationality}</if>
+                                                                            <if test="email != null  and email != ''"> and mt.email = #{email}</if>
+                                                                            <if test="idType != null  and idType != ''"> and mt.id_type = #{idType}</if>
+                                                                            <if test="idPhoto != null  and idPhoto != ''"> and mt.id_photo = #{idPhoto}</if>
+                                                                                <if test="fullName != null  and fullName != ''"> and mt.full_name = #{fullName}</if>
+                                                                                <if test="idNumber != null  and idNumber != ''"> and mt.id_number = #{idNumber}</if>
+                                                                                <if test="businessRegistration != null  and businessRegistration != ''"> and mt.business_registration = #{businessRegistration}</if>
+                                                                                <if test="companyRegistration != null  and companyRegistration != ''"> and mt.company_registration = #{companyRegistration}</if>
+                                                                            <if test="Incorporation != null  and Incorporation != ''"> and mt.Incorporation = #{Incorporation}</if>
+                                                                            <if test="officeScene != null  and officeScene != ''"> and mt.office_scene = #{officeScene}</if>
+                                                            <if test="status != null  and status != ''"> and mt.status = #{status}</if>
+                                                            <if test="entityId != null "> and mt.entity_id = #{entityId}</if>
+                                                            <if test="enabledStatus != null "> and mt.enabled_status = #{enabledStatus}</if>
+                                                            <if test="cardNumber != null  and cardNumber != ''"> and mt.card_number = #{cardNumber}</if>
+                                                            <if test="bank != null  and bank != ''"> and mt.bank = #{bank}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiEnterpriseInfo" parameterType="com.games.payment.domain.EmiEnterpriseInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into emi_enterprise_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="companyNameChinese != null">company_name_chinese,</if>
+                                                                <if test="companyNameEnglish != null">company_name_english,</if>
+                                                                <if test="businessRegistrationNumber != null">business_registration_number,</if>
+                                                                <if test="companyRegistrationCode != null">company_registration_code,</if>
+                                                                <if test="registeredCountry != null">registered_country,</if>
+                                                                <if test="registeredAddress != null">registered_address,</if>
+                                                                <if test="actualOperationAddress != null">actual_operation_address,</if>
+                                                                <if test="employeeCount != null">employee_count,</if>
+                                                                <if test="establishmentDate != null">establishment_date,</if>
+                                                                <if test="expirationDate != null">expiration_date,</if>
+                                                                <if test="industryType != null">industry_type,</if>
+                                                                <if test="exportType != null">export_type,</if>
+                                                                <if test="exportCountries != null">export_countries,</if>
+                                                                <if test="exportProductName != null">export_product_name,</if>
+                                                                <if test="historicalAnnualExport != null">historical_annual_export,</if>
+                                                                <if test="estimatedAnnualExport != null">estimated_annual_export,</if>
+                                                                <if test="website != null">website,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                                                <if test="userId != null">user_id,</if>
+                                                                <if test="nationality != null">nationality,</if>
+                                                                <if test="email != null">email,</if>
+                                                                <if test="idType != null">id_type,</if>
+                                                                <if test="idPhoto != null">id_photo,</if>
+                                                                <if test="fullName != null">full_name,</if>
+                                                                <if test="idNumber != null">id_number,</if>
+                                                                <if test="businessRegistration != null">business_registration,</if>
+                                                                <if test="companyRegistration != null">company_registration,</if>
+                                                                <if test="Incorporation != null">Incorporation,</if>
+                                                                <if test="officeScene != null">office_scene,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="entityId != null">entity_id,</if>
+                                                                <if test="enabledStatus != null">enabled_status,</if>
+                                                                <if test="cardNumber != null">card_number,</if>
+                                                                <if test="bank != null">bank,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="companyNameChinese != null">#{companyNameChinese},</if>
+                                                                <if test="companyNameEnglish != null">#{companyNameEnglish},</if>
+                                                                <if test="businessRegistrationNumber != null">#{businessRegistrationNumber},</if>
+                                                                <if test="companyRegistrationCode != null">#{companyRegistrationCode},</if>
+                                                                <if test="registeredCountry != null">#{registeredCountry},</if>
+                                                                <if test="registeredAddress != null">#{registeredAddress},</if>
+                                                                <if test="actualOperationAddress != null">#{actualOperationAddress},</if>
+                                                                <if test="employeeCount != null">#{employeeCount},</if>
+                                                                <if test="establishmentDate != null">#{establishmentDate},</if>
+                                                                <if test="expirationDate != null">#{expirationDate},</if>
+                                                                <if test="industryType != null">#{industryType},</if>
+                                                                <if test="exportType != null">#{exportType},</if>
+                                                                <if test="exportCountries != null">#{exportCountries},</if>
+                                                                <if test="exportProductName != null">#{exportProductName},</if>
+                                                                <if test="historicalAnnualExport != null">#{historicalAnnualExport},</if>
+                                                                <if test="estimatedAnnualExport != null">#{estimatedAnnualExport},</if>
+                                                                <if test="website != null">#{website},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                                                <if test="userId != null">#{userId},</if>
+                                                                <if test="nationality != null">#{nationality},</if>
+                                                                <if test="email != null">#{email},</if>
+                                                                <if test="idType != null">#{idType},</if>
+                                                                <if test="idPhoto != null">#{idPhoto},</if>
+                                                                <if test="fullName != null">#{fullName},</if>
+                                                                <if test="idNumber != null">#{idNumber},</if>
+                                                                <if test="businessRegistration != null">#{businessRegistration},</if>
+                                                                <if test="companyRegistration != null">#{companyRegistration},</if>
+                                                                <if test="Incorporation != null">#{Incorporation},</if>
+                                                                <if test="officeScene != null">#{officeScene},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="entityId != null">#{entityId},</if>
+                                                                <if test="enabledStatus != null">#{enabledStatus},</if>
+                                                                <if test="cardNumber != null">#{cardNumber},</if>
+                                                                <if test="bank != null">#{bank},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiEnterpriseInfo" parameterType="com.games.payment.domain.EmiEnterpriseInfo">
+        update emi_enterprise_info
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="companyNameChinese != null">company_name_chinese = #{companyNameChinese},</if>
+                                                                <if test="companyNameEnglish != null">company_name_english = #{companyNameEnglish},</if>
+                                                                <if test="businessRegistrationNumber != null">business_registration_number = #{businessRegistrationNumber},</if>
+                                                                <if test="companyRegistrationCode != null">company_registration_code = #{companyRegistrationCode},</if>
+                                                                <if test="registeredCountry != null">registered_country = #{registeredCountry},</if>
+                                                                <if test="registeredAddress != null">registered_address = #{registeredAddress},</if>
+                                                                <if test="actualOperationAddress != null">actual_operation_address = #{actualOperationAddress},</if>
+                                                                <if test="employeeCount != null">employee_count = #{employeeCount},</if>
+                                                                <if test="establishmentDate != null">establishment_date = #{establishmentDate},</if>
+                                                                <if test="expirationDate != null">expiration_date = #{expirationDate},</if>
+                                                                <if test="industryType != null">industry_type = #{industryType},</if>
+                                                                <if test="exportType != null">export_type = #{exportType},</if>
+                                                                <if test="exportCountries != null">export_countries = #{exportCountries},</if>
+                                                                <if test="exportProductName != null">export_product_name = #{exportProductName},</if>
+                                                                <if test="historicalAnnualExport != null">historical_annual_export = #{historicalAnnualExport},</if>
+                                                                <if test="estimatedAnnualExport != null">estimated_annual_export = #{estimatedAnnualExport},</if>
+                                                                <if test="website != null">website = #{website},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                                                <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="nationality != null">nationality = #{nationality},</if>
+                                                                <if test="email != null">email = #{email},</if>
+                                                                <if test="idType != null">id_type = #{idType},</if>
+                                                                <if test="idPhoto != null">id_photo = #{idPhoto},</if>
+                                                                <if test="fullName != null">full_name = #{fullName},</if>
+                                                                <if test="idNumber != null">id_number = #{idNumber},</if>
+                                                                <if test="businessRegistration != null">business_registration = #{businessRegistration},</if>
+                                                                <if test="companyRegistration != null">company_registration = #{companyRegistration},</if>
+                                                                <if test="Incorporation != null">Incorporation = #{Incorporation},</if>
+                                                                <if test="officeScene != null">office_scene = #{officeScene},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="entityId != null">entity_id = #{entityId},</if>
+                                                                <if test="enabledStatus != null">enabled_status = #{enabledStatus},</if>
+                                                                <if test="cardNumber != null">card_number = #{cardNumber},</if>
+                                                                <if test="bank != null">bank = #{bank},</if>
+
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiEnterpriseInfoById" parameterType="Long">
+        delete from emi_enterprise_info where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiEnterpriseInfoByIds" parameterType="String">
+        delete from emi_enterprise_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

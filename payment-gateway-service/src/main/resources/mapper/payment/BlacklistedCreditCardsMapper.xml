@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.BlacklistedCreditCardsMapper">
+
+    <resultMap type="com.games.payment.domain.BlacklistedCreditCards" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="fullNumber" column="full_number"/>
+        <result property="cardFinger" column="card_finger"/>
+        <result property="binNumber" column="bin_number"/>
+        <result property="lastFourNumber" column="last_four_number"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <result property="deletedBy" column="deleted_by"/>
+        <result property="deleted" column="deleted"/>
+        <result property="remark" column="remark"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        mt.id, mt.full_number, mt.card_finger, mt.bin_number, mt.last_four_number, mt.created_at, mt.created_by, mt.deleted_at,
+        mt.deleted_by, mt.deleted, mt.remark,mt.updated_at
+    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.BlacklistedCreditCards"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from blacklisted_credit_cards mt
+        <where>
+            mt.deleted = 0
+            <if test="id != null ">and mt.id = #{id}</if>
+            <if test="fullNumber != null  and fullNumber != ''">and mt.full_number = #{fullNumber}</if>
+            <if test="cardFinger != null  and cardFinger != ''">and mt.card_finger = #{cardFinger}</if>
+            <if test="binNumber != null  and binNumber != ''">and mt.bin_number = #{binNumber}</if>
+            <if test="lastFourNumber != null  and lastFourNumber != ''">and mt.last_four_number = #{lastFourNumber}</if>
+            <if test="createdAt != null ">and mt.created_at >= #{createdAt} and mt.created_at <![CDATA[<]]>
+                DATE_ADD(#{createdAt}, INTERVAL 1 DAY)
+            </if>
+            <if test="createdBy != null ">and mt.created_by = #{createdBy}</if>
+            <if test="deletedAt != null ">and mt.deleted_at = #{deletedAt}</if>
+            <if test="deletedBy != null ">and mt.deleted_by = #{deletedBy}</if>
+            <if test="deleted != null ">and mt.deleted = #{deleted}</if>
+            <if test="remark != null  and remark != ''">and mt.remark = #{remark}</if>
+        </where>
+    </select>
+
+    <insert id="insertBlacklistedCreditCards" parameterType="com.games.payment.domain.BlacklistedCreditCards"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into blacklisted_credit_cards
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fullNumber != null and fullNumber != ''">full_number,</if>
+            <if test="binNumber != null">bin_number,</if>
+            <if test="lastFourNumber != null">last_four_number,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="deletedAt != null">deleted_at,</if>
+            <if test="deletedBy != null">deleted_by,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fullNumber != null and fullNumber != ''">#{fullNumber},</if>
+            <if test="binNumber != null">#{binNumber},</if>
+            <if test="lastFourNumber != null">#{lastFourNumber},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="deletedAt != null">#{deletedAt},</if>
+            <if test="deletedBy != null">#{deletedBy},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBlacklistedCreditCards" parameterType="com.games.payment.domain.BlacklistedCreditCards">
+        update blacklisted_credit_cards
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fullNumber != null and fullNumber != ''">full_number = #{fullNumber},</if>
+            <if test="binNumber != null">bin_number = #{binNumber},</if>
+            <if test="lastFourNumber != null">last_four_number = #{lastFourNumber},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+            <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+</mapper>

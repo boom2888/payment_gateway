@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.WhitelistedCreditCardsMapper">
+
+    <resultMap type="com.games.payment.domain.WhitelistedCreditCards" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="fullNumber" column="full_number"/>
+        <result property="cardFinger" column="card_finger"/>
+        <result property="binNumber" column="bin_number"/>
+        <result property="lastFourNumber" column="last_four_number"/>
+        <result property="email" column="email"/>
+        <result property="riskLevel" column="risk_level"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="remark" column="remark"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="whiteUploadId" column="white_upload_id"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="originName" column="origin_name"/>
+        <result property="businessName" column="business_name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        mt.id, mt.full_number, mt.card_finger, mt.bin_number, mt.last_four_number, mt.email, mt.risk_level,
+        mt.created_at, mt.created_by, mt.white_upload_id, mt.shop_id,
+        mt.remark, mt.updated_at
+    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.WhitelistedCreditCards"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>,r.origin_name,s.business_name
+        from whitelisted_credit_cards mt left join white_upload_record r on mt.white_upload_id = r.id
+            left join shop s on mt.shop_id = s.id
+        <where>
+            <if test="id != null ">and mt.id = #{id}</if>
+            <if test="fullNumber != null  and fullNumber != ''">and mt.full_number = #{fullNumber}</if>
+            <if test="cardFinger != null  and cardFinger != ''">and mt.card_finger = #{cardFinger}</if>
+            <if test="binNumber != null  and binNumber != ''">and mt.bin_number = #{binNumber}</if>
+            <if test="lastFourNumber != null  and lastFourNumber != ''">and mt.last_four_number = #{lastFourNumber}</if>
+            <if test="email != null  and email != ''">and mt.email = #{email}</if>
+            
+            <if test="createdAt != null ">and mt.created_at >= #{createdAt} and mt.created_at <![CDATA[<]]>
+                DATE_ADD(#{createdAt}, INTERVAL 1 DAY)
+            </if>
+            <if test="createdBy != null ">and mt.created_by = #{createdBy}</if>
+            <if test="remark != null  and remark != ''">and mt.remark = #{remark}</if>
+            <if test="shopId != null  and shopId != ''">and s.id = #{shopId}</if>
+            <if test="originName != null and originName != ''">and r.origin_name LIKE CONCAT('%', #{originName}, '%')</if>
+            <if test="businessName != null and businessName != ''">and s.business_name =#{businessName}</if>
+            <if test="riskLevel != null  and riskLevel != ''">and mt.risk_level = #{riskLevel}</if>
+        </where>
+        order by mt.updated_at desc, mt.created_by desc
+    </select>
+
+    <insert id="insertWhitelistedCreditCards" parameterType="com.games.payment.domain.WhitelistedCreditCards"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into whitelisted_credit_cards
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fullNumber != null">full_number,</if>
+            <if test="binNumber != null">bin_number,</if>
+            <if test="lastFourNumber != null">last_four_number,</if>
+            <if test="email != null">email,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="remark != null">remark,</if>
+            <if test="whiteUploadId != null">white_upload_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fullNumber != null">#{fullNumber},</if>
+            <if test="binNumber != null">#{binNumber},</if>
+            <if test="lastFourNumber != null">#{lastFourNumber},</if>
+            <if test="email != null">#{email},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="whiteUploadId != null">#{whiteUploadId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWhitelistedCreditCards" parameterType="com.games.payment.domain.WhitelistedCreditCards">
+        update whitelisted_credit_cards
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fullNumber != null">full_number = #{fullNumber},</if>
+            <if test="binNumber != null">bin_number = #{binNumber},</if>
+            <if test="lastFourNumber != null">last_four_number = #{lastFourNumber},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 物理删除方法已移除，统一采用逻辑删除 -->
+
+    <insert id="batchInsertOrUpdate" parameterType="java.util.List">
+        INSERT INTO whitelisted_credit_cards
+        (full_number, card_finger, bin_number, last_four_number, risk_level, shop_id, white_upload_id, created_at, updated_at)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fullNumber}, #{item.cardFinger}, #{item.binNumber}, #{item.lastFourNumber}, #{item.riskLevel}, #{item.shopId},
+             #{item.whiteUploadId}, #{item.createdAt}, #{item.updatedAt})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        full_number = CASE
+            WHEN VALUES(full_number) IS NULL OR VALUES(full_number) = '' THEN full_number
+            ELSE VALUES(full_number)
+        END,
+        card_finger = CASE
+            WHEN card_finger IS NULL OR card_finger = '' THEN VALUES(card_finger)
+            ELSE card_finger
+        END,
+        risk_level = VALUES(risk_level),
+        white_upload_id = VALUES(white_upload_id),
+        updated_at = VALUES(updated_at)
+    </insert>
+
+    <!-- 物理删除语句已移除，统一采用逻辑删除 -->
+
+    <!-- 
+        批量删除：字段顺序匹配索引 comb_idx_partial_card_number (bin, last4, shop_id, full)
+        性能优化：调整字段顺序以充分利用现有索引
+    -->
+    <delete id="deleteByCardQuadruples" parameterType="java.util.List">
+        DELETE FROM whitelisted_credit_cards
+        WHERE (bin_number, last_four_number, shop_id, full_number) IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            (#{item.binNumber}, #{item.lastFourNumber}, #{item.shopId}, #{item.fullNumber})
+        </foreach>
+    </delete>
+
+    <!--
+        批量删除：按 (shop_id, card_finger) 删除，优先使用指纹（不依赖 full_number）
+    -->
+    <delete id="deleteByCardFingers" parameterType="java.util.List">
+        DELETE FROM whitelisted_credit_cards
+        WHERE (shop_id, card_finger) IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            (#{item.shopId}, #{item.cardFinger})
+        </foreach>
+    </delete>
+
+    <!--
+        批量删除：按 (bin_number, last_four_number, shop_id) 删除，无指纹时回退
+        索引前缀：(bin_number, last_four_number, shop_id)
+    -->
+    <delete id="deleteByCardTriples" parameterType="java.util.List">
+        DELETE FROM whitelisted_credit_cards
+        WHERE (bin_number, last_four_number, shop_id) IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            (#{item.binNumber}, #{item.lastFourNumber}, #{item.shopId})
+        </foreach>
+    </delete>
+
+    <select id="selectByCardTriples" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM whitelisted_credit_cards mt
+        WHERE (mt.bin_number, mt.last_four_number, mt.shop_id) IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            (#{item.binNumber}, #{item.lastFourNumber}, #{item.shopId})
+        </foreach>
+    </select>
+</mapper>

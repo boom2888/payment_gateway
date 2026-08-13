@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.MerchantAccountMapper">
+
+    <resultMap type="com.games.payment.domain.MerchantAccount" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="merchantId" column="merchant_id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="currency" column="currency"/>
+        <result property="minBalance" column="min_balance"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        mt.id, mt.merchant_id, mt.account_id, mt.currency, mt.min_balance, mt.created_at, mt.updated_at    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.MerchantAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from merchant_account mt
+        <where>
+
+            <if test="id != null  and id != ''">and mt.id = #{id}</if>
+            <if test="merchantId != null  and merchantId != ''">and mt.merchant_id = #{merchantId}</if>
+            <if test="accountId != null  and accountId != ''">and mt.account_id = #{accountId}</if>
+            <if test="currency != null  and currency != ''">and mt.currency = #{currency}</if>
+            <if test="minBalance != null ">and mt.min_balance = #{minBalance}</if>
+            <if test="createdAt != null ">
+                and mt.created_at &gt;= #{createdAt}
+                and mt.created_at &lt; DATE_ADD(#{createdAt}, INTERVAL 1 DAY)
+            </if>
+            <if test="updatedAt != null ">and mt.updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+
+    <insert id="insertMerchantAccount" parameterType="com.games.payment.domain.MerchantAccount" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into merchant_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null and merchantId != ''">merchant_id,</if>
+            <if test="accountId != null and accountId != ''">account_id,</if>
+            <if test="currency != null and currency != ''">currency,</if>
+            <if test="minBalance != null">min_balance,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null and merchantId != ''">#{merchantId},</if>
+            <if test="accountId != null and accountId != ''">#{accountId},</if>
+            <if test="currency != null and currency != ''">#{currency},</if>
+            <if test="minBalance != null">#{minBalance},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMerchantAccount" parameterType="com.games.payment.domain.MerchantAccount">
+        update merchant_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null and merchantId != ''">merchant_id = #{merchantId},</if>
+            <if test="accountId != null and accountId != ''">account_id = #{accountId},</if>
+            <if test="currency != null and currency != ''">currency = #{currency},</if>
+            <if test="minBalance != null">min_balance = #{minBalance},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMerchantAccountById" parameterType="String">
+        delete
+        from merchant_account
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteMerchantAccountByIds" parameterType="String">
+        delete from merchant_account where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <insert id="updateBalance">
+        INSERT INTO merchant_account
+        (merchant_id, account_id, currency, min_balance, created_at, updated_at)
+        VALUES
+        <foreach collection="amountMap" index="merchantId" item="amount" separator=",">
+            (#{merchantId}, '', 'USD', #{amount}, now(), now())
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            min_balance = min_balance + IFNULL(VALUES(min_balance), 0),
+            updated_at  = now()
+    </insert>
+    <update id="rollbackBalance">
+        UPDATE merchant_account
+        SET min_balance = min_balance - #{amount},
+            updated_at  = now()
+        WHERE merchant_id = #{merchantId}
+          AND currency = 'USD'
+    </update>
+</mapper>

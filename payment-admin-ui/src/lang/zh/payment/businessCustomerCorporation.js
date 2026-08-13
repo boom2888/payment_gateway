@@ -1,0 +1,52 @@
+export default {
+  operation: '操作',
+  addDialog: '添加或修改企业客户公司对话框',
+  disable: '禁用',
+  enable: '启用',
+  open: '开启',
+  close: '关闭',
+  tip: '提示',
+  warning: '警告',
+  confirmDisableEnable: '确认要{action}该商户吗？',
+  confirm3dsToggle: '确认要{action}该商户的3ds类型吗？',
+  confirmWhitelistToggle: '确认要{action}【{businessName}】的白名单吗？',
+  actionSuccess: '{action}成功',
+  actionFailed: '{action}失败',
+  threeDsActionSuccess: '3ds类型{action}成功',
+  threeDsActionFailed: '3ds类型{action}失败',
+  whitelistActionSuccess: '白名单{action}成功',
+  whitelistActionFailed: '白名单{action}失败',
+  modifySuccess: '修改成功',
+  addSuccess: '新增成功',
+  deleteSuccess: '删除成功',
+  resetSuccess: '重置成功',
+  confirmDelete: '是否确认删除企业客户公司编号为"{id}"的数据项?',
+  confirmResetPassword: '是否重置企业客户公司编号为"{id}"的密码?',
+  confirmExport: '是否确认导出所有企业客户公司数据项?',
+
+  // 字段标签
+  associatedMerchant: '关联商户',
+  backendAccount: '后台账号',
+  backendPassword: '后台密码',
+  addSecondaryMerchant: '添加二级商户',
+
+  // 提示信息
+  pleaseSelectAssociatedMerchant: '请选择关联商户',
+  pleaseInputBackendAccount: '请输入后台账号',
+  pleaseInputBackendPassword: '请输入后台账号密码',
+
+  // 表单验证消息
+  associatedMerchantRequired: '请选择关联商户',
+  userIdRequired: '用户ID不能为空',
+  businessNameRequired: '企业名称不能为空',
+  feeModelRequired: '收费模型不能为空',
+  saasUserCorporationIdRequired: 'SaaS用户公司ID不能为空',
+  isSiftOnRequired: 'sift类型不能为空',
+  is3dsOnRequired: '3ds类型不能为空',
+  isWhitelistOnRequired: '类型不能为空',
+  notifyOrderStatusEndpoint3Required: '出金通知商户订单状态不能为空',
+  aniCheckRequired: 'ANI检查标志不能为空',
+  acquirerIdRequired: '收单机构ID不能为空',
+  rejectReasonRequired: '拒绝原因不能为空',
+  pleaseInputFailureReason: '请输入失败原因'
+}

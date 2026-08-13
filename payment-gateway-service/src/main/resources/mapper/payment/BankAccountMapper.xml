@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.BankAccountMapper">
+
+    <resultMap type="com.games.payment.domain.BankAccount" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="bankName"    column="bank_name"    />
+                    <result property="bankAddressId"    column="bank_address_id"    />
+                    <result property="sortCode"    column="sort_code"    />
+                    <result property="accountNumber"    column="account_number"    />
+                    <result property="iban"    column="iban"    />
+                    <result property="bicSwift"    column="bic_swift"    />
+                    <result property="currencyId"    column="currency_id"    />
+                    <result property="type"    column="type"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="routingNumber"    column="routing_number"    />
+                    <result property="bankCounterpartyId"    column="bank_counterparty_id"    />
+                    <result property="bankCountry"    column="bank_country"    />
+                    <result property="bsbCode"    column="bsb_code"    />
+                    <result property="ifsc"    column="ifsc"    />
+                    <result property="clabe"    column="clabe"    />
+                    <result property="cptyAddressPostcode"    column="cpty_address_postcode"    />
+                    <result property="cptyAddress"    column="cpty_address"    />
+                    <result property="cptyCountry"    column="cpty_country"    />
+                    <result property="cptyCity"    column="cpty_city"    />
+                    <result property="cptyStreetLine1"    column="cpty_street_line1"    />
+                    <result property="firstName"    column="first_name"    />
+                    <result property="lastName"    column="last_name"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.bank_name, mt.bank_address_id, mt.sort_code, mt.account_number, mt.iban, mt.bic_swift, mt.currency_id, mt.type, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.routing_number, mt.bank_counterparty_id, mt.bank_country, mt.bsb_code, mt.ifsc, mt.clabe, mt.cpty_address_postcode, mt.cpty_address, mt.cpty_country, mt.cpty_city, mt.cpty_street_line1, mt.first_name, mt.last_name    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.BankAccount" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bank_account mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="bankName != null  and bankName != ''"> and mt.bank_name like concat('%', #{bankName}, '%')</if>
+                                                                            <if test="bankAddressId != null "> and mt.bank_address_id = #{bankAddressId}</if>
+                                                                            <if test="sortCode != null  and sortCode != ''"> and mt.sort_code = #{sortCode}</if>
+                                                                            <if test="accountNumber != null  and accountNumber != ''"> and mt.account_number = #{accountNumber}</if>
+                                                                            <if test="iban != null  and iban != ''"> and mt.iban = #{iban}</if>
+                                                                            <if test="bicSwift != null  and bicSwift != ''"> and mt.bic_swift = #{bicSwift}</if>
+                                                                            <if test="currencyId != null "> and mt.currency_id = #{currencyId}</if>
+                                                                            <if test="type != null "> and mt.type = #{type}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="routingNumber != null  and routingNumber != ''"> and mt.routing_number = #{routingNumber}</if>
+                                                                            <if test="bankCounterpartyId != null  and bankCounterpartyId != ''"> and mt.bank_counterparty_id = #{bankCounterpartyId}</if>
+                                                                            <if test="bankCountry != null  and bankCountry != ''"> and mt.bank_country = #{bankCountry}</if>
+                                                                            <if test="bsbCode != null  and bsbCode != ''"> and mt.bsb_code = #{bsbCode}</if>
+                                                                            <if test="ifsc != null  and ifsc != ''"> and mt.ifsc = #{ifsc}</if>
+                                                                            <if test="clabe != null  and clabe != ''"> and mt.clabe = #{clabe}</if>
+                                                                            <if test="cptyAddressPostcode != null  and cptyAddressPostcode != ''"> and mt.cpty_address_postcode = #{cptyAddressPostcode}</if>
+                                                                            <if test="cptyAddress != null  and cptyAddress != ''"> and mt.cpty_address = #{cptyAddress}</if>
+                                                                            <if test="cptyCountry != null  and cptyCountry != ''"> and mt.cpty_country = #{cptyCountry}</if>
+                                                                            <if test="cptyCity != null  and cptyCity != ''"> and mt.cpty_city = #{cptyCity}</if>
+                                                                            <if test="cptyStreetLine1 != null  and cptyStreetLine1 != ''"> and mt.cpty_street_line1 = #{cptyStreetLine1}</if>
+                                                                            <if test="firstName != null  and firstName != ''"> and mt.first_name like concat('%', #{firstName}, '%')</if>
+                                                                            <if test="lastName != null  and lastName != ''"> and mt.last_name like concat('%', #{lastName}, '%')</if>
+                                        </where>
+    </select>
+
+    <insert id="insertBankAccount" parameterType="com.games.payment.domain.BankAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into bank_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="bankName != null and bankName != ''">bank_name,</if>
+                                                                <if test="bankAddressId != null">bank_address_id,</if>
+                                                                <if test="sortCode != null">sort_code,</if>
+                                                                <if test="accountNumber != null">account_number,</if>
+                                                                <if test="iban != null">iban,</if>
+                                                                <if test="bicSwift != null">bic_swift,</if>
+                                                                <if test="currencyId != null">currency_id,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="routingNumber != null">routing_number,</if>
+                                                                <if test="bankCounterpartyId != null">bank_counterparty_id,</if>
+                                                                <if test="bankCountry != null">bank_country,</if>
+                                                                <if test="bsbCode != null">bsb_code,</if>
+                                                                <if test="ifsc != null">ifsc,</if>
+                                                                <if test="clabe != null">clabe,</if>
+                                                                <if test="cptyAddressPostcode != null">cpty_address_postcode,</if>
+                                                                <if test="cptyAddress != null">cpty_address,</if>
+                                                                <if test="cptyCountry != null">cpty_country,</if>
+                                                                <if test="cptyCity != null">cpty_city,</if>
+                                                                <if test="cptyStreetLine1 != null">cpty_street_line1,</if>
+                                                                <if test="firstName != null">first_name,</if>
+                                                                <if test="lastName != null">last_name,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="bankName != null and bankName != ''">#{bankName},</if>
+                                                                <if test="bankAddressId != null">#{bankAddressId},</if>
+                                                                <if test="sortCode != null">#{sortCode},</if>
+                                                                <if test="accountNumber != null">#{accountNumber},</if>
+                                                                <if test="iban != null">#{iban},</if>
+                                                                <if test="bicSwift != null">#{bicSwift},</if>
+                                                                <if test="currencyId != null">#{currencyId},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="routingNumber != null">#{routingNumber},</if>
+                                                                <if test="bankCounterpartyId != null">#{bankCounterpartyId},</if>
+                                                                <if test="bankCountry != null">#{bankCountry},</if>
+                                                                <if test="bsbCode != null">#{bsbCode},</if>
+                                                                <if test="ifsc != null">#{ifsc},</if>
+                                                                <if test="clabe != null">#{clabe},</if>
+                                                                <if test="cptyAddressPostcode != null">#{cptyAddressPostcode},</if>
+                                                                <if test="cptyAddress != null">#{cptyAddress},</if>
+                                                                <if test="cptyCountry != null">#{cptyCountry},</if>
+                                                                <if test="cptyCity != null">#{cptyCity},</if>
+                                                                <if test="cptyStreetLine1 != null">#{cptyStreetLine1},</if>
+                                                                <if test="firstName != null">#{firstName},</if>
+                                                                <if test="lastName != null">#{lastName},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateBankAccount" parameterType="com.games.payment.domain.BankAccount">
+        update bank_account
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="bankName != null and bankName != ''">bank_name = #{bankName},</if>
+                                                                <if test="bankAddressId != null">bank_address_id = #{bankAddressId},</if>
+                                                                <if test="sortCode != null">sort_code = #{sortCode},</if>
+                                                                <if test="accountNumber != null">account_number = #{accountNumber},</if>
+                                                                <if test="iban != null">iban = #{iban},</if>
+                                                                <if test="bicSwift != null">bic_swift = #{bicSwift},</if>
+                                                                <if test="currencyId != null">currency_id = #{currencyId},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="routingNumber != null">routing_number = #{routingNumber},</if>
+                                                                <if test="bankCounterpartyId != null">bank_counterparty_id = #{bankCounterpartyId},</if>
+                                                                <if test="bankCountry != null">bank_country = #{bankCountry},</if>
+                                                                <if test="bsbCode != null">bsb_code = #{bsbCode},</if>
+                                                                <if test="ifsc != null">ifsc = #{ifsc},</if>
+                                                                <if test="clabe != null">clabe = #{clabe},</if>
+                                                                <if test="cptyAddressPostcode != null">cpty_address_postcode = #{cptyAddressPostcode},</if>
+                                                                <if test="cptyAddress != null">cpty_address = #{cptyAddress},</if>
+                                                                <if test="cptyCountry != null">cpty_country = #{cptyCountry},</if>
+                                                                <if test="cptyCity != null">cpty_city = #{cptyCity},</if>
+                                                                <if test="cptyStreetLine1 != null">cpty_street_line1 = #{cptyStreetLine1},</if>
+                                                                <if test="firstName != null">first_name = #{firstName},</if>
+                                                                <if test="lastName != null">last_name = #{lastName},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBankAccountById" parameterType="Long">
+        delete from bank_account where id = #{id}
+    </delete>
+
+    <delete id="deleteBankAccountByIds" parameterType="String">
+        delete from bank_account where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

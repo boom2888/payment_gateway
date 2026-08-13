@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.FraudDataMapper">
+
+    <resultMap type="com.games.payment.domain.FraudData" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="uploadId"    column="upload_id"    />
+                    <result property="reportFraudulentId"    column="report_fraudulent_id"    />
+                    <result property="bin"    column="bin"    />
+                    <result property="issueDate"    column="issue_date"    />
+                    <result property="usdAmount"    column="usd_amount"    />
+                    <result property="methodName"    column="method_name"    />
+                    <result property="trackId"    column="track_id"    />
+                    <result property="transactionDate"    column="transaction_date"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+                    <result property="ssoOrderId"    column="sso_order_id"    />
+                    <result property="merchantId"    column="merchant_id"    />
+                    <result property="currencyId"    column="currency_id"    />
+                    <result property="fiatAmount"    column="fiat_amount"    />
+                    <result property="status"    column="status"    />
+                    <result property="orderCreated"    column="order_created"    />
+                    <result property="cryptoAmount"    column="crypto_amount"    />
+                    <result property="issuerCountry"    column="issuer_country"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.upload_id, mt.report_fraudulent_id, mt.bin, mt.issue_date, mt.usd_amount, mt.method_name, mt.track_id, mt.transaction_date, mt.created_at, mt.updated_at, mt.sso_order_id, mt.merchant_id, mt.currency_id, mt.fiat_amount, mt.status, mt.order_created, mt.crypto_amount, mt.issuer_country    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.FraudData" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from fraud_data mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="uploadId != null "> and mt.upload_id = #{uploadId}</if>
+                                                                            <if test="reportFraudulentId != null "> and mt.report_fraudulent_id = #{reportFraudulentId}</if>
+                                                                            <if test="bin != null "> and mt.bin = #{bin}</if>
+                                                                            <if test="issueDate != null "> and mt.issue_date = #{issueDate}</if>
+                                                                            <if test="usdAmount != null "> and mt.usd_amount = #{usdAmount}</if>
+                                                                            <if test="methodName != null "> and mt.method_name like concat('%', #{methodName}, '%')</if>
+                                                                            <if test="trackId != null "> and mt.track_id = #{trackId}</if>
+                                                                            <if test="transactionDate != null "> and mt.transaction_date = #{transactionDate}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                                                            <if test="ssoOrderId != null  and ssoOrderId != ''"> and mt.sso_order_id = #{ssoOrderId}</if>
+                                                                            <if test="merchantId != null "> and mt.merchant_id = #{merchantId}</if>
+                                                                            <if test="currencyId != null "> and mt.currency_id = #{currencyId}</if>
+                                                                            <if test="fiatAmount != null "> and mt.fiat_amount = #{fiatAmount}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="orderCreated != null "> and mt.order_created = #{orderCreated}</if>
+                                                                            <if test="cryptoAmount != null "> and mt.crypto_amount = #{cryptoAmount}</if>
+                                                                            <if test="issuerCountry != null  and issuerCountry != ''"> and mt.issuer_country = #{issuerCountry}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertFraudData" parameterType="com.games.payment.domain.FraudData" useGeneratedKeys="true" keyProperty="id">
+        insert into fraud_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadId != null">upload_id,</if>
+                                                                <if test="reportFraudulentId != null">report_fraudulent_id,</if>
+                                                                <if test="bin != null">bin,</if>
+                                                                <if test="issueDate != null">issue_date,</if>
+                                                                <if test="usdAmount != null">usd_amount,</if>
+                                                                <if test="methodName != null">method_name,</if>
+                                                                <if test="trackId != null">track_id,</if>
+                                                                <if test="transactionDate != null">transaction_date,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                                                <if test="ssoOrderId != null and ssoOrderId != ''">sso_order_id,</if>
+                                                                <if test="merchantId != null">merchant_id,</if>
+                                                                <if test="currencyId != null">currency_id,</if>
+                                                                <if test="fiatAmount != null">fiat_amount,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="orderCreated != null">order_created,</if>
+                                                                <if test="cryptoAmount != null">crypto_amount,</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">issuer_country,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadId != null">#{uploadId},</if>
+                                                                <if test="reportFraudulentId != null">#{reportFraudulentId},</if>
+                                                                <if test="bin != null">#{bin},</if>
+                                                                <if test="issueDate != null">#{issueDate},</if>
+                                                                <if test="usdAmount != null">#{usdAmount},</if>
+                                                                <if test="methodName != null">#{methodName},</if>
+                                                                <if test="trackId != null">#{trackId},</if>
+                                                                <if test="transactionDate != null">#{transactionDate},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                                                <if test="ssoOrderId != null and ssoOrderId != ''">#{ssoOrderId},</if>
+                                                                <if test="merchantId != null">#{merchantId},</if>
+                                                                <if test="currencyId != null">#{currencyId},</if>
+                                                                <if test="fiatAmount != null">#{fiatAmount},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="orderCreated != null">#{orderCreated},</if>
+                                                                <if test="cryptoAmount != null">#{cryptoAmount},</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">#{issuerCountry},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateFraudData" parameterType="com.games.payment.domain.FraudData">
+        update fraud_data
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="uploadId != null">upload_id = #{uploadId},</if>
+                                                                <if test="reportFraudulentId != null">report_fraudulent_id = #{reportFraudulentId},</if>
+                                                                <if test="bin != null">bin = #{bin},</if>
+                                                                <if test="issueDate != null">issue_date = #{issueDate},</if>
+                                                                <if test="usdAmount != null">usd_amount = #{usdAmount},</if>
+                                                                <if test="methodName != null">method_name = #{methodName},</if>
+                                                                <if test="trackId != null">track_id = #{trackId},</if>
+                                                                <if test="transactionDate != null">transaction_date = #{transactionDate},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                                                <if test="ssoOrderId != null and ssoOrderId != ''">sso_order_id = #{ssoOrderId},</if>
+                                                                <if test="merchantId != null">merchant_id = #{merchantId},</if>
+                                                                <if test="currencyId != null">currency_id = #{currencyId},</if>
+                                                                <if test="fiatAmount != null">fiat_amount = #{fiatAmount},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="orderCreated != null">order_created = #{orderCreated},</if>
+                                                                <if test="cryptoAmount != null">crypto_amount = #{cryptoAmount},</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">issuer_country = #{issuerCountry},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFraudDataById" parameterType="Long">
+        delete from fraud_data where id = #{id}
+    </delete>
+
+    <delete id="deleteFraudDataByIds" parameterType="String">
+        delete from fraud_data where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

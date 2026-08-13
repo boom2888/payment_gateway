@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.AddressMapper">
+
+    <resultMap type="com.games.payment.domain.Address" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="address1"    column="address1"    />
+                    <result property="address2"    column="address2"    />
+                    <result property="city"    column="city"    />
+                    <result property="state"    column="state"    />
+                    <result property="countryName"    column="country_name"    />
+                    <result property="postCode"    column="post_code"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.address1, mt.address2, mt.city, mt.state, mt.country_name, mt.post_code, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Address" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="address1 != null  and address1 != ''"> and mt.address1 = #{address1}</if>
+                                                                            <if test="address2 != null  and address2 != ''"> and mt.address2 = #{address2}</if>
+                                                                            <if test="city != null  and city != ''"> and mt.city = #{city}</if>
+                                                                            <if test="state != null  and state != ''"> and mt.state = #{state}</if>
+                                                                            <if test="countryName != null  and countryName != ''"> and mt.country_name like concat('%', #{countryName}, '%')</if>
+                                                                            <if test="postCode != null  and postCode != ''"> and mt.post_code = #{postCode}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertAddress" parameterType="com.games.payment.domain.Address" useGeneratedKeys="true" keyProperty="id">
+        insert into address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="address1 != null and address1 != ''">address1,</if>
+                                                                <if test="address2 != null">address2,</if>
+                                                                <if test="city != null">city,</if>
+                                                                <if test="state != null and state != ''">state,</if>
+                                                                <if test="countryName != null and countryName != ''">country_name,</if>
+                                                                <if test="postCode != null and postCode != ''">post_code,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="address1 != null and address1 != ''">#{address1},</if>
+                                                                <if test="address2 != null">#{address2},</if>
+                                                                <if test="city != null">#{city},</if>
+                                                                <if test="state != null and state != ''">#{state},</if>
+                                                                <if test="countryName != null and countryName != ''">#{countryName},</if>
+                                                                <if test="postCode != null and postCode != ''">#{postCode},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateAddress" parameterType="com.games.payment.domain.Address">
+        update address
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="address1 != null and address1 != ''">address1 = #{address1},</if>
+                                                                <if test="address2 != null">address2 = #{address2},</if>
+                                                                <if test="city != null">city = #{city},</if>
+                                                                <if test="state != null and state != ''">state = #{state},</if>
+                                                                <if test="countryName != null and countryName != ''">country_name = #{countryName},</if>
+                                                                <if test="postCode != null and postCode != ''">post_code = #{postCode},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAddressById" parameterType="Long">
+        delete from address where id = #{id}
+    </delete>
+
+    <delete id="deleteAddressByIds" parameterType="String">
+        delete from address where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

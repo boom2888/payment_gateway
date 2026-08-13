@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ThunesSupportedCountryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.games.payment.domain.ThunesSupportedCountry">
+        <id column="id" property="id" />
+        <result column="country_code" property="countryCode" />
+        <result column="currency" property="currency" />
+        <result column="payer_count" property="payerCount" />
+        <result column="is_active" property="isActive" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, country_code, currency, payer_count, is_active, created_at, updated_at
+    </sql>
+
+</mapper>

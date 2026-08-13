@@ -1,0 +1,192 @@
+/* CSS Initial Template */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "PingFang SC";
+  /* vertical-align: baseline; */
+  /* color: #333; */
+}
+
+* {
+  box-sizing: border-box;
+}
+img {
+  vertical-align: middle;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* custom initial styles */
+body {
+  background: white;
+  color: black;
+  font-family: "PingFang SC", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
+a,
+a:hover,
+a:active,
+a:focus {
+  color: #00b8bb;
+  text-decoration: none;
+}
+
+
+:root {
+  /* 颜色定义 */
+  --color-1:rgba(0, 0, 0, 1);
+  --color-2:rgba(55, 63, 68, 1);
+  --color-3:rgba(119, 120, 125, 1);
+  --color-4:rgba(204, 204, 204, 1);
+  --color-5:rgba(255, 255, 255, 1);
+  --color-6:rgba(99, 188, 128, 1);
+  --color-7:linear-gradient(180deg, #63BC80 0%, #6FAC83 100%);
+  --color-8:linear-gradient(180deg, #99D7AD 0%, #83CF9C 100%);
+  --color-9:rgba(240, 106, 87, 1);
+  
+  
+
+  /* 边框 */
+  
+  /* 间距 */
+  
+  /* 字体 */
+  --text-Semibold: 24px;
+  --text-light: 18px;
+  --text-bold: 14px;
+  --text-min: 12px;
+  /* 字重 */
+  --font-Semibold: 700;
+  --font-bold: 600;
+  --font-limi: 300;
+  
+}

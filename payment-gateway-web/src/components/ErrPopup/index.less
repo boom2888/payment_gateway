@@ -1,0 +1,132 @@
+.ErrPopup {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 84px;
+  z-index: 20;
+
+  .ErrPopup_bg,
+  .ErrPopup_commit {
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0px;
+  }
+
+  .ErrPopup_bg {
+    z-index: 2;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background-color: var(--color-1);
+    opacity: 0.6;
+  }
+
+  .ErrPopup_commit {
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+
+    &>div {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+      background: var(--color-5);
+      border-radius: 8px;
+      padding: 50px 27px;
+      font-family: Poppins;
+
+      .ErrPopup_title {
+        font-size: var(--text-Semibold);
+        font-weight: var(--font-bold);
+        padding-bottom: 27px;
+      }
+
+      img {
+        width: 33.33%;
+      }
+
+      .ErrPopup_tips {
+        font-size: var(--text-light);
+        font-weight: 400;
+        padding: 30px 0 50px;
+
+      }
+
+      .ErrPopupBotton {
+        height: 80px;
+        margin-top: 10px;
+        border-radius: 10px;
+        background: linear-gradient(180deg, #99D7AD 0%, #83CF9C 100%) !important;
+        font-size: var(--text-Semibold);
+        font-weight: var(--font-bold);
+        color: var(--color-1) !important;
+      }
+    }
+  }
+}
+
+.ErrPopupNone {
+  display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .ErrPopup {
+    .ErrPopup_commit {
+      padding: 0 15px;
+
+      &>div {
+        max-width: 100%;
+        padding: 40px 20px;
+
+        .ErrPopup_title {
+          font-size: calc(var(--text-Semibold) * 0.9);
+          padding-bottom: 20px;
+        }
+
+        .ErrPopup_tips {
+          font-size: calc(var(--text-light) * 0.9);
+          padding: 25px 0 40px;
+        }
+
+        .ErrPopupBotton {
+          height: 70px;
+          font-size: calc(var(--text-Semibold) * 0.9);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .ErrPopup {
+    .ErrPopup_commit {
+      padding: 0 10px;
+
+      &>div {
+        padding: 30px 15px;
+
+        .ErrPopup_title {
+          font-size: calc(var(--text-Semibold) * 0.8);
+          padding-bottom: 15px;
+        }
+
+        .ErrPopup_tips {
+          font-size: calc(var(--text-light) * 0.8);
+          padding: 20px 0 30px;
+        }
+
+        .ErrPopupBotton {
+          height: 60px;
+          font-size: calc(var(--text-Semibold) * 0.8);
+        }
+      }
+    }
+  }
+}

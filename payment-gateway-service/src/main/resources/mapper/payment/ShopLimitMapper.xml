@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ShopLimitMapper">
+
+    <resultMap type="com.games.payment.domain.ShopLimit" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="shopId"    column="shop_id"    />
+                    <result property="monday"    column="monday"    />
+                    <result property="tuesday"    column="tuesday"    />
+                    <result property="wednesday"    column="wednesday"    />
+                    <result property="thursday"    column="thursday"    />
+                    <result property="friday"    column="friday"    />
+                    <result property="saturday"    column="saturday"    />
+                    <result property="sunday"    column="sunday"    />
+                    <result property="value"    column="value"    />
+                    <result property="status"    column="status"    />
+                    <result property="createTime"    column="create_time"    />
+                    <result property="updateTime"    column="update_time"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.shop_id, mt.monday, mt.tuesday, mt.wednesday, mt.thursday, mt.friday, mt.saturday, mt.sunday, mt.value, mt.status, mt.create_time, mt.update_time    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ShopLimit" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shop_limit mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="shopId != null "> and mt.shop_id = #{shopId}</if>
+                                                                            <if test="monday != null "> and mt.monday = #{monday}</if>
+                                                                            <if test="tuesday != null "> and mt.tuesday = #{tuesday}</if>
+                                                                            <if test="wednesday != null "> and mt.wednesday = #{wednesday}</if>
+                                                                            <if test="thursday != null "> and mt.thursday = #{thursday}</if>
+                                                                            <if test="friday != null "> and mt.friday = #{friday}</if>
+                                                                            <if test="saturday != null "> and mt.saturday = #{saturday}</if>
+                                                                            <if test="sunday != null "> and mt.sunday = #{sunday}</if>
+                                                                            <if test="value != null "> and mt.value = #{value}</if>
+                                                                            <if test="status != null  and status != ''"> and mt.status = #{status}</if>
+                                                                            <if test="createTime != null "> and mt.create_time = #{createTime}</if>
+                                                                            <if test="updateTime != null "> and mt.update_time = #{updateTime}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertShopLimit" parameterType="com.games.payment.domain.ShopLimit" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_limit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="shopId != null">shop_id,</if>
+                                                                <if test="monday != null">monday,</if>
+                                                                <if test="tuesday != null">tuesday,</if>
+                                                                <if test="wednesday != null">wednesday,</if>
+                                                                <if test="thursday != null">thursday,</if>
+                                                                <if test="friday != null">friday,</if>
+                                                                <if test="saturday != null">saturday,</if>
+                                                                <if test="sunday != null">sunday,</if>
+                                                                <if test="value != null">value,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="createTime != null">create_time,</if>
+                                                                <if test="updateTime != null">update_time,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="shopId != null">#{shopId},</if>
+                                                                <if test="monday != null">#{monday},</if>
+                                                                <if test="tuesday != null">#{tuesday},</if>
+                                                                <if test="wednesday != null">#{wednesday},</if>
+                                                                <if test="thursday != null">#{thursday},</if>
+                                                                <if test="friday != null">#{friday},</if>
+                                                                <if test="saturday != null">#{saturday},</if>
+                                                                <if test="sunday != null">#{sunday},</if>
+                                                                <if test="value != null">#{value},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="createTime != null">#{createTime},</if>
+                                                                <if test="updateTime != null">#{updateTime},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateShopLimit" parameterType="com.games.payment.domain.ShopLimit">
+        update shop_limit
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="shopId != null">shop_id = #{shopId},</if>
+                                                                <if test="monday != null">monday = #{monday},</if>
+                                                                <if test="tuesday != null">tuesday = #{tuesday},</if>
+                                                                <if test="wednesday != null">wednesday = #{wednesday},</if>
+                                                                <if test="thursday != null">thursday = #{thursday},</if>
+                                                                <if test="friday != null">friday = #{friday},</if>
+                                                                <if test="saturday != null">saturday = #{saturday},</if>
+                                                                <if test="sunday != null">sunday = #{sunday},</if>
+                                                                <if test="value != null">value = #{value},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="createTime != null">create_time = #{createTime},</if>
+                                                                <if test="updateTime != null">update_time = #{updateTime},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteShopLimitById" parameterType="Long">
+        delete from shop_limit where id = #{id}
+    </delete>
+
+    <delete id="deleteShopLimitByIds" parameterType="String">
+        delete from shop_limit where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

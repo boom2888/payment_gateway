@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.UboMapper">
+
+    <resultMap type="com.games.payment.domain.Ubo" id="BaseResultMap">
+        <result property="id"    column="id"    />
+        <result property="shopId"    column="shop_id"    />
+        <result property="authType"    column="auth_type"    />
+        <result property="idDocFrontUrl"    column="id_doc_front_url"    />
+        <result property="idDocBackUrl"    column="id_doc_back_url"    />
+        <result property="addressType"    column="address_type"    />
+        <result property="addressDocUrl"    column="address_doc_url"    />
+        <result property="uboEmail"    column="ubo_email"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        mt.id, mt.shop_id, mt.auth_type, mt.id_doc_front_url, mt.id_doc_back_url, mt.address_type, mt.address_doc_url, mt.ubo_email, mt.create_time, mt.update_time    </sql>
+    <insert id="batchInsert">
+        insert into credit_ubo(shop_id, auth_type, id_doc_front_url, id_doc_back_url, address_type, address_doc_url, ubo_email) values
+        <foreach collection="ubos" item="ubo" separator=",">
+            (#{shopId}, #{ubo.authType}, #{ubo.idDocFrontUrl}, #{ubo.idDocBackUrl}, #{ubo.addressType}, #{ubo.addressDocUrl}, #{ubo.uboEmail})
+        </foreach>
+    </insert>
+    <delete id="deleteByShopId">
+        delete from credit_ubo where shop_id = #{shopId}
+    </delete>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Ubo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from credit_ubo mt
+        <where>
+            <if test="id != null "> and mt.id = #{id}</if>
+            <if test="shopId != null "> and mt.shop_id = #{shopId}</if>
+            <if test="authType != null  and authType != ''"> and mt.auth_type = #{authType}</if>
+            <if test="idDocFrontUrl != null  and idDocFrontUrl != ''"> and mt.id_doc_front_url = #{idDocFrontUrl}</if>
+            <if test="idDocBackUrl != null  and idDocBackUrl != ''"> and mt.id_doc_back_url = #{idDocBackUrl}</if>
+            <if test="addressType != null "> and mt.address_type = #{addressType}</if>
+            <if test="addressDocUrl != null  and addressDocUrl != ''"> and mt.address_doc_url = #{addressDocUrl}</if>
+            <if test="uboEmail != null  and uboEmail != ''"> and mt.ubo_email = #{uboEmail}</if>
+            <if test="createTime != null "> and mt.create_time = #{createTime}</if>
+            <if test="updateTime != null "> and mt.update_time = #{updateTime}</if>
+        </where>
+        order by mt.id desc
+    </select>
+    <select id="selectByShopId" resultType="com.games.payment.domain.Ubo">
+        select
+            <include refid="Base_Column_List"/>
+        from credit_ubo mt
+        where
+            mt.shop_id = #{shopId}
+    </select>
+
+</mapper>

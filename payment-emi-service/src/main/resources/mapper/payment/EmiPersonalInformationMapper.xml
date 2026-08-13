@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiPersonalInformationMapper">
+
+    <resultMap type="com.games.payment.domain.EmiPersonalInformation" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="accountType"    column="account_type"    />
+                    <result property="nationality"    column="nationality"    />
+                    <result property="email"    column="email"    />
+                    <result property="idType"    column="id_type"    />
+                    <result property="idPhoto"    column="id_photo"    />
+                    <result property="fullName"    column="full_name"    />
+                    <result property="idNumber"    column="id_number"    />
+                    <result property="gender"    column="gender"    />
+                    <result property="birthDate"    column="birth_date"    />
+                    <result property="residenceCountry"    column="residence_country"    />
+                    <result property="residenceProvinceCity"    column="residence_province_city"    />
+                    <result property="residenceAddress"    column="residence_address"    />
+                    <result property="residencePostalCode"    column="residence_postal_code"    />
+                    <result property="contactPhone"    column="contact_phone"    />
+                    <result property="fundSource"    column="fund_source"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+                    <result property="userId"    column="user_id"    />
+                    <result property="status"    column="status"    />
+                    <result property="enabledStatus"    column="enabled_status"    />
+        <result property="cardNumber"    column="card_number"    />
+        <result property="bank"    column="bank"    />
+    </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.account_type, mt.nationality, mt.email, mt.id_type, mt.id_photo, mt.full_name, mt.id_number, mt.gender, mt.birth_date, mt.residence_country, mt.residence_province_city, mt.residence_address, mt.residence_postal_code, mt.contact_phone, mt.fund_source, mt.created_at, mt.updated_at, mt.user_id, mt.status, mt.enabled_status    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiPersonalInformation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_personal_information mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="accountType != null  and accountType != ''"> and mt.account_type = #{accountType}</if>
+                                                                            <if test="nationality != null  and nationality != ''"> and mt.nationality = #{nationality}</if>
+                                                                            <if test="email != null  and email != ''"> and mt.email = #{email}</if>
+                                                                            <if test="idType != null  and idType != ''"> and mt.id_type = #{idType}</if>
+                                                                            <if test="idPhoto != null  and idPhoto != ''"> and mt.id_photo = #{idPhoto}</if>
+                                                                            <if test="fullName != null  and fullName != ''"> and mt.full_name like concat('%', #{fullName}, '%')</if>
+                                                                            <if test="idNumber != null  and idNumber != ''"> and mt.id_number = #{idNumber}</if>
+                                                                            <if test="gender != null  and gender != ''"> and mt.gender = #{gender}</if>
+                                                                            <if test="birthDate != null "> and mt.birth_date = #{birthDate}</if>
+                                                                            <if test="residenceCountry != null  and residenceCountry != ''"> and mt.residence_country = #{residenceCountry}</if>
+                                                                            <if test="residenceProvinceCity != null  and residenceProvinceCity != ''"> and mt.residence_province_city = #{residenceProvinceCity}</if>
+                                                                            <if test="residenceAddress != null  and residenceAddress != ''"> and mt.residence_address = #{residenceAddress}</if>
+                                                                            <if test="residencePostalCode != null  and residencePostalCode != ''"> and mt.residence_postal_code = #{residencePostalCode}</if>
+                                                                            <if test="contactPhone != null  and contactPhone != ''"> and mt.contact_phone = #{contactPhone}</if>
+                                                                            <if test="fundSource != null  and fundSource != ''"> and mt.fund_source = #{fundSource}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="enabledStatus != null "> and mt.enabled_status = #{enabledStatus}</if>
+                                                                            <if test="cardNumber != null  and cardNumber != ''"> and mt.card_number = #{cardNumber}</if>
+                                                                            <if test="bank != null  and bank != ''"> and mt.bank = #{bank}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiPersonalInformation" parameterType="com.games.payment.domain.EmiPersonalInformation" useGeneratedKeys="true" keyProperty="id">
+        insert into emi_personal_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="accountType != null and accountType != ''">account_type,</if>
+                                                                <if test="nationality != null">nationality,</if>
+                                                                <if test="email != null and email != ''">email,</if>
+                                                                <if test="idType != null and idType != ''">id_type,</if>
+                                                                <if test="idPhoto != null">id_photo,</if>
+                                                                <if test="fullName != null and fullName != ''">full_name,</if>
+                                                                <if test="idNumber != null and idNumber != ''">id_number,</if>
+                                                                <if test="gender != null">gender,</if>
+                                                                <if test="birthDate != null">birth_date,</if>
+                                                                <if test="residenceCountry != null">residence_country,</if>
+                                                                <if test="residenceProvinceCity != null">residence_province_city,</if>
+                                                                <if test="residenceAddress != null">residence_address,</if>
+                                                                <if test="residencePostalCode != null">residence_postal_code,</if>
+                                                                <if test="contactPhone != null">contact_phone,</if>
+                                                                <if test="fundSource != null">fund_source,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                                                <if test="userId != null">user_id,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="enabledStatus != null">enabled_status,</if>
+                                                                <if test="cardNumber != null">card_number,</if>
+                                                                <if test="bank != null">bank,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="accountType != null and accountType != ''">#{accountType},</if>
+                                                                <if test="nationality != null">#{nationality},</if>
+                                                                <if test="email != null and email != ''">#{email},</if>
+                                                                <if test="idType != null and idType != ''">#{idType},</if>
+                                                                <if test="idPhoto != null">#{idPhoto},</if>
+                                                                <if test="fullName != null and fullName != ''">#{fullName},</if>
+                                                                <if test="idNumber != null and idNumber != ''">#{idNumber},</if>
+                                                                <if test="gender != null">#{gender},</if>
+                                                                <if test="birthDate != null">#{birthDate},</if>
+                                                                <if test="residenceCountry != null">#{residenceCountry},</if>
+                                                                <if test="residenceProvinceCity != null">#{residenceProvinceCity},</if>
+                                                                <if test="residenceAddress != null">#{residenceAddress},</if>
+                                                                <if test="residencePostalCode != null">#{residencePostalCode},</if>
+                                                                <if test="contactPhone != null">#{contactPhone},</if>
+                                                                <if test="fundSource != null">#{fundSource},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                                                <if test="userId != null">#{userId},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="enabledStatus != null">#{enabledStatus},</if>
+                                                                <if test="cardNumber != null">#{cardNumber},</if>
+                                                                <if test="bank != null">#{bank},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiPersonalInformation" parameterType="com.games.payment.domain.EmiPersonalInformation">
+        update emi_personal_information
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="accountType != null and accountType != ''">account_type = #{accountType},</if>
+                                                                <if test="nationality != null">nationality = #{nationality},</if>
+                                                                <if test="email != null and email != ''">email = #{email},</if>
+                                                                <if test="idType != null and idType != ''">id_type = #{idType},</if>
+                                                                <if test="idPhoto != null">id_photo = #{idPhoto},</if>
+                                                                <if test="fullName != null and fullName != ''">full_name = #{fullName},</if>
+                                                                <if test="idNumber != null and idNumber != ''">id_number = #{idNumber},</if>
+                                                                <if test="gender != null">gender = #{gender},</if>
+                                                                <if test="birthDate != null">birth_date = #{birthDate},</if>
+                                                                <if test="residenceCountry != null">residence_country = #{residenceCountry},</if>
+                                                                <if test="residenceProvinceCity != null">residence_province_city = #{residenceProvinceCity},</if>
+                                                                <if test="residenceAddress != null">residence_address = #{residenceAddress},</if>
+                                                                <if test="residencePostalCode != null">residence_postal_code = #{residencePostalCode},</if>
+                                                                <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+                                                                <if test="fundSource != null">fund_source = #{fundSource},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                                                <if test="userId != null">user_id = #{userId},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="enabledStatus != null">enabled_status = #{enabledStatus},</if>
+                                                                <if test="cardNumber != null">card_number = #{cardNumber},</if>
+                                                                <if test="bank != null">bank = #{bank},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiPersonalInformationById" parameterType="Long">
+        delete from emi_personal_information where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiPersonalInformationByIds" parameterType="String">
+        delete from emi_personal_information where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

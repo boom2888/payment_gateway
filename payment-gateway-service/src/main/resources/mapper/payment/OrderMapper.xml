@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.OrderMapper">
+    <resultMap type="com.games.payment.domain.Order" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="merchantId" column="merchant_id"/>
+        <result property="customerId" column="customer_id"/>
+        <result property="customerWalletId" column="customer_wallet_id"/>
+        <result property="type" column="type"/>
+        <result property="currencyId" column="currency_id"/>
+        <result property="fiatAmount" column="fiat_amount"/>
+        <result property="cryptoId" column="crypto_id"/>
+        <result property="cryptoAmount" column="crypto_amount"/>
+        <result property="processingFee" column="processing_fee"/>
+        <result property="liquidityQuote" column="liquidity_quote"/>
+        <result property="liquidityProvider" column="liquidity_provider"/>
+        <result property="orderUuid" column="order_uuid"/>
+        <result property="reference" column="reference"/>
+        <result property="travelRuleStatus" column="travel_rule_status"/>
+        <result property="status" column="status"/>
+        <result property="amlId" column="aml_id"/>
+        <result property="amlPayload" column="aml_payload"/>
+        <result property="amlScore" column="aml_score"/>
+        <result property="amlStatus" column="aml_status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="deletedAt" column="deleted_at"/>
+        <result property="deletedBy" column="deleted_by"/>
+        <result property="deleted" column="deleted"/>
+        <result property="remark" column="remark"/>
+        <result property="travelRuleId" column="travel_rule_id"/>
+        <result property="paymentIp" column="payment_ip"/>
+        <result property="mid" column="mid"/>
+        <result property="isOtc" column="is_otc"/>
+        <result property="ssoOrderId" column="sso_order_id"/>
+        <result property="includeFee" column="include_fee"/>
+        <result property="sum90Checked" column="sum_90_checked"/>
+        <result property="fraudScore" column="fraud_score"/>
+        <result property="gatewayFee" column="gateway_fee"/>
+        <result property="referralCode" column="referral_code"/>
+        <result property="bankAccountId" column="bank_account_id"/>
+        <result property="aniCode" column="ani_code"/>
+        <result property="isRollback" column="is_rollback"/>
+        <result property="callbackStatus" column="callback_status"/>
+        <result property="callbackNum" column="callback_num"/>
+        <result property="callbackMsg" column="callback_msg"/>
+        <result property="callbackTime" column="callback_time"/>
+        <result property="updateAt" column="update_at"/>
+        <result property="rollingFee" column="rolling_fee"/>
+        <result property="rollingDate" column="rollingDate"/>
+        <result property="acquirerId" column="acquirer_id"/>
+        <result property="transactionId" column="transaction_id"/>
+        <result property="failReasons" column="fail_reasons"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="payInfo" column="pay_info"/>
+    </resultMap>
+
+    <resultMap type="com.games.payment.domain.Order" id="ExportResultMap" extends="BaseResultMap">
+        <result property="merchantName" column="merchant_name"/>
+        <result property="faitCurrency" column="fait_currency"/>
+        <result property="cryptoCurrency" column="crypto_currency"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        mt.id, mt.merchant_id, mt.customer_id, mt.customer_wallet_id, mt.type, mt.currency_id, mt.fiat_amount,
+          mt.crypto_id, mt.crypto_amount, mt.processing_fee, mt.liquidity_quote, mt.liquidity_provider,mt.transaction_id,
+          mt.order_uuid, mt.reference, mt.travel_rule_status, mt.status, mt.aml_id, mt.aml_payload, mt.aml_score,
+          mt.aml_status, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark,mt.product_name,
+          mt.travel_rule_id, mt.payment_ip, mt.mid, mt.is_otc, mt.sso_order_id, mt.include_fee, mt.sum_90_checked,
+          mt.fraud_score, mt.gateway_fee, mt.referral_code, mt.bank_account_id, mt.ani_code, mt.is_rollback,mt.rolling_fee,
+         mt.rolling_date, mt.callback_time,mt.callback_status,mt.callback_num,mt.callback_msg,mt.update_at,mt.pay_time,
+         mt.fail_reasons,mt.payment_type
+    </sql>
+    <sql id="Order_Filter">
+        <where>
+            <if test="id != null ">and mt.id = #{id}</if>
+            <if test="ids != null and ids.size > 0">
+                and mt.id in
+                <foreach item="item" collection="ids" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="merchantId != null ">and mt.merchant_id = #{merchantId}</if>
+            <if test="customerId != null ">and mt.customer_id = #{customerId}</if>
+            <if test="customerWalletId != null ">and mt.customer_wallet_id = #{customerWalletId}</if>
+            <if test="type != null ">and mt.type = #{type}</if>
+            <if test="currencyId != null ">and mt.currency_id = #{currencyId}</if>
+            <if test="fiatAmount != null ">and mt.fiat_amount = #{fiatAmount}</if>
+            <if test="cryptoId != null ">and mt.crypto_id = #{cryptoId}</if>
+            <if test="cryptoAmount != null ">and mt.crypto_amount = #{cryptoAmount}</if>
+            <if test="processingFee != null ">and mt.processing_fee = #{processingFee}</if>
+            <if test="liquidityQuote != null ">and mt.liquidity_quote = #{liquidityQuote}</if>
+            <if test="liquidityProvider != null  and liquidityProvider != ''">and mt.liquidity_provider =
+                #{liquidityProvider}
+            </if>
+            <if test="orderUuid != null  and orderUuid != ''">and mt.order_uuid = #{orderUuid}</if>
+            <if test="reference != null  and reference != ''">and mt.reference = #{reference}</if>
+            <if test="travelRuleStatus != null ">and mt.travel_rule_status = #{travelRuleStatus}</if>
+            <if test="status != null and status != '' ">and mt.status = #{status}</if>
+            <if test="amlId != null  and amlId != ''">and mt.aml_id = #{amlId}</if>
+            <if test="amlPayload != null  and amlPayload != ''">and mt.aml_payload = #{amlPayload}</if>
+            <if test="amlScore != null  and amlScore != ''">and mt.aml_score = #{amlScore}</if>
+            <if test="amlStatus != null ">and mt.aml_status = #{amlStatus}</if>
+            <if test="createdAt != null ">and mt.created_at &gt;= #{createdAt} and mt.created_at &lt;
+                DATE_ADD(#{createdAt}, INTERVAL 1 DAY)
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                <!-- 开始时间检索 -->
+                AND mt.created_at &gt;= concat(#{params.beginTime}, ' 00:00:00')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                <!-- 结束时间检索 -->
+                AND mt.created_at &lt;= concat(#{params.endTime},' 23:59:59')
+            </if>
+            <if test="beginTime != null">
+                <!-- 开始时间检索（Date类型） -->
+                AND mt.created_at &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                <!-- 结束时间检索（Date类型）- 包含整天的数据 -->
+                AND mt.created_at &lt; DATE_ADD(#{endTime}, INTERVAL 1 DAY)
+            </if>
+            <if test="createdBy != null ">and mt.created_by = #{createdBy}</if>
+            <if test="deletedAt != null ">and mt.deleted_at = #{deletedAt}</if>
+            <if test="deletedBy != null ">and mt.deleted_by = #{deletedBy}</if>
+            <if test="deleted != null ">and mt.deleted = #{deleted}</if>
+            <if test="remark != null  and remark != ''">and mt.remark = #{remark}</if>
+            <if test="travelRuleId != null  and travelRuleId != ''">and mt.travel_rule_id = #{travelRuleId}</if>
+            <if test="paymentIp != null  and paymentIp != ''">and mt.payment_ip = #{paymentIp}</if>
+            <if test="mid != null  and mid != ''">and mt.mid = #{mid}</if>
+            <if test="isOtc != null ">and mt.is_otc = #{isOtc}</if>
+            <if test="ssoOrderId != null  and ssoOrderId != ''">and mt.sso_order_id = #{ssoOrderId}</if>
+            <if test="includeFee != null ">and mt.include_fee = #{includeFee}</if>
+            <if test="sum90Checked != null ">and mt.sum_90_checked = #{sum90Checked}</if>
+            <if test="fraudScore != null  and fraudScore != ''">and mt.fraud_score = #{fraudScore}</if>
+            <if test="gatewayFee != null ">and mt.gateway_fee = #{gatewayFee}</if>
+            <if test="referralCode != null  and referralCode != ''">and mt.referral_code = #{referralCode}</if>
+            <if test="bankAccountId != null ">and mt.bank_account_id = #{bankAccountId}</if>
+            <if test="aniCode != null  and aniCode != ''">and mt.ani_code = #{aniCode}</if>
+            <if test="isRollback != null ">and mt.is_rollback = #{isRollback}</if>
+            <if test="callbackStatus != null and callbackStatus != ''">and mt.callback_status = #{callbackStatus}</if>
+            <if test="callbackNum != null and callbackNum != ''">and mt.callback_num = #{callbackNum}</if>
+            <if test="callbackMsg != null and callbackMsg != ''">and mt.callback_msg = #{callbackMsg}</if>
+        </where>
+    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.Order" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order` mt
+        <include refid="Order_Filter"/>
+        order by mt.id desc
+    </select>
+
+    <select id="exportQueryAllOrder" resultMap="ExportResultMap">
+        select
+        <include refid="Base_Column_List"/>,
+        mt.pay_info,
+        s.business_name as merchant_name,
+        fc.name as fait_currency,
+        cc.name as crypto_currency
+        from `order` mt
+        left join shop s on mt.merchant_id = s.id
+        left join currency fc on mt.currency_id = fc.id
+        left join crypto_currency cc on mt.crypto_id = cc.id
+        <include refid="Order_Filter"/>
+        order by mt.id desc
+    </select>
+
+    <select id="getOrderWithFeeModel" resultType="com.games.pay.dto.OrderWithFeeModelDto">
+        select
+        <include refid="Base_Column_List"/>,m.id as fee_model_id,m.name as fee_model_name,m.process_fee_eu_usd,
+        m.process_fee_eu_non_usd,m.process_fee_non_eu_usd,m.process_fee_non_eu_non_usd,m.gateway_fee_threshold,
+        m.gateway_fee_below_threshold,m.gateway_fee_above_threshold,m.rolling_reserve_rate,
+        m.rolling_reserve_release_days,m.exchange_rate_bps,m.refund_fee,m.rdr_fee,m.cb_fee
+        from `order` mt left join shop c on mt.merchant_id = c.id
+        left join merchant_fee_model m on c.merchant_fee_model_id = m.id
+            m.process_fee_eu_non_usd,m.process_fee_non_eu_usd,m.process_fee_non_eu_non_usd,m.gateway_fee_threshold,
+            m.gateway_fee_below_threshold,m.gateway_fee_above_threshold,m.rolling_reserve_rate,
+            m.rolling_reserve_release_days,m.exchange_rate_bps,m.refund_fee,m.rdr_fee,m.cb_fee
+        from `order` mt left join shop c on mt.merchant_id = c.id
+            left join merchant_fee_model m on c.merchant_fee_model_id = m.id
+        <where>
+            <if test="id != null ">mt.id = #{id}</if>
+        </where>
+    </select>
+
+    <select id="getOrdersWithFeeModelByIds" resultType="com.games.pay.dto.OrderWithFeeModelDto">
+        select
+        <include refid="Base_Column_List"/>,m.id as fee_model_id,m.name as fee_model_name,m.process_fee_eu_usd,
+        m.process_fee_eu_non_usd,m.process_fee_non_eu_usd,m.process_fee_non_eu_non_usd,m.gateway_fee_threshold,
+        m.gateway_fee_below_threshold,m.gateway_fee_above_threshold,m.rolling_reserve_rate,
+        m.rolling_reserve_release_days,m.exchange_rate_bps,m.refund_fee,m.rdr_fee,m.cb_fee
+        from `order` mt left join shop c on mt.merchant_id = c.id
+        left join merchant_fee_model m on c.merchant_fee_model_id = m.id
+        <where>
+            mt.id in
+            <foreach item="id" collection="orderIds" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <insert id="insertOrder" parameterType="com.games.payment.domain.Order" useGeneratedKeys="true" keyProperty="id">
+        insert into `order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="customerId != null">customer_id,</if>
+            <if test="customerWalletId != null">customer_wallet_id,</if>
+            <if test="type != null">type,</if>
+            <if test="currencyId != null">currency_id,</if>
+            <if test="fiatAmount != null">fiat_amount,</if>
+            <if test="cryptoId != null">crypto_id,</if>
+            <if test="cryptoAmount != null">crypto_amount,</if>
+            <if test="processingFee != null">processing_fee,</if>
+            <if test="liquidityQuote != null">liquidity_quote,</if>
+            <if test="liquidityProvider != null">liquidity_provider,</if>
+            <if test="orderUuid != null">order_uuid,</if>
+            <if test="reference != null">reference,</if>
+            <if test="travelRuleStatus != null">travel_rule_status,</if>
+            <if test="status != null">status,</if>
+            <if test="amlId != null">aml_id,</if>
+            <if test="amlPayload != null">aml_payload,</if>
+            <if test="amlScore != null">aml_score,</if>
+            <if test="amlStatus != null">aml_status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="deletedAt != null">deleted_at,</if>
+            <if test="deletedBy != null">deleted_by,</if>
+            <if test="deleted != null">deleted,</if>
+            <if test="remark != null">remark,</if>
+            <if test="travelRuleId != null">travel_rule_id,</if>
+            <if test="paymentIp != null">payment_ip,</if>
+            <if test="mid != null">mid,</if>
+            <if test="isOtc != null">is_otc,</if>
+            <if test="ssoOrderId != null">sso_order_id,</if>
+            <if test="includeFee != null">include_fee,</if>
+            <if test="sum90Checked != null">sum_90_checked,</if>
+            <if test="fraudScore != null">fraud_score,</if>
+            <if test="gatewayFee != null">gateway_fee,</if>
+            <if test="referralCode != null">referral_code,</if>
+            <if test="bankAccountId != null">bank_account_id,</if>
+            <if test="aniCode != null">ani_code,</if>
+            <if test="isRollback != null">is_rollback,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="customerWalletId != null">#{customerWalletId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="currencyId != null">#{currencyId},</if>
+            <if test="fiatAmount != null">#{fiatAmount},</if>
+            <if test="cryptoId != null">#{cryptoId},</if>
+            <if test="cryptoAmount != null">#{cryptoAmount},</if>
+            <if test="processingFee != null">#{processingFee},</if>
+            <if test="liquidityQuote != null">#{liquidityQuote},</if>
+            <if test="liquidityProvider != null">#{liquidityProvider},</if>
+            <if test="orderUuid != null">#{orderUuid},</if>
+            <if test="reference != null">#{reference},</if>
+            <if test="travelRuleStatus != null">#{travelRuleStatus},</if>
+            <if test="status != null">#{status},</if>
+            <if test="amlId != null">#{amlId},</if>
+            <if test="amlPayload != null">#{amlPayload},</if>
+            <if test="amlScore != null">#{amlScore},</if>
+            <if test="amlStatus != null">#{amlStatus},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="deletedAt != null">#{deletedAt},</if>
+            <if test="deletedBy != null">#{deletedBy},</if>
+            <if test="deleted != null">#{deleted},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="travelRuleId != null">#{travelRuleId},</if>
+            <if test="paymentIp != null">#{paymentIp},</if>
+            <if test="mid != null">#{mid},</if>
+            <if test="isOtc != null">#{isOtc},</if>
+            <if test="ssoOrderId != null">#{ssoOrderId},</if>
+            <if test="includeFee != null">#{includeFee},</if>
+            <if test="sum90Checked != null">#{sum90Checked},</if>
+            <if test="fraudScore != null">#{fraudScore},</if>
+            <if test="gatewayFee != null">#{gatewayFee},</if>
+            <if test="referralCode != null">#{referralCode},</if>
+            <if test="bankAccountId != null">#{bankAccountId},</if>
+            <if test="aniCode != null">#{aniCode},</if>
+            <if test="isRollback != null">#{isRollback},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOrder" parameterType="com.games.payment.domain.Order">
+        update `order`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="customerWalletId != null">customer_wallet_id = #{customerWalletId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="currencyId != null">currency_id = #{currencyId},</if>
+            <if test="fiatAmount != null">fiat_amount = #{fiatAmount},</if>
+            <if test="cryptoId != null">crypto_id = #{cryptoId},</if>
+            <if test="cryptoAmount != null">crypto_amount = #{cryptoAmount},</if>
+            <if test="processingFee != null">processing_fee = #{processingFee},</if>
+            <if test="liquidityQuote != null">liquidity_quote = #{liquidityQuote},</if>
+            <if test="liquidityProvider != null">liquidity_provider = #{liquidityProvider},</if>
+            <if test="orderUuid != null">order_uuid = #{orderUuid},</if>
+            <if test="reference != null">reference = #{reference},</if>
+            <if test="travelRuleStatus != null">travel_rule_status = #{travelRuleStatus},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="amlId != null">aml_id = #{amlId},</if>
+            <if test="amlPayload != null">aml_payload = #{amlPayload},</if>
+            <if test="amlScore != null">aml_score = #{amlScore},</if>
+            <if test="amlStatus != null">aml_status = #{amlStatus},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+            <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="travelRuleId != null">travel_rule_id = #{travelRuleId},</if>
+            <if test="paymentIp != null">payment_ip = #{paymentIp},</if>
+            <if test="mid != null">mid = #{mid},</if>
+            <if test="isOtc != null">is_otc = #{isOtc},</if>
+            <if test="ssoOrderId != null">sso_order_id = #{ssoOrderId},</if>
+            <if test="includeFee != null">include_fee = #{includeFee},</if>
+            <if test="sum90Checked != null">sum_90_checked = #{sum90Checked},</if>
+            <if test="fraudScore != null">fraud_score = #{fraudScore},</if>
+            <if test="gatewayFee != null">gateway_fee = #{gatewayFee},</if>
+            <if test="referralCode != null">referral_code = #{referralCode},</if>
+            <if test="bankAccountId != null">bank_account_id = #{bankAccountId},</if>
+            <if test="aniCode != null">ani_code = #{aniCode},</if>
+            <if test="isRollback != null">is_rollback = #{isRollback},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="settlementOrder">
+        update `order`
+        set
+            settlement_status = #{ordinal},
+            update_at = now()
+        where id = #{orderId}
+    </update>
+
+    <delete id="deleteOrderById" parameterType="Long">
+        delete
+        from `order`
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderByIds" parameterType="String">
+        delete from `order` where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getOrderNumber" resultType="java.lang.Integer">
+        select count(1) from `order`
+        WHERE created_at >= #{startDatetime}
+          AND created_at &lt;= #{endDatetime}
+        <if test="status != null">
+              and status in
+            <foreach collection="status" separator="," open="(" item="item" close=")">
+                  #{item}
+              </foreach>
+        </if>
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+    </select>
+
+    <select id="batchGetOrderNumber" resultType="java.lang.Integer">
+        SELECT
+        <foreach collection="timeRanges" item="range" separator=" UNION ALL ">
+            (SELECT COUNT(1) FROM `order`
+            WHERE created_at >= #{range.startDatetime}
+            AND CONVERT_TZ(created_at, '+00:00', '+08:00') &lt;= #{range.endDatetime}
+            <if test="status != null">
+                AND status in
+                <foreach collection="status" separator="," open="(" item="item" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="shopId != null">
+                AND merchant_id = #{shopId}
+            </if>
+            )
+        </foreach>
+    </select>
+
+    <select id="getOrderAmount" resultType="java.math.BigDecimal">
+        select coalesce(sum(transfer_amount), 0) from `order`
+        WHERE created_at >= #{startDatetime}
+          AND created_at &lt;= #{endDatetime} and status = 9
+        <if test="shopId != null">
+                AND merchant_id = #{shopId}
+            </if>
+    </select>
+
+    <select id="getOrderFiatAmount" resultType="java.math.BigDecimal">
+        SELECT coalesce(SUM(fiat_amount), 0)
+        FROM `order`
+        WHERE created_at >= #{startDatetime}
+          AND created_at &lt;= #{endDatetime}
+          AND status = 9
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+    </select>
+
+    <select id="batchGetOrderAmount" resultType="java.math.BigDecimal">
+        SELECT
+        <foreach collection="timeRanges" item="range" separator=" UNION ALL ">
+            (SELECT COALESCE(SUM(transfer_amount), 0) FROM `order`
+            WHERE created_at >= #{range.startDatetime}
+            AND CONVERT_TZ(created_at, '+00:00', '+08:00') &lt;= #{range.endDatetime}
+            AND status = 9
+            <if test="shopId != null">
+                AND merchant_id = #{shopId}
+            </if>
+            )
+        </foreach>
+    </select>
+
+    <select id="getShopOrderNum" resultType="com.games.pay.vo.ShopOrderNumVo">
+        SELECT s.business_name as name,
+               COUNT(1) AS value
+        FROM
+            `order` o
+            LEFT JOIN shop s
+        ON o.merchant_id = s.id
+        WHERE
+        o.status = 9
+        <if test="shopId != null">
+            and o.merchant_id = #{shopId}
+        </if>
+        <if test="transactionCountStartDate != null and transactionCountStartDate != ''">
+            and o.created_at >= concat(#{transactionCountStartDate}, ' 00:00:00')
+        </if>
+        <if test="transactionCountEndDate != null and transactionCountEndDate != ''">
+            AND o.created_at &lt;= concat(#{transactionCountEndDate}, ' 23:59:59')
+        </if>
+        GROUP BY
+            o.merchant_id, s.business_name
+        ORDER BY
+            value DESC
+            LIMIT 3
+    </select>
+
+    <select id="getShopOrderAmount" resultType="com.games.pay.vo.ShopOrderAmountVo">
+        SELECT s.business_name as name,
+               coalesce(SUM(o.transfer_amount), 0) AS value
+        FROM
+            `order` o
+            LEFT JOIN shop s
+        ON o.merchant_id = s.id
+        WHERE
+        o.status = 9
+        <if test="shopId != null">
+            and o.merchant_id = #{shopId}
+        </if>
+        <if test="transactionAmountStartDate != null and transactionAmountStartDate != ''">
+            and o.created_at >= concat(#{transactionAmountStartDate}, ' 00:00:00')
+        </if>
+        <if test="transactionAmountEndDate != null and transactionAmountEndDate != ''">
+            AND o.created_at &lt;= concat(#{transactionAmountEndDate}, ' 23:59:59')
+        </if>
+        GROUP BY
+            o.merchant_id, s.business_name
+        ORDER BY
+            value DESC
+            LIMIT 3
+    </select>
+
+    <select id="getOrderStatusStatistics" resultType="com.games.pay.dto.OrderStatusStatistics">
+        SELECT
+        DATE(created_at) as date,
+        status,
+        COUNT(1) as count
+        FROM `order`
+        WHERE CONVERT_TZ(created_at, '+00:00', '+08:00') >= #{startDate}
+        AND CONVERT_TZ(created_at, '+00:00', '+08:00') &lt;= concat(#{endDate}, ' 23:59:59')
+        and status in (4,5,6,7,9,17)
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+        GROUP BY DATE(created_at), status
+        ORDER BY date, status
+    </select>
+
+    <select id="getOrderAmountStatistics" resultType="com.games.pay.vo.OrderAmountStatistics">
+        SELECT
+        DATE(created_at) as date,
+        status,
+        coalesce(SUM(transfer_amount),0) as amount
+        FROM `order`
+        WHERE CONVERT_TZ(created_at, '+00:00', '+08:00') >= #{startDate}
+        AND CONVERT_TZ(created_at, '+00:00', '+08:00') &lt;= concat(#{endDate}, ' 23:59:59')
+        and status in (4,5,6,7,9,17)
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+        GROUP BY DATE(created_at), status
+        ORDER BY date, status
+    </select>
+
+    <select id="getOrderAvgAmountStatistics" resultType="com.games.pay.vo.OrderAmountStatistics">
+        SELECT
+        DATE(CONVERT_TZ(created_at, '+00:00', '+08:00')) as date,
+        coalesce(ROUND(AVG(transfer_amount), 2), 0) as amount
+        FROM `order`
+        WHERE created_at &gt;= CONVERT_TZ(concat(#{startDate}, ' 00:00:00'), '+08:00', '+00:00')
+        AND created_at &lt; CONVERT_TZ(DATE_ADD(concat(#{endDate}, ' 00:00:00'), INTERVAL 1 DAY), '+08:00', '+00:00')
+        AND status = 9
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+        GROUP BY DATE(CONVERT_TZ(created_at, '+00:00', '+08:00'))
+        ORDER BY date
+    </select>
+
+    <select id="getOrderAvgAmount" resultType="java.math.BigDecimal">
+        SELECT
+        coalesce(ROUND(AVG(transfer_amount), 2), 0)
+        FROM `order`
+        WHERE created_at >= #{startDatetime}
+        AND created_at &lt;= #{endDatetime}
+        AND status = 9
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+    </select>
+
+    <select id="batchGetOrderAvgAmount" resultType="java.math.BigDecimal">
+        SELECT
+        <foreach collection="timeRanges" item="range" separator=" UNION ALL ">
+            (SELECT COALESCE(ROUND(AVG(transfer_amount), 2), 0)
+            FROM `order`
+            WHERE created_at >= #{range.startDatetime}
+            AND created_at &lt;= #{range.endDatetime}
+            AND status = 9
+            <if test="shopId != null">
+                AND merchant_id = #{shopId}
+            </if>
+            )
+        </foreach>
+    </select>
+
+    <select id="getPaymentMethodStatistics" resultType="com.games.pay.vo.PaymentMethodStatistics">
+        SELECT
+        payment_type as type,
+        COUNT(*) as count
+        FROM `order`
+        WHERE created_at &gt;= CONVERT_TZ(concat(#{startDate}, ' 00:00:00'), '+08:00', '+00:00')
+        AND created_at &lt; CONVERT_TZ(DATE_ADD(concat(#{endDate}, ' 00:00:00'), INTERVAL 1 DAY), '+08:00', '+00:00')
+        AND status in (5,6,9,17)
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+        GROUP BY payment_type
+        ORDER BY count DESC
+    </select>
+
+    <select id="getCardTypeStatistics" resultType="com.games.pay.vo.PaymentMethodStatistics">
+        SELECT
+        cct.card_brand as type,
+        COUNT(distinct o.id) as count
+        FROM `order` o
+        JOIN customer c ON o.customer_id = c.id
+        JOIN customer_card_token cct ON c.user_id = cct.user_id
+        WHERE o.created_at &gt;= CONVERT_TZ(concat(#{startDate}, ' 00:00:00'), '+08:00', '+00:00')
+        AND o.created_at &lt; CONVERT_TZ(DATE_ADD(concat(#{endDate}, ' 00:00:00'), INTERVAL 1 DAY), '+08:00', '+00:00')
+        AND o.payment_type = 'card'
+        <if test="shopId != null">
+            AND o.merchant_id = #{shopId}
+        </if>
+        GROUP BY cct.card_brand
+        ORDER BY count DESC
+    </select>
+
+    <select id="getFiatAmountTotalByMerchant" resultType="com.games.pay.vo.TotalFiatAmountVo">
+        SELECT
+            o.merchant_id,
+            IFNULL(sum(o.fiat_amount), 0) AS total_amount,
+            c.code AS currency_code
+        FROM `order` o
+                 JOIN currency c ON o.currency_id = c.id
+        WHERE o.merchant_id = #{merchantId} and o.`status` = 9
+        GROUP BY o.merchant_id, c.code
+    </select>
+
+    <select id="getTransferAmountTotalByMerchant" resultType="com.games.pay.vo.TotalFiatAmountVo">
+        SELECT
+            o.merchant_id,
+            IFNULL(sum(o.transfer_amount), 0) AS total_amount,
+            c.code AS currency_code
+        FROM `order` o
+                 JOIN currency c ON o.currency_id = c.id
+        WHERE o.merchant_id = #{merchantId} and o.`status` = 9
+        GROUP BY o.merchant_id, c.code
+    </select>
+
+    <select id="getRollingFeeTotalByMerchant" resultType="java.math.BigDecimal">
+        SELECT IFNULL(sum(rolling_fee), 0) as total from `order` where merchant_id= #{merchantId}
+    </select>
+
+    <select id="getHourlyOrderStatistics" resultType="com.games.pay.dto.OrderStatusStatistics">
+        SELECT
+            CONCAT(DATE_FORMAT(created_at, '%m-%d'), ' ', LPAD(HOUR(created_at), 2, '0')) as date,
+            status,
+            COUNT(1) as count
+        FROM `order`
+        WHERE created_at >= #{startDatetime}
+        AND created_at &lt;= #{endDatetime}
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+        GROUP BY DATE(created_at), HOUR(created_at), status
+        ORDER BY created_at, status
+    </select>
+
+    <!-- 获取失败原因统计 -->
+    <select id="getFailReasonStatistics" resultType="com.games.pay.vo.FailReasonStatistics">
+        SELECT 
+            fail_reasons as failReason,
+            COUNT(*) as count
+        FROM `order`
+        WHERE fail_reasons IS NOT NULL 
+        AND fail_reasons != ''
+        AND status IN (4, 5, 6, 7, 17, 20, 30, 40)
+        <if test="startDate != null and startDate != ''">
+            AND created_at >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            AND created_at &lt;= #{endDate}
+        </if>
+        <if test="shopId != null">
+            AND merchant_id = #{shopId}
+        </if>
+        GROUP BY fail_reasons
+        ORDER BY count DESC
+        LIMIT 100
+    </select>
+
+    <select id="sumAmountByCustomerLast7Days" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(fiat_amount), 0)
+        FROM `order`
+        WHERE customer_id = #{customerId}
+            AND pay_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+            AND pay_time IS NOT NULL
+            AND status = '9'
+    </select>
+</mapper>

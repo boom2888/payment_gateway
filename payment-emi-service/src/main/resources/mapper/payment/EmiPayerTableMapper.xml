@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiPayerTableMapper">
+
+    <resultMap type="com.games.payment.domain.EmiPayerTable" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="payerName"    column="payer_name"    />
+                    <result property="paymentAccountName"    column="payment_account_name"    />
+                    <result property="remitArea"    column="remit_area"    />
+                    <result property="paymentAccount"    column="payment_account"    />
+                    <result property="paymentBank"    column="payment_bank"    />
+                    <result property="use"    column="use"    />
+                    <result property="type"    column="type"    />
+                    <result property="userId"    column="user_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.payer_name, mt.payment_account_name, mt.remit_area, mt.payment_account, mt.payment_bank, mt.use, mt.type, mt.user_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiPayerTable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_payer_table mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="payerName != null  and payerName != ''"> and mt.payer_name like concat('%', #{payerName}, '%')</if>
+                                                                            <if test="paymentAccountName != null  and paymentAccountName != ''"> and mt.payment_account_name like concat('%', #{paymentAccountName}, '%')</if>
+                                                                            <if test="remitArea != null  and remitArea != ''"> and mt.remit_area = #{remitArea}</if>
+                                                                            <if test="paymentAccount != null  and paymentAccount != ''"> and mt.payment_account = #{paymentAccount}</if>
+                                                                            <if test="paymentBank != null  and paymentBank != ''"> and mt.payment_bank = #{paymentBank}</if>
+                                                                            <if test="use != null  and use != ''"> and mt.use = #{use}</if>
+                                                                            <if test="type != null  and type != ''"> and mt.type = #{type}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiPayerTable" parameterType="com.games.payment.domain.EmiPayerTable">
+        insert into emi_payer_table
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">id,</if>
+                                                                <if test="payerName != null">payer_name,</if>
+                                                                <if test="paymentAccountName != null">payment_account_name,</if>
+                                                                <if test="remitArea != null">remit_area,</if>
+                                                                <if test="paymentAccount != null">payment_account,</if>
+                                                                <if test="paymentBank != null">payment_bank,</if>
+                                                                <if test="use != null">use,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="userId != null">user_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">#{id},</if>
+                                                                <if test="payerName != null">#{payerName},</if>
+                                                                <if test="paymentAccountName != null">#{paymentAccountName},</if>
+                                                                <if test="remitArea != null">#{remitArea},</if>
+                                                                <if test="paymentAccount != null">#{paymentAccount},</if>
+                                                                <if test="paymentBank != null">#{paymentBank},</if>
+                                                                <if test="use != null">#{use},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="userId != null">#{userId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiPayerTable" parameterType="com.games.payment.domain.EmiPayerTable">
+        update emi_payer_table
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="payerName != null">payer_name = #{payerName},</if>
+                                                                <if test="paymentAccountName != null">payment_account_name = #{paymentAccountName},</if>
+                                                                <if test="remitArea != null">remit_area = #{remitArea},</if>
+                                                                <if test="paymentAccount != null">payment_account = #{paymentAccount},</if>
+                                                                <if test="paymentBank != null">payment_bank = #{paymentBank},</if>
+                                                                <if test="use != null">use = #{use},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="userId != null">user_id = #{userId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiPayerTableById" parameterType="Long">
+        delete from emi_payer_table where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiPayerTableByIds" parameterType="String">
+        delete from emi_payer_table where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

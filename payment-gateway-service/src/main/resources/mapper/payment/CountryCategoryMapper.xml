@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.CountryCategoryMapper">
+
+    <resultMap type="com.games.payment.domain.CountryCategory" id="BaseResultMap">
+                    <result property="country"    column="country"    />
+                    <result property="category"    column="category"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.country, mt.category    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.CountryCategory" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from country_category mt
+        <where>
+
+                                                        <if test="country != null  and country != ''"> and mt.country = #{country}</if>
+                                                                            <if test="category != null  and category != ''"> and mt.category = #{category}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertCountryCategory" parameterType="com.games.payment.domain.CountryCategory">
+        insert into country_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="country != null">country,</if>
+                                                                <if test="category != null">category,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="country != null">#{country},</if>
+                                                                <if test="category != null">#{category},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateCountryCategory" parameterType="com.games.payment.domain.CountryCategory">
+        update country_category
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="category != null">category = #{category},</if>
+                                    </trim>
+        where country = #{country}
+    </update>
+
+    <delete id="deleteCountryCategoryByCountry" parameterType="String">
+        delete from country_category where country = #{country}
+    </delete>
+
+    <delete id="deleteCountryCategoryByCountrys" parameterType="String">
+        delete from country_category where country in
+        <foreach item="country" collection="array" open="(" separator="," close=")">
+            #{country}
+        </foreach>
+    </delete>
+    </mapper>

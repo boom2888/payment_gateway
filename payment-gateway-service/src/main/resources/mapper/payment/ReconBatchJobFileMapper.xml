@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ReconBatchJobFileMapper">
+
+    <resultMap type="com.games.payment.domain.ReconBatchJobFile" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="uploadTime"    column="upload_time"    />
+                    <result property="fileUrl"    column="file_url"    />
+                    <result property="status"    column="status"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="acquirerId"    column="acquirer_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.upload_time, mt.file_url, mt.status, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.acquirer_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ReconBatchJobFile" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from recon_batch_job_file mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="uploadTime != null "> and mt.upload_time = #{uploadTime}</if>
+                                                                            <if test="fileUrl != null  and fileUrl != ''"> and mt.file_url = #{fileUrl}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="acquirerId != null "> and mt.acquirer_id = #{acquirerId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertReconBatchJobFile" parameterType="com.games.payment.domain.ReconBatchJobFile" useGeneratedKeys="true" keyProperty="id">
+        insert into recon_batch_job_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadTime != null">upload_time,</if>
+                                                                <if test="fileUrl != null and fileUrl != ''">file_url,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="acquirerId != null">acquirer_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadTime != null">#{uploadTime},</if>
+                                                                <if test="fileUrl != null and fileUrl != ''">#{fileUrl},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="acquirerId != null">#{acquirerId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateReconBatchJobFile" parameterType="com.games.payment.domain.ReconBatchJobFile">
+        update recon_batch_job_file
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+                                                                <if test="fileUrl != null and fileUrl != ''">file_url = #{fileUrl},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="acquirerId != null">acquirer_id = #{acquirerId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReconBatchJobFileById" parameterType="Long">
+        delete from recon_batch_job_file where id = #{id}
+    </delete>
+
+    <delete id="deleteReconBatchJobFileByIds" parameterType="String">
+        delete from recon_batch_job_file where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ThunesTransferRecordMapper">
+
+    <resultMap type="com.games.payment.domain.ThunesTransferRecord" id="ThunesTransferRecordResult">
+        <result property="id" column="id"/>
+        <result property="merchantId" column="merchant_id"/>
+        <result property="externalId" column="external_id"/>
+        <result property="transactionType" column="transaction_type"/>
+        <result property="amount" column="amount"/>
+        <result property="currency" column="currency"/>
+        <result property="targetCountry" column="target_country"/>
+        <result property="targetCurrency" column="target_currency"/>
+        <result property="targetAmount" column="target_amount"/>
+        <result property="exchangeRate" column="exchange_rate"/>
+        <result property="handlingFee" column="handling_fee"/>
+        <result property="feeAmount" column="fee_amount"/>
+        <result property="feeCurrency" column="fee_currency"/>
+        <result property="quotationId" column="quotation_id"/>
+        <result property="transactionId" column="transaction_id"/>
+        <result property="payerId" column="payer_id"/>
+        <result property="status" column="status"/>
+        <result property="thunesStatus" column="thunes_status"/>
+        <result property="failReason" column="fail_reason"/>
+        <result property="callbackUrl" column="callback_url"/>
+        <result property="transactionData" column="transaction_data" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="callbackReceivedAt" column="callback_received_at"/>
+    </resultMap>
+
+    <sql id="selectThunesTransferRecordVo">
+        select id, merchant_id, external_id, transaction_type, amount, currency, target_country, target_currency, 
+               target_amount, exchange_rate, handling_fee, fee_amount, fee_currency, quotation_id, transaction_id, payer_id,
+               status, thunes_status, fail_reason, callback_url, transaction_data, created_at, updated_at, callback_received_at
+        from thunes_transfer_record
+    </sql>
+
+    <select id="selectByMerchantIdAndExternalId" parameterType="map" resultMap="ThunesTransferRecordResult">
+        <include refid="selectThunesTransferRecordVo"/>
+        where merchant_id = #{merchantId} and external_id = #{externalId}
+    </select>
+
+    <select id="selectByTransactionId" parameterType="String" resultMap="ThunesTransferRecordResult">
+        <include refid="selectThunesTransferRecordVo"/>
+        where transaction_id = #{transactionId}
+    </select>
+
+    <update id="updateStatus" parameterType="map">
+        update thunes_transfer_record
+        set status = #{status},
+            thunes_status = #{thunesStatus},
+            updated_at = now()
+            <if test="failReason != null and failReason != ''">
+                , fail_reason = #{failReason}
+            </if>
+        where id = #{id}
+    </update>
+
+    <select id="selectList" parameterType="com.games.payment.domain.ThunesTransferRecord" resultMap="ThunesTransferRecordResult">
+        <include refid="selectThunesTransferRecordVo"/>
+        <where>
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="externalId != null  and externalId != ''"> and external_id = #{externalId}</if>
+            <if test="transactionType != null  and transactionType != ''"> and transaction_type = #{transactionType}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="targetCountry != null  and targetCountry != ''"> and target_country = #{targetCountry}</if>
+            <if test="targetCurrency != null  and targetCurrency != ''"> and target_currency = #{targetCurrency}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="thunesStatus != null  and thunesStatus != ''"> and thunes_status = #{thunesStatus}</if>
+            <if test="transactionId != null  and transactionId != ''"> and transaction_id = #{transactionId}</if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.ReportFraudulentMapper">
+
+    <resultMap type="com.games.payment.domain.ReportFraudulent" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="uploadId"    column="upload_id"    />
+                    <result property="issueDate"    column="issue_date"    />
+                    <result property="usdAmount"    column="usd_amount"    />
+                    <result property="methodName"    column="method_name"    />
+                    <result property="bin"    column="bin"    />
+                    <result property="trackId"    column="track_id"    />
+                    <result property="transactionDate"    column="transaction_date"    />
+                    <result property="status"    column="status"    />
+                    <result property="failReason"    column="fail_reason"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="updatedAt"    column="updated_at"    />
+                    <result property="issuerCountry"    column="issuer_country"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.upload_id, mt.issue_date, mt.usd_amount, mt.method_name, mt.bin, mt.track_id, mt.transaction_date, mt.status, mt.fail_reason, mt.created_at, mt.updated_at, mt.issuer_country    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.ReportFraudulent" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from report_fraudulent mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="uploadId != null "> and mt.upload_id = #{uploadId}</if>
+                                                                            <if test="issueDate != null "> and mt.issue_date = #{issueDate}</if>
+                                                                            <if test="usdAmount != null "> and mt.usd_amount = #{usdAmount}</if>
+                                                                            <if test="methodName != null "> and mt.method_name like concat('%', #{methodName}, '%')</if>
+                                                                            <if test="bin != null "> and mt.bin = #{bin}</if>
+                                                                            <if test="trackId != null "> and mt.track_id = #{trackId}</if>
+                                                                            <if test="transactionDate != null "> and mt.transaction_date = #{transactionDate}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="failReason != null  and failReason != ''"> and mt.fail_reason = #{failReason}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="updatedAt != null "> and mt.updated_at = #{updatedAt}</if>
+                                                                            <if test="issuerCountry != null  and issuerCountry != ''"> and mt.issuer_country = #{issuerCountry}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertReportFraudulent" parameterType="com.games.payment.domain.ReportFraudulent" useGeneratedKeys="true" keyProperty="id">
+        insert into report_fraudulent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadId != null">upload_id,</if>
+                                                                <if test="issueDate != null">issue_date,</if>
+                                                                <if test="usdAmount != null">usd_amount,</if>
+                                                                <if test="methodName != null">method_name,</if>
+                                                                <if test="bin != null">bin,</if>
+                                                                <if test="trackId != null">track_id,</if>
+                                                                <if test="transactionDate != null">transaction_date,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="failReason != null and failReason != ''">fail_reason,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="updatedAt != null">updated_at,</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">issuer_country,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="uploadId != null">#{uploadId},</if>
+                                                                <if test="issueDate != null">#{issueDate},</if>
+                                                                <if test="usdAmount != null">#{usdAmount},</if>
+                                                                <if test="methodName != null">#{methodName},</if>
+                                                                <if test="bin != null">#{bin},</if>
+                                                                <if test="trackId != null">#{trackId},</if>
+                                                                <if test="transactionDate != null">#{transactionDate},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="failReason != null and failReason != ''">#{failReason},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="updatedAt != null">#{updatedAt},</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">#{issuerCountry},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateReportFraudulent" parameterType="com.games.payment.domain.ReportFraudulent">
+        update report_fraudulent
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="uploadId != null">upload_id = #{uploadId},</if>
+                                                                <if test="issueDate != null">issue_date = #{issueDate},</if>
+                                                                <if test="usdAmount != null">usd_amount = #{usdAmount},</if>
+                                                                <if test="methodName != null">method_name = #{methodName},</if>
+                                                                <if test="bin != null">bin = #{bin},</if>
+                                                                <if test="trackId != null">track_id = #{trackId},</if>
+                                                                <if test="transactionDate != null">transaction_date = #{transactionDate},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="failReason != null and failReason != ''">fail_reason = #{failReason},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+                                                                <if test="issuerCountry != null and issuerCountry != ''">issuer_country = #{issuerCountry},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReportFraudulentById" parameterType="Long">
+        delete from report_fraudulent where id = #{id}
+    </delete>
+
+    <delete id="deleteReportFraudulentByIds" parameterType="String">
+        delete from report_fraudulent where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

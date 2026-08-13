@@ -1,0 +1,52 @@
+export default {
+  operation: 'Operation',
+  addDialog: 'Add or Modify Business Customer Corporation Dialog',
+  disable: 'Disable',
+  enable: 'Enable',
+  open: 'Open',
+  close: 'Close',
+  tip: 'Tip',
+  warning: 'Warning',
+  confirmDisableEnable: 'Are you sure to {action} this merchant?',
+  confirm3dsToggle: 'Are you sure to {action} the 3ds type for this merchant?',
+  confirmWhitelistToggle: 'Are you sure to {action} the whitelist for [{businessName}]?',
+  actionSuccess: '{action} successfully',
+  actionFailed: '{action} failed',
+  threeDsActionSuccess: '3ds type {action} successfully',
+  threeDsActionFailed: '3ds type {action} failed',
+  whitelistActionSuccess: 'Whitelist {action} successfully',
+  whitelistActionFailed: 'Whitelist {action} failed',
+  modifySuccess: 'Modified successfully',
+  addSuccess: 'Added successfully',
+  deleteSuccess: 'Deleted successfully',
+  resetSuccess: 'Reset successfully',
+  confirmDelete: 'Are you sure to delete the business customer corporation with ID "{id}"?',
+  confirmResetPassword: 'Are you sure to reset the password for business customer corporation with ID "{id}"?',
+  confirmExport: 'Are you sure to export all business customer corporation data?',
+
+  // Field labels
+  associatedMerchant: 'Associated Merchant',
+  backendAccount: 'Backend Account',
+  backendPassword: 'Backend Password',
+  addSecondaryMerchant: 'Add Secondary Merchant',
+
+  // Prompts
+  pleaseSelectAssociatedMerchant: 'Please select associated merchant',
+  pleaseInputBackendAccount: 'Please enter backend account',
+  pleaseInputBackendPassword: 'Please enter backend account password',
+
+  // Form validation messages
+  associatedMerchantRequired: 'Please select associated merchant',
+  userIdRequired: 'User ID cannot be empty',
+  businessNameRequired: 'Business name cannot be empty',
+  feeModelRequired: 'Fee model cannot be empty',
+  saasUserCorporationIdRequired: 'SaaS user corporation ID cannot be empty',
+  isSiftOnRequired: 'Sift type cannot be empty',
+  is3dsOnRequired: '3ds type cannot be empty',
+  isWhitelistOnRequired: 'Type cannot be empty',
+  notifyOrderStatusEndpoint3Required: 'Payout order status notification endpoint cannot be empty',
+  aniCheckRequired: 'ANI check flag cannot be empty',
+  acquirerIdRequired: 'Acquirer ID cannot be empty',
+  rejectReasonRequired: 'Rejection reason cannot be empty',
+  pleaseInputFailureReason: 'Please enter the failure reason'
+}

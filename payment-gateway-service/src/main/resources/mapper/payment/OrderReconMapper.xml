@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.OrderReconMapper">
+
+    <resultMap type="com.games.payment.domain.OrderRecon" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="reconId"    column="recon_id"    />
+                    <result property="orderId"    column="order_id"    />
+                    <result property="acquirerBatchPaymentId"    column="acquirer_batch_payment_id"    />
+                    <result property="acquirerPaymentId"    column="acquirer_payment_id"    />
+                    <result property="comment"    column="comment"    />
+                    <result property="status"    column="status"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.recon_id, mt.order_id, mt.acquirer_batch_payment_id, mt.acquirer_payment_id, mt.comment, mt.status, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.OrderRecon" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_recon mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="reconId != null "> and mt.recon_id = #{reconId}</if>
+                                                                            <if test="orderId != null "> and mt.order_id = #{orderId}</if>
+                                                                            <if test="acquirerBatchPaymentId != null  and acquirerBatchPaymentId != ''"> and mt.acquirer_batch_payment_id = #{acquirerBatchPaymentId}</if>
+                                                                            <if test="acquirerPaymentId != null  and acquirerPaymentId != ''"> and mt.acquirer_payment_id = #{acquirerPaymentId}</if>
+                                                                            <if test="comment != null  and comment != ''"> and mt.comment = #{comment}</if>
+                                                                            <if test="status != null "> and mt.status = #{status}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertOrderRecon" parameterType="com.games.payment.domain.OrderRecon" useGeneratedKeys="true" keyProperty="id">
+        insert into order_recon
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="reconId != null">recon_id,</if>
+                                                                <if test="orderId != null">order_id,</if>
+                                                                <if test="acquirerBatchPaymentId != null and acquirerBatchPaymentId != ''">acquirer_batch_payment_id,</if>
+                                                                <if test="acquirerPaymentId != null and acquirerPaymentId != ''">acquirer_payment_id,</if>
+                                                                <if test="comment != null">comment,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="reconId != null">#{reconId},</if>
+                                                                <if test="orderId != null">#{orderId},</if>
+                                                                <if test="acquirerBatchPaymentId != null and acquirerBatchPaymentId != ''">#{acquirerBatchPaymentId},</if>
+                                                                <if test="acquirerPaymentId != null and acquirerPaymentId != ''">#{acquirerPaymentId},</if>
+                                                                <if test="comment != null">#{comment},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateOrderRecon" parameterType="com.games.payment.domain.OrderRecon">
+        update order_recon
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="reconId != null">recon_id = #{reconId},</if>
+                                                                <if test="orderId != null">order_id = #{orderId},</if>
+                                                                <if test="acquirerBatchPaymentId != null and acquirerBatchPaymentId != ''">acquirer_batch_payment_id = #{acquirerBatchPaymentId},</if>
+                                                                <if test="acquirerPaymentId != null and acquirerPaymentId != ''">acquirer_payment_id = #{acquirerPaymentId},</if>
+                                                                <if test="comment != null">comment = #{comment},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderReconById" parameterType="Long">
+        delete from order_recon where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderReconByIds" parameterType="String">
+        delete from order_recon where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

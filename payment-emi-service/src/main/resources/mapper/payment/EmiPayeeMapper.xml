@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiPayeeMapper">
+
+    <resultMap type="com.games.payment.domain.EmiPayee" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="account"    column="account"    />
+                    <result property="bankOfDeposit"    column="bank_of_deposit"    />
+                    <result property="accountName"    column="account_name"    />
+                    <result property="accountType"    column="account_type"    />
+                    <result property="status"    column="status"    />
+                    <result property="use"    column="use"    />
+                    <result property="userId"    column="user_id"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.account, mt.bank_of_deposit, mt.account_name, mt.account_type, mt.status, mt.use, mt.user_id    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.EmiPayee" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emi_payee mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="account != null  and account != ''"> and mt.account = #{account}</if>
+                                                                            <if test="bankOfDeposit != null  and bankOfDeposit != ''"> and mt.bank_of_deposit = #{bankOfDeposit}</if>
+                                                                            <if test="accountName != null  and accountName != ''"> and mt.account_name like concat('%', #{accountName}, '%')</if>
+                                                                            <if test="accountType != null  and accountType != ''"> and mt.account_type = #{accountType}</if>
+                                                                            <if test="status != null  and status != ''"> and mt.status = #{status}</if>
+                                                                            <if test="use != null  and use != ''"> and mt.use = #{use}</if>
+                                                                            <if test="userId != null "> and mt.user_id = #{userId}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertEmiPayee" parameterType="com.games.payment.domain.EmiPayee">
+        insert into emi_payee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">id,</if>
+                                                                <if test="account != null">account,</if>
+                                                                <if test="bankOfDeposit != null">bank_of_deposit,</if>
+                                                                <if test="accountName != null">account_name,</if>
+                                                                <if test="accountType != null">account_type,</if>
+                                                                <if test="status != null">status,</if>
+                                                                <if test="use != null">use,</if>
+                                                                <if test="userId != null">user_id,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                <if test="id != null">#{id},</if>
+                                                                <if test="account != null">#{account},</if>
+                                                                <if test="bankOfDeposit != null">#{bankOfDeposit},</if>
+                                                                <if test="accountName != null">#{accountName},</if>
+                                                                <if test="accountType != null">#{accountType},</if>
+                                                                <if test="status != null">#{status},</if>
+                                                                <if test="use != null">#{use},</if>
+                                                                <if test="userId != null">#{userId},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateEmiPayee" parameterType="com.games.payment.domain.EmiPayee">
+        update emi_payee
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="account != null">account = #{account},</if>
+                                                                <if test="bankOfDeposit != null">bank_of_deposit = #{bankOfDeposit},</if>
+                                                                <if test="accountName != null">account_name = #{accountName},</if>
+                                                                <if test="accountType != null">account_type = #{accountType},</if>
+                                                                <if test="status != null">status = #{status},</if>
+                                                                <if test="use != null">use = #{use},</if>
+                                                                <if test="userId != null">user_id = #{userId},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEmiPayeeById" parameterType="Long">
+        delete from emi_payee where id = #{id}
+    </delete>
+
+    <delete id="deleteEmiPayeeByIds" parameterType="String">
+        delete from emi_payee where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.EmiMerchantInfoMapper">
+
+    <resultMap type="com.games.payment.vo.EmiMerchantInfoVo" id="EmiMerchantInfoResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="merchantType" column="merchant_type"/>
+        <result property="status" column="status"/>
+        <result property="enabledStatus" column="enabled_status"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <select id="selectMerchantList" resultMap="EmiMerchantInfoResult">
+        SELECT
+            id,
+            name,
+            merchant_type,
+            status,
+            enabled_status,
+            created_at,
+            user_id
+        FROM (
+            -- 个人信息查询
+            SELECT
+                id,
+                full_name AS name,
+                1 AS merchant_type,
+                status,
+                enabled_status,
+                created_at,
+                user_id
+            FROM emi_personal_information
+            WHERE 1=1
+            <if test="merchantType != null and merchantType == 1">
+                AND 1=1
+            </if>
+            <if test="merchantType != null and merchantType != 1">
+                AND 1=0
+            </if>
+
+            UNION ALL
+
+            -- 企业信息查询
+            SELECT
+                id,
+                company_name_chinese AS name,
+                2 AS merchant_type,
+                status,
+                enabled_status,
+                created_at,
+                user_id
+            FROM emi_enterprise_info
+            WHERE 1=1
+            <if test="merchantType != null and merchantType == 2">
+                AND 1=1
+            </if>
+            <if test="merchantType != null and merchantType != 2">
+                AND 1=0
+            </if>
+        ) merged_data
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="enabledStatus != null">
+            AND enabled_status = #{enabledStatus}
+        </if>
+        ORDER BY created_at DESC
+    </select>
+
+</mapper>
+

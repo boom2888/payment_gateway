@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.games.payment.mapper.FeeTypeMapper">
+
+    <resultMap type="com.games.payment.domain.FeeType" id="BaseResultMap">
+                    <result property="id"    column="id"    />
+                    <result property="name"    column="name"    />
+                    <result property="type"    column="type"    />
+                    <result property="createdAt"    column="created_at"    />
+                    <result property="createdBy"    column="created_by"    />
+                    <result property="deletedAt"    column="deleted_at"    />
+                    <result property="deletedBy"    column="deleted_by"    />
+                    <result property="deleted"    column="deleted"    />
+                    <result property="remark"    column="remark"    />
+                    <result property="riskLevel"    column="risk_level"    />
+                    <result property="transactionType"    column="transaction_type"    />
+            </resultMap>
+
+    
+    <sql id="Base_Column_List">
+         mt.id, mt.name, mt.type, mt.created_at, mt.created_by, mt.deleted_at, mt.deleted_by, mt.deleted, mt.remark, mt.risk_level, mt.transaction_type    </sql>
+
+    <select id="selectAllList" parameterType="com.games.payment.domain.FeeType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from fee_type mt
+        <where>
+
+                                                        <if test="id != null "> and mt.id = #{id}</if>
+                                                                            <if test="name != null  and name != ''"> and mt.name like concat('%', #{name}, '%')</if>
+                                                                            <if test="type != null "> and mt.type = #{type}</if>
+                                                                            <if test="createdAt != null "> and mt.created_at = #{createdAt}</if>
+                                                                            <if test="createdBy != null "> and mt.created_by = #{createdBy}</if>
+                                                                            <if test="deletedAt != null "> and mt.deleted_at = #{deletedAt}</if>
+                                                                            <if test="deletedBy != null "> and mt.deleted_by = #{deletedBy}</if>
+                                                                            <if test="deleted != null "> and mt.deleted = #{deleted}</if>
+                                                                            <if test="remark != null  and remark != ''"> and mt.remark = #{remark}</if>
+                                                                            <if test="riskLevel != null "> and mt.risk_level = #{riskLevel}</if>
+                                                                            <if test="transactionType != null "> and mt.transaction_type = #{transactionType}</if>
+                                        </where>
+    </select>
+
+    <insert id="insertFeeType" parameterType="com.games.payment.domain.FeeType" useGeneratedKeys="true" keyProperty="id">
+        insert into fee_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                                            <if test="name != null and name != ''">name,</if>
+                                                                <if test="type != null">type,</if>
+                                                                <if test="createdAt != null">created_at,</if>
+                                                                <if test="createdBy != null">created_by,</if>
+                                                                <if test="deletedAt != null">deleted_at,</if>
+                                                                <if test="deletedBy != null">deleted_by,</if>
+                                                                <if test="deleted != null">deleted,</if>
+                                                                <if test="remark != null">remark,</if>
+                                                                <if test="riskLevel != null">risk_level,</if>
+                                                                <if test="transactionType != null">transaction_type,</if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="name != null and name != ''">#{name},</if>
+                                                                <if test="type != null">#{type},</if>
+                                                                <if test="createdAt != null">#{createdAt},</if>
+                                                                <if test="createdBy != null">#{createdBy},</if>
+                                                                <if test="deletedAt != null">#{deletedAt},</if>
+                                                                <if test="deletedBy != null">#{deletedBy},</if>
+                                                                <if test="deleted != null">#{deleted},</if>
+                                                                <if test="remark != null">#{remark},</if>
+                                                                <if test="riskLevel != null">#{riskLevel},</if>
+                                                                <if test="transactionType != null">#{transactionType},</if>
+                                    </trim>
+    </insert>
+
+    <update id="updateFeeType" parameterType="com.games.payment.domain.FeeType">
+        update fee_type
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="name != null and name != ''">name = #{name},</if>
+                                                                <if test="type != null">type = #{type},</if>
+                                                                <if test="createdAt != null">created_at = #{createdAt},</if>
+                                                                <if test="createdBy != null">created_by = #{createdBy},</if>
+                                                                <if test="deletedAt != null">deleted_at = #{deletedAt},</if>
+                                                                <if test="deletedBy != null">deleted_by = #{deletedBy},</if>
+                                                                <if test="deleted != null">deleted = #{deleted},</if>
+                                                                <if test="remark != null">remark = #{remark},</if>
+                                                                <if test="riskLevel != null">risk_level = #{riskLevel},</if>
+                                                                <if test="transactionType != null">transaction_type = #{transactionType},</if>
+                                    </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFeeTypeById" parameterType="Long">
+        delete from fee_type where id = #{id}
+    </delete>
+
+    <delete id="deleteFeeTypeByIds" parameterType="String">
+        delete from fee_type where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    </mapper>
