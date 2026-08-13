@@ -204,4 +204,4 @@ isDev: true
 # 前端开发服务跨域白名单
 security:
   cors:
-    allowed-origins: http://localhost:1024,http://127.0.0.1:1024
+    allowed-origins: http://localhost:1024,http://127.0.0.1:1024,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173
