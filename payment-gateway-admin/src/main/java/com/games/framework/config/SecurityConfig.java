@@ -95,6 +95,7 @@ public class SecurityConfig {
 						.requestMatchers("/system/user/registerShopUser").anonymous()
 						.requestMatchers("/common/safeCheck", "/common/download", "/common/download/resource",
 								"/common/downloadUrl").permitAll()
+						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
 						.requestMatchers("/login", "/captchaImage").anonymous()
 						.requestMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
 						.anyRequest().authenticated())

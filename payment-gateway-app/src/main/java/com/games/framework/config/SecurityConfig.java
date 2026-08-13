@@ -93,6 +93,7 @@ public class SecurityConfig {
 				.exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
+						.requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
 						.requestMatchers("/login", "/captchaImage").permitAll()
 						.requestMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
 						.anyRequest().authenticated())
