@@ -8,6 +8,15 @@ import { getClientTimezone } from "../utils/timezoneUtils";
 // 正式：
 export let BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+// All backend requests share the token captured from the payment URL.
+export const authFetch = (url, options = {}) => {
+  const token = typeof localStorage !== "undefined" ? localStorage.getItem("PAY_TOKEN") : null;
+  const headers = new Headers(options.headers || {});
+  headers.set("Accept", "application/json, text/plain, */*");
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+  return fetch(url, { ...options, headers });
+};
+
 // 对象转键值对
 const queryString = (params) =>
   "?" +

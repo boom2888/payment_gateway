@@ -11,6 +11,7 @@ import closureAsh from "@/assets/swap/closureAsh.svg";
 
 import "./swap.less";
 import {useNavigate} from "react-router-dom";
+import { authFetch } from "@/requests/api";
 
 export let BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -83,12 +84,12 @@ const Swap = (props) => {
 
   // 请求token列表
   const requestTokenList = async () => {
-    const res = await (await fetch(BASE_URL + "/getCrypto")).json();
+    const res = await (await authFetch(BASE_URL + "/getCrypto")).json();
     console.log("请求token列表", res);
     if (res.code === 200 && res.data) {
       setCrypto(res.data);
     }
-    const resCurrency = await (await fetch(BASE_URL + "/getCurrency")).json();
+    const resCurrency = await (await authFetch(BASE_URL + "/getCurrency")).json();
     console.log("请求currency列表", resCurrency);
     if (resCurrency.code === 200 && resCurrency.data) {
       setCurrency(resCurrency.data);
@@ -145,7 +146,7 @@ const Swap = (props) => {
     let currency = isBuy ? sellToken.symbol : buyToken.symbol;
     let amount = !isBuy ? buyAmount : sellAmount;
 
-    const res = await (await fetch(BASE_URL + "/createSwapOrder?currency=" + currency + "&crypto=" + crypto + "&amount=" + amount + "&side=" + side + "&chain=" + chain + "&address="+address)).json();
+    const res = await (await authFetch(BASE_URL + "/createSwapOrder?currency=" + currency + "&crypto=" + crypto + "&amount=" + amount + "&side=" + side + "&chain=" + chain + "&address="+address)).json();
     console.log("下订单:", res);
     if (res.code === 200 && res.data) {
       handleCancelModal();
@@ -157,7 +158,7 @@ const Swap = (props) => {
     let crypto = isBuy ? buyToken.symbol : sellToken.symbol;
     let currency = isBuy ? sellToken.symbol : buyToken.symbol;
     if(!crypto || !currency) {return;}
-    const res = await (await fetch(BASE_URL + "/getPrice?currency=" + currency + "&crypto=" + crypto)).json();
+    const res = await (await authFetch(BASE_URL + "/getPrice?currency=" + currency + "&crypto=" + crypto)).json();
     console.log("请求token列表", res);
     if (res.code === 200 && res.data) {
       setBuyPrice(res.data.buyPrice);

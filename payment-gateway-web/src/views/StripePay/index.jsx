@@ -4,8 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/views/StripePay/CheckoutForm.jsx";
 import "./StripePay.less";
 import { useTranslation } from "react-i18next";
-
-export let BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { authFetch, BASE_URL } from "@/requests/api";
 
 export default function StripePay(props) {
     const { t } = useTranslation();
@@ -23,7 +22,8 @@ export default function StripePay(props) {
         setLoading(true);
         setErrorMsg("");
 
-        fetch(`${BASE_URL}/createStripePayment?orderNo=${orderNo}`)
+        // StripeController exposes this endpoint at /createStripePayment (without /web).
+        authFetch(`${BASE_URL}/createStripePayment?orderNo=${encodeURIComponent(orderNo)}`)
             .then((res) => res.json())
             .then((data) => {
                 setClientSecret(data.clientSecret || "");

@@ -12,6 +12,7 @@ import {initCheckout} from "@/utils/checkout"
 import "./Pay.less";
 import "./cc.css";
 import {useNavigate} from "react-router-dom";
+import { authFetch } from "@/requests/api";
 
 export let BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -33,7 +34,7 @@ const Pay = (props) => {
         let currency = 'USD';
         let amount = '1';
 
-        const res = await (await fetch(BASE_URL + "/openOrder?currency=" + currency + "&amount=" + amount)).json();
+        const res = await (await authFetch(BASE_URL + "/openOrder?currency=" + currency + "&amount=" + amount)).json();
         console.log("下订单:", res);
         if (res.code === 200 && res.data) {
             // navigate('/order?orderNo=' + res.data);

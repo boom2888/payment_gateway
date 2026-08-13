@@ -29,9 +29,9 @@ const Home = () => {
   const [source, setSource] = useState("");
 
   useEffect(() => {
-    if(token){
-      localStorage.setItem("PAY_TOKEN", token)
-      console.info("save token=" + token);
+    if (token) {
+      localStorage.setItem("PAY_TOKEN", token);
+      console.info("payment token saved");
     }
   }, [token]);
 
@@ -87,11 +87,12 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (token) localStorage.setItem("PAY_TOKEN", token);
     fetchOrderInfo();
     return () => {
       formatTimerRef()
     };
-  }, []);
+  }, [orderNo, token]);
 
   return (
     <div className="home">

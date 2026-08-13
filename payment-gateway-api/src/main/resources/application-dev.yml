@@ -26,8 +26,8 @@ nuvei:
     merchantId: 3765599154594461180
     merchantSiteId: 929117
     merchantKey: ${NUVEI_INTEGRATION_MERCHANT_KEY:${NUVEI_MERCHANT_KEY:}}
-  gatewayPayUrl: http://localhost:3000
-#  gatewayPayUrl: https://api.deepay.ai
+  # 支付网页公开地址；部署时通过 PAYMENT_GATEWAY_WEB_URL 覆盖，不能使用 localhost
+  gatewayPayUrl: ${PAYMENT_GATEWAY_WEB_URL:http://localhost:3000}
 caratpay:
   apiUrl: https://da.yidacoins.com
   merchantId: 20000073
