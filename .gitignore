@@ -55,3 +55,4 @@ pnpm-debug.log*
 .eslintcache
 application-test.yml
 application-local.yml
+/docs/
