@@ -74,6 +74,12 @@
         <dependency>
             <groupId>com.payment</groupId>
             <artifactId>payment-gateway-service</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>fastjson</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

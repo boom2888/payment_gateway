@@ -26,6 +26,7 @@
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
         <fastjson2.version>2.0.62</fastjson2.version>
+        <fastjson1.compat.version>2.0.52</fastjson1.compat.version>
         <oshi.version>7.3.0</oshi.version>
         <jna.version>5.7.0</jna.version>
         <commons.io.version>2.22.0</commons.io.version>
@@ -281,6 +282,12 @@
             </dependency>
 
             <!-- 阿里JSON解析器 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson1.compat.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
