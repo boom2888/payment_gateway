@@ -2,9 +2,9 @@
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 
-function resolve(dir) {
-  return path.join(__dirname, dir)
-}
+const srcDir = path.resolve(__dirname, 'src')
+const iconsDir = path.resolve(__dirname, 'src/assets/icons')
+const componentsDir = path.resolve(__dirname, 'src/components')
 
 const name = defaultSettings.title || '后台管理系统' // 标题
 
@@ -48,7 +48,7 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        '@': resolve('src')
+        '@': srcDir
       }
     }
   },
@@ -59,12 +59,12 @@ module.exports = {
     // set svg-sprite-loader
     config.module
       .rule('svg')
-      .exclude.add(resolve('src/assets/icons'))
+      .exclude.add(iconsDir)
       .end()
     config.module
       .rule('icons')
       .test(/\.svg$/)
-      .include.add(resolve('src/assets/icons'))
+      .include.add(iconsDir)
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
@@ -101,7 +101,7 @@ module.exports = {
                 },
                 commons: {
                   name: 'chunk-commons',
-                  test: resolve('src/components'), // can customize your rules
+                  test: componentsDir, // can customize your rules
                   minChunks: 3, //  minimum common number
                   priority: 5,
                   reuseExistingChunk: true

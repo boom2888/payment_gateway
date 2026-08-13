@@ -112,7 +112,25 @@ export function selectDictLabels(datas, value, separator) {
 
 // 通用下载方法
 export function download(fileName) {
-  window.location.href = baseURL + '/common/download?fileName=' + encodeURI(fileName) + '&delete=' + true
+  if (typeof fileName !== 'string' || fileName.length === 0) {
+    return
+  }
+
+  const downloadUrl = new URL(baseURL + '/common/download', window.location.origin)
+  if (!['http:', 'https:'].includes(downloadUrl.protocol)) {
+    throw new Error('Unsupported download protocol')
+  }
+
+  downloadUrl.searchParams.set('fileName', fileName)
+  downloadUrl.searchParams.set('delete', 'true')
+
+  const link = document.createElement('a')
+  link.href = downloadUrl.toString()
+  link.download = ''
+  link.style.display = 'none'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 
 // 字符串格式化(%s )

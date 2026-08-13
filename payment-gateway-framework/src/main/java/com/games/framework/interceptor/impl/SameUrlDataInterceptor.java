@@ -12,7 +12,7 @@ import com.games.common.utils.http.HttpHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.games.common.core.redis.RedisCache;
 import com.games.framework.interceptor.RepeatSubmitInterceptor;
 

@@ -189,7 +189,7 @@
           :label="key.substring(key.lastIndexOf('/') + 1, key.indexOf('.vm'))"
           :name="key.substring(key.lastIndexOf('/') + 1, key.indexOf('.vm'))"
         >
-          <pre><code class="hljs" v-html="highlightedCode(value, key)" /></pre>
+          <pre><code class="hljs">{{ value || ' ' }}</code></pre>
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
@@ -201,15 +201,7 @@
 import { listTable, previewTable, delTable, genCode, synchDb } from '@/api/tool/gen'
 import importTable from './importTable'
 import { downLoadZip } from '@/utils/zipdownload'
-import hljs from 'highlight.js/lib/highlight'
 import 'highlight.js/styles/github-gist.css'
-import DOMPurify from 'dompurify'
-hljs.registerLanguage('java', require('highlight.js/lib/languages/java'))
-hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'))
-hljs.registerLanguage('html', require('highlight.js/lib/languages/xml'))
-hljs.registerLanguage('vue', require('highlight.js/lib/languages/xml'))
-hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
-hljs.registerLanguage('sql', require('highlight.js/lib/languages/sql'))
 
 export default {
   name: 'Gen',
@@ -324,13 +316,6 @@ export default {
         this.preview.data = response.data
         this.preview.open = true
       })
-    },
-    /** 高亮显示 */
-    highlightedCode(code, key) {
-      const vmName = key.substring(key.lastIndexOf('/') + 1, key.indexOf('.vm'))
-      var language = vmName.substring(vmName.indexOf('.') + 1, vmName.length)
-      const result = hljs.highlight(language, code || '', true)
-      return DOMPurify.sanitize(result.value || '&nbsp;')
     },
     // 多选框选中数据
     handleSelectionChange(selection) {

@@ -8,7 +8,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.games.api.PaymentInService;
 import com.games.api.dto.OrderInfoDto;
 import com.games.api.dto.OrderInfoSignDto;

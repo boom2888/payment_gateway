@@ -9,7 +9,7 @@ import com.games.common.utils.StringUtils;
 import com.games.generator.domain.GenTable;
 import com.games.generator.domain.GenTableColumn;
 import org.apache.velocity.VelocityContext;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.games.common.utils.DateUtils;
 
 /**

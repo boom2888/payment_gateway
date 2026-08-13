@@ -5,7 +5,7 @@ import cn.hutool.core.codec.Base64Decoder;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.games.api.PaymentInService;
 import com.games.api.bean.PayOrderResult;
 import com.games.api.dto.*;

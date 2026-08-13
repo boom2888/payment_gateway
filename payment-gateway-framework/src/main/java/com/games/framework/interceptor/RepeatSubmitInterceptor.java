@@ -8,7 +8,7 @@ import com.games.common.annotation.RepeatSubmit;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.games.common.core.domain.AjaxResult;
 import com.games.common.utils.ServletUtils;
 

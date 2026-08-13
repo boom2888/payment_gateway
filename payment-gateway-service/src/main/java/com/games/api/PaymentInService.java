@@ -3,7 +3,7 @@ package com.games.api;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.games.api.bean.PayOrderResult;
 import com.games.api.bean.RefundOrderResult;
 import com.games.api.dto.*;

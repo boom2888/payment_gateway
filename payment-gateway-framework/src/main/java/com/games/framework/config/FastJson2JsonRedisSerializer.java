@@ -1,13 +1,13 @@
 package com.games.framework.config;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONReader;
+import com.alibaba.fastjson2.JSONWriter;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
-import com.alibaba.fastjson.parser.ParserConfig;
 import org.springframework.util.Assert;
 import java.nio.charset.Charset;
 
@@ -23,12 +23,15 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T>
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
-    private Class<T> clazz;
+    private static final JSONReader.AutoTypeBeforeHandler AUTO_TYPE_FILTER = JSONReader.autoTypeFilter(
+            "com.games.",
+            "java.lang.",
+            "java.math.",
+            "java.time.",
+            "java.util."
+    );
 
-    static
-    {
-        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-    }
+    private Class<T> clazz;
 
     public FastJson2JsonRedisSerializer(Class<T> clazz)
     {
@@ -43,7 +46,7 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T>
         {
             return new byte[0];
         }
-        return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);
+        return JSON.toJSONString(t, JSONWriter.Feature.WriteClassName).getBytes(DEFAULT_CHARSET);
     }
 
     @Override
@@ -53,9 +56,7 @@ public class FastJson2JsonRedisSerializer<T> implements RedisSerializer<T>
         {
             return null;
         }
-        String str = new String(bytes, DEFAULT_CHARSET);
-
-        return JSON.parseObject(str, clazz);
+        return JSON.parseObject(bytes, clazz, AUTO_TYPE_FILTER, JSONReader.Feature.SupportAutoType);
     }
 
     public void setObjectMapper(ObjectMapper objectMapper)
